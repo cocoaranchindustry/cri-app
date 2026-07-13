@@ -71,20 +71,27 @@ export function isValidCameroonPhone(phone: string): boolean {
 
 /**
  * Validation coordonnées WGS84
+ *
+ * Note : la précision retournée est le MINIMUM entre lat et lng.
+ * Pour les coordonnées saisies par l'utilisateur, le `toString()`
+ * natif peut tronquer les zéros finaux (ex. 9.750 → 9.75 = 2 décimales).
+ * Pour une précision exacte, transmettre la chaîne d'origine.
  */
-export function isValidCoordinate(
-  lat: number,
-  lng: number
-): { valid: boolean; precision: number } {
+export function isValidCoordinate(lat: number, lng: number): { valid: boolean; precision: number } {
   if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
     return { valid: false, precision: 0 };
   }
-  // Calculer la précision (nb de décimales)
-  const latStr = lat.toString();
-  const lngStr = lng.toString();
-  const latDec = latStr.includes(".") ? latStr.split(".")[1].length : 0;
-  const lngDec = lngStr.includes(".") ? lngStr.split(".")[1].length : 0;
-  return { valid: true, precision: Math.min(latDec, lngDec) };
+  // toString() peut tronquer : utiliser une regex sur la représentation
+  const countDecimals = (n: number): number => {
+    const s = n.toString();
+    if (!s.includes(".") && !s.includes("e")) return 0;
+    if (s.includes("e")) {
+      // Notation scientifique : convertir en string complet
+      return n.toFixed(20).replace(/0+$/, "").split(".")[1]?.length ?? 0;
+    }
+    return s.split(".")[1]?.replace(/0+$/, "").length ?? s.split(".")[1]?.length ?? 0;
+  };
+  return { valid: true, precision: Math.min(countDecimals(lat), countDecimals(lng)) };
 }
 
 /**

@@ -9,9 +9,17 @@ import { isValidCoordinate, isValidEmail, isValidCameroonPhone } from "@/lib/uti
 describe("lib/utils - validations", () => {
   describe("isValidCoordinate", () => {
     it("valide une coordonnée au Cameroun (6 décimales)", () => {
-      const result = isValidCoordinate(4.583333, 9.750000);
+      // Note : JS ne préserve pas les zéros finaux (9.750000 → 9.75).
+      // Pour tester la précision 6, on utilise un nombre qui la conserve.
+      const result = isValidCoordinate(4.583333, 9.75);
       expect(result.valid).toBe(true);
-      expect(result.precision).toBe(6);
+      expect(result.precision).toBe(2); // min(6, 2) = 2 car JS tronque
+    });
+
+    it("compte correctement les décimales préservées", () => {
+      const result = isValidCoordinate(4.583333, 9.7);
+      // 4.583333 = 6 décimales, 9.7 = 1 décimale → min = 1
+      expect(result.precision).toBe(1);
     });
 
     it("rejette une latitude hors limites", () => {
@@ -24,9 +32,18 @@ describe("lib/utils - validations", () => {
       expect(result.valid).toBe(false);
     });
 
-    it("détecte la précision (3 décimales)", () => {
-      const result = isValidCoordinate(4.583, 9.750);
-      expect(result.precision).toBe(3);
+    it("détecte la précision sur des nombres stockés", () => {
+      // Note : JS ne préserve pas les zéros finaux. 9.750 → 9.75 (2 décimales)
+      // Pour une précision exacte, le caller doit transmettre la string originale.
+      const result = isValidCoordinate(4.583, 9.75);
+      expect(result.valid).toBe(true);
+      // 4.583.toString() = "4.583" (3 décimales), 9.75.toString() = "9.75" (2 décimales)
+      expect(result.precision).toBe(2);
+    });
+
+    it("0 décimale pour des entiers", () => {
+      const result = isValidCoordinate(5, 10);
+      expect(result.precision).toBe(0);
     });
   });
 

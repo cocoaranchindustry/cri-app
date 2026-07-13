@@ -18,13 +18,14 @@ export const CookieBanner: React.FC = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") return undefined;
     const stored = localStorage.getItem(CONSENT_KEY);
     if (!stored) {
       // Délai pour ne pas bloquer le rendu initial
       const t = setTimeout(() => setShow(true), 1500);
       return () => clearTimeout(t);
     }
+    return undefined;
   }, []);
 
   const accept = () => {
@@ -44,10 +45,10 @@ export const CookieBanner: React.FC = () => {
       role="dialog"
       aria-labelledby="cookie-title"
       aria-describedby="cookie-desc"
-      className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50 bg-cri-forest text-white p-6 rounded-cri shadow-cri-lg border-2 border-cri-gold animate-slide-up"
+      className="bg-cri-forest rounded-cri shadow-cri-lg border-cri-gold animate-slide-up fixed bottom-4 left-4 right-4 z-50 border-2 p-6 text-white md:left-auto md:right-4 md:max-w-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 id="cookie-title" className="text-cri-gold font-serif font-bold text-lg">
+        <h2 id="cookie-title" className="text-cri-gold font-serif text-lg font-bold">
           🍪 Cookies &amp; confidentialité
         </h2>
         <button
@@ -59,11 +60,10 @@ export const CookieBanner: React.FC = () => {
           <X className="h-4 w-4" />
         </button>
       </div>
-      <p id="cookie-desc" className="text-sm text-cri-parchment/90 mt-3">
-        Nous utilisons des cookies <strong>strictement nécessaires</strong> (session)
-        et un outil d&apos;analyse anonymisé (Plausible, sans cookie).
-        Aucun traceur publicitaire.
-        <Link href="/privacy" className="text-cri-gold underline ml-1">
+      <p id="cookie-desc" className="text-cri-parchment/90 mt-3 text-sm">
+        Nous utilisons des cookies <strong>strictement nécessaires</strong> (session) et un outil
+        d&apos;analyse anonymisé (Plausible, sans cookie). Aucun traceur publicitaire.
+        <Link href="/privacy" className="text-cri-gold ml-1 underline">
           Politique de confidentialité
         </Link>
         .
@@ -72,14 +72,14 @@ export const CookieBanner: React.FC = () => {
         <button
           type="button"
           onClick={accept}
-          className="flex-1 bg-cri-gold text-cri-humus font-bold py-2 px-4 rounded-cri text-sm hover:bg-cri-gold-light transition-colors"
+          className="bg-cri-gold text-cri-humus rounded-cri hover:bg-cri-gold-light flex-1 px-4 py-2 text-sm font-bold transition-colors"
         >
           Accepter
         </button>
         <button
           type="button"
           onClick={refuse}
-          className="flex-1 bg-transparent border border-cri-parchment/30 text-white font-bold py-2 px-4 rounded-cri text-sm hover:bg-cri-canopy transition-colors"
+          className="border-cri-parchment/30 rounded-cri hover:bg-cri-canopy flex-1 border bg-transparent px-4 py-2 text-sm font-bold text-white transition-colors"
         >
           Refuser
         </button>

@@ -30,13 +30,9 @@ const PROTECTED_PREFIXES = [
   "/api/field",
 ];
 
-// Routes publiques (auth non requise)
-const PUBLIC_API = [
-  "/api/contact",
-  "/api/newsletter",
-  "/api/lead",
-  "/api/webhook",
-];
+// Routes publiques (auth non requise) — référence conservée pour
+// configuration future du rate limit par endpoint
+void ["/api/contact", "/api/newsletter", "/api/lead", "/api/webhook"];
 
 // Rate limit basique (in-memory) — en prod, utiliser Upstash/Redis
 const RATE_LIMIT = new Map<string, { count: number; resetAt: number }>();
@@ -73,9 +69,7 @@ export async function middleware(req: NextRequest) {
 
   // 2. Vérification auth pour les routes protégées
   // (token de session Firebase)
-  const isProtected = PROTECTED_PREFIXES.some((prefix) =>
-    pathname.startsWith(prefix)
-  );
+  const isProtected = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   if (isProtected) {
     const sessionCookie = req.cookies.get("__session")?.value;
