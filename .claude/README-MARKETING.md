@@ -19,9 +19,9 @@ Avant d'invoquer **n'importe quel** skill marketing, le skill `product-marketing
 
 | Skill | Usage CRI |
 |---|---|
+| `seo` | **Orchestrateur SEO** — audit site complet, technique, contenu, E-E-A-T, AI Overviews |
 | `cro` | Optimiser les pages d'accueil, `/investisseurs`, `/contact` |
 | `copywriting` | Écrire les headlines, les sections de pages, les CTA |
-| `seo-audit` | Auditer le site (technique + contenu) avant lancement |
 | `marketing-plan` | Construire le plan marketing 2026-2027 |
 | `pricing` | Pricing data room, accès investisseurs, certifications |
 
@@ -42,10 +42,21 @@ Avant d'invoquer **n'importe quel** skill marketing, le skill `product-marketing
 
 | Skill | Usage CRI |
 |---|---|
-| `programmatic-seo` | Pages départements Cameroun (Littoral, Centre, Sud-Ouest...) |
-| `site-architecture` | Refonte de l'arborescence du site |
-| `ai-seo` | Optimisation pour la recherche IA (Perplexity, ChatGPT) |
-| `schema` | Données structurées |
+| `seo` (orchestrateur) | **Audit site complet** — délègue à 24 sub-skills et 18 agents en parallèle |
+| `seo-audit` | Audit SEO complet d'une URL ou du site |
+| `seo-page` | Analyse approfondie d'une page |
+| `seo-technical` | Audit technique (9 catégories, INP, Core Web Vitals) |
+| `seo-content` | Qualité contenu, E-E-A-T |
+| `seo-content-brief` | Briefs détaillés (mots-clés, outline, liens internes) |
+| `seo-schema` | Détection, validation, génération JSON-LD |
+| `seo-geo` | **AI Overviews / GEO** — optimisation pour ChatGPT, Perplexity |
+| `seo-hreflang` | SEO international (FR/EN) |
+| `seo-sitemap` | Analyse / génération sitemaps XML |
+| `seo-images` | Optimisation images |
+| `seo-programmatic` | Pages départements Cameroun (Littoral, Centre, Sud-Ouest...) |
+| `seo-plan` | Planification stratégique SEO |
+| `seo-cluster` | Clustering sémantique SERP |
+| `seo-sxo` | Search Experience Optimization |
 
 ### 📧 Contenu à produire
 

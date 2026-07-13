@@ -56,9 +56,12 @@ cri-app/
 ### Skills marketing (`coreyhaines31/marketingskills` — 47 installés)
 Voir **`.claude/README-MARKETING.md`** pour le guide complet (top 5, à éviter, workflow par phase).
 
-**Top 5 phase 1** : `cro`, `copywriting`, `seo-audit`, `marketing-plan`, `pricing`.
+### Skills SEO (`AgriciDaniel/claude-seo` — 25 installés)
+Orchestrateur `seo` + 24 sub-skills : `seo-audit`, `seo-page`, `seo-technical`, `seo-content`, `seo-content-brief`, `seo-schema`, `seo-geo` (AI Overviews), `seo-hreflang`, `seo-sitemap`, `seo-images`, `seo-programmatic`, `seo-plan`, `seo-cluster`, `seo-sxo`, `seo-drift`, `seo-competitor-pages`, `seo-flow`, `seo-local`, `seo-maps`, `seo-ecommerce`, `seo-backlinks`, `seo-google`, `seo-firecrawl`, `seo-dataforseo`, `seo-image-gen`.
 
-⚠️ **Avant d'invoquer un skill marketing**, s'assurer que `.agents/product-marketing.md` est à jour (il contient le brief produit/audience).
+**Top 5 phase 1** : `seo` (audit complet), `cro`, `copywriting`, `marketing-plan`, `pricing`.
+
+⚠️ **Avant d'invoquer un skill marketing/SEO**, s'assurer que `.agents/product-marketing.md` est à jour.
 
 Invoquer un skill : décrire la tâche + mentionner le skill, ou demander "utilise le skill X".
 
