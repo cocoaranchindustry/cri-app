@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Commit-msg : format Conventional Commits (optionnel)
+# commitlint si installé
+npx --no-install commitlint --edit "$1" 2>/dev/null || true

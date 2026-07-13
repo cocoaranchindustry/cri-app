@@ -1,0 +1,172 @@
+rules_version = '2';
+
+// =============================================================================
+// FIRESTORE SECURITY RULES — Cocoa Ranch & Industry
+// =============================================================================
+// Modèle de sécurité : défense en profondeur + RBAC strict
+// Tous les accès sont refusés par défaut (deny all).
+// =============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helpers ─────────────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function role() {
+      return isSignedIn() ? request.auth.token.role : 'public';
+    }
+
+    function isAdmin()   { return role() == 'admin'; }
+    function isManager() { return role() in ['admin', 'manager']; }
+    function isField()   { return role() in ['admin', 'manager', 'enqueteur', 'supervisor']; }
+    function isInvestor(){ return role() in ['admin', 'manager', 'investor']; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+
+    function validString(field, max) {
+      return field is string && field.size() <= max && field.size() >= 1;
+    }
+
+    function validEmail(field) {
+      return field is string && field.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$') && field.size() <= 200;
+    }
+
+    // ─── USERS ──────────────────────────────────────────────────────────────
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid)
+        && validString(request.resource.data.email, 200)
+        && request.resource.data.role in ['public'];
+      allow update: if isAdmin() || (isOwner(uid)
+        && !('role' in request.resource.data.diff(resource.data).affectedKeys()));
+      allow delete: if isAdmin();
+    }
+
+    // ─── PRODUCERS — consentement RGPD obligatoire ─────────────────────────
+    match /producers/{producerId} {
+      allow read: if isManager() || isField();
+      allow create: if isField()
+        && validString(request.resource.data.fullName, 200)
+        && request.resource.data.gender in ['M', 'F', 'O']
+        && request.resource.data.consentRGPD == true
+        && request.resource.data.village in
+             ['Bouba', 'Njombé', 'Mombo', 'Tombel', 'Penja', 'Loum']
+        && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isField() || isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ─── PARCELS — validation géométrique WGS84, ≥ 6 décimales ────────────
+    match /parcels/{parcelId} {
+      allow read: if isManager() || isField();
+      allow create: if isField()
+        && request.resource.data.type in ['point', 'polygon']
+        && request.resource.data.precision >= 6
+        && request.resource.data.geometry.coordinates is list
+        && request.resource.data.areaHa > 0
+        && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isManager() || (isField()
+        && !('forestStatus' in request.resource.data.diff(resource.data).affectedKeys())
+        && !('verifiedBy' in request.resource.data.diff(resource.data).affectedKeys()));
+      allow delete: if isAdmin();
+    }
+
+    // ─── LOTS — chaîne de custody ──────────────────────────────────────────
+    match /lots/{lotId} {
+      allow read: if isManager();
+      allow create, update: if isManager()
+        && request.resource.data.weightKg > 0
+        && request.resource.data.stage in
+          ['reception', 'fermentation', 'sechage', 'tri', 'conditionnement', 'stockage', 'expedition'];
+      allow delete: if isAdmin();
+    }
+
+    // ─── CONTAINERS ─────────────────────────────────────────────────────────
+    match /containers/{containerId} {
+      allow read: if isManager();
+      allow write: if isAdmin();
+    }
+
+    // ─── TRANSACTIONS — immutables ─────────────────────────────────────────
+    match /transactions/{txId} {
+      allow read: if isManager();
+      allow create: if isField()
+        && request.resource.data.amountXAF > 0
+        && request.resource.data.paidAt is timestamp
+        && request.resource.data.createdBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // ─── ARTICLES (CMS) — public sur publiés ───────────────────────────────
+    match /articles/{articleId} {
+      allow read: if resource.data.status == 'published' || isManager();
+      allow create, update: if isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ─── PRODUCTS ───────────────────────────────────────────────────────────
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isManager();
+    }
+
+    // ─── IMPACT KPIS ────────────────────────────────────────────────────────
+    match /impactKpis/{kpiId} {
+      allow read: if true;
+      allow write: if isManager();
+    }
+
+    // ─── INVESTORS — accès self-only ────────────────────────────────────────
+    match /investors/{investorId} {
+      allow read: if isAdmin() || (isSignedIn()
+        && request.auth.uid == resource.data.userId);
+      allow create: if isAdmin();
+      allow update: if isAdmin() || (isSignedIn()
+        && request.auth.uid == resource.data.userId
+        && !('tier' in request.resource.data.diff(resource.data).affectedKeys())
+        && !('kycStatus' in request.resource.data.diff(resource.data).affectedKeys()));
+      allow delete: if isAdmin();
+    }
+
+    // ─── INVESTOR DOCUMENTS (métadonnées) ──────────────────────────────────
+    match /investorDocuments/{docId} {
+      allow read: if isAdmin() || (isSignedIn()
+        && exists(/databases/$(database)/documents/investors/$(request.auth.uid))
+        && get(/databases/$(database)/documents/investors/$(request.auth.uid)).data.tier == resource.data.tier);
+      allow write: if isAdmin();
+    }
+
+    // ─── LEADS — IP hashée (RGPD) ───────────────────────────────────────────
+    match /leads/{leadId} {
+      allow create: if validString(request.resource.data.type, 50)
+        && request.resource.data.type in ['contact', 'investor', 'commande', 'newsletter']
+        && request.resource.data.createdAt is timestamp
+        && validString(request.resource.data.ipHash, 64);
+      allow read, update: if isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ─── AUDIT LOGS (immutable) ─────────────────────────────────────────────
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isField() || isManager();
+      allow update, delete: if false;
+    }
+
+    // ─── SETTINGS ───────────────────────────────────────────────────────────
+    match /settings/public/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /settings/private/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+    // ─── DENY ALL BY DEFAULT ────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

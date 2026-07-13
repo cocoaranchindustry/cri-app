@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "project": "The project",
+    "activities": "Activities",
+    "cacao": "Premium Cocoa",
+    "provendes": "Animal Feed & Farm",
+    "impact": "CSR Impact",
+    "products": "Products",
+    "news": "News",
+    "contact": "Contact",
+    "investors": "Investors"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Cameroon · Mungo Basin",
+      "title": "Cameroon's circular cocoa agropole",
+      "subtitle": "Zero-deforestation premium cocoa, OAPI-patented animal feed, EUDR/CacaoTrace traceability. A multi-revenue model serving 1,200 producers.",
+      "ctaPrimary": "Discover the project",
+      "ctaSecondary": "Investor area"
+    },
+    "kpis": {
+      "producers": "Supported producers",
+      "hectares": "Cocoa basin hectares",
+      "tons": "Cocoa tons / year",
+      "revenue": "Target revenue"
+    },
+    "poles": {
+      "subtitle": "Our model",
+      "title": "Two poles, one circularity",
+      "description": "We valorize 100% of cocoa by-products — beans, husks, biomass — in a circular economy logic.",
+      "pole1": {
+        "title": "🏭 Pole 1 — Premium Cocoa",
+        "description": "Collection, fermentation and drying of premium beans from 1,200 producers across 6 villages of the Bouba basin.",
+        "features": [
+          "Zero-defect quality",
+          "Blockchain traceability + QR Code",
+          "Producer remuneration > 50% of FOB price"
+        ]
+      },
+      "pole2": {
+        "title": "🐔 Pole 2 — Feed Mill & Farm",
+        "description": "Valorization of cocoa husks into livestock feed « CRI-PROVEND CACAO » — formulation protected by OAPI patent.",
+        "features": [
+          "Broiler chicken feed",
+          "Fattening pig feed",
+          "-15% vs market · -20-30% for the end farmer"
+        ]
+      }
+    },
+    "rse": {
+      "title": "Zero deforestation, zero waste, zero CO₂",
+      "description": "Our CSR commitment is backed by the CIMAR-Technopôle program: agroecology promotion, youth and women training-integration, bio-inputs diffusion.",
+      "card1": {
+        "title": "EUDR Compliance",
+        "text": "Parcel → container traceability, geoloc ≥ 6 decimals"
+      },
+      "card2": {
+        "title": "100% circular",
+        "text": "Husks, biomass, biofertilizers: everything is valorized"
+      },
+      "card3": {
+        "title": "Social impact",
+        "text": "1,200 producers, youth and women integration"
+      },
+      "cta": "Read our impact report"
+    },
+    "investors": {
+      "title": "Invest in sustainable African cocoa",
+      "description": "3.2 Bn FCFA financing sought over 2026-2030 for a mature, differentiated and bankable project. Access our secure data room.",
+      "cta": "Request investor access",
+      "contact": "Contact us"
+    }
+  },
+  "footer": {
+    "project": "The project",
+    "activities": "Activities",
+    "resources": "Resources",
+    "legal": "Legal notice",
+    "copyright": "© {year} Cocoa Ranch & Industry · AGRO-PME Foundation · All rights reserved"
+  },
+  "cookies": {
+    "title": "Cookies & privacy",
+    "description": "We use strictly necessary cookies (session) and an anonymized analytics tool (Plausible, no cookie). No advertising trackers.",
+    "accept": "Accept",
+    "refuse": "Refuse",
+    "link": "Privacy policy"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "search": "Search"
+  }
+}

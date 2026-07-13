@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Pre-commit : lint, type-check et tests sur les fichiers modifiés
+echo "🔍 Pre-commit checks..."
+
+# Lint avec auto-fix sur les fichiers stagés
+npx lint-staged || exit 1
+
+# Type-check
+cd apps/web && npx tsc --noEmit || exit 1
+cd ../..
+
+echo "✅ Pre-commit checks passed"

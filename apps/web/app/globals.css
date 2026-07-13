@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BRANDBOOK CRI v5 — Styles globaux
+   ============================================ */
+
+:root {
+  /* Palette Brandbook */
+  --cri-forest: #1F4A2E;
+  --cri-canopy: #2D6B3E;
+  --cri-cacao: #9C7A3A;
+  --cri-gold: #C8A84B;
+  --cri-parchment: #F5F0E8;
+  --cri-humus: #3D3320;
+  --cri-ink-muted: #9C8A6A;
+
+  /* Tokens dérivés */
+  --cri-radius: 0.5rem;
+  --cri-shadow: 0 2px 6px rgba(20, 50, 59, 0.08);
+  --cri-shadow-md: 0 4px 12px rgba(20, 50, 59, 0.12);
+  --cri-shadow-gold: 0 4px 12px rgba(200, 168, 75, 0.25);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--cri-parchment);
+    color: var(--cri-humus);
+    font-family: Calibri, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typographie Brandbook : Georgia pour titres */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+    color: var(--cri-forest);
+  }
+
+  h1 { color: var(--cri-forest); }
+  h2 { color: var(--cri-canopy); }
+  h3 { color: var(--cri-cacao); font-style: italic; }
+
+  /* Liens */
+  a {
+    color: var(--cri-cacao);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: var(--cri-gold);
+    text-decoration: underline;
+  }
+
+  /* Sélection */
+  ::selection {
+    background-color: var(--cri-gold);
+    color: var(--cri-humus);
+  }
+
+  /* Focus visible (accessibilité) */
+  :focus-visible {
+    outline: 2px solid var(--cri-gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Boutons Brandbook */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-cri font-bold transition-all duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-cri-forest text-white hover:bg-cri-canopy hover:shadow-cri-md;
+  }
+  .btn-gold {
+    @apply btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light hover:shadow-cri-gold;
+  }
+  .btn-outline {
+    @apply btn bg-transparent border-2 border-cri-forest text-cri-forest hover:bg-cri-forest hover:text-white;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-cri-forest hover:bg-cri-parchment;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-cri shadow-cri p-6 transition-shadow hover:shadow-cri-md;
+  }
+
+  /* Section */
+  .section {
+    @apply py-section px-4 md:px-8;
+  }
+  .section-dark {
+    @apply section bg-cri-forest text-white;
+  }
+  .section-parchment {
+    @apply section bg-cri-parchment;
+  }
+
+  /* KPI chiffre Brandbook */
+  .kpi-value {
+    @apply font-serif text-5xl md:text-6xl font-bold text-cri-gold leading-none;
+  }
+  .kpi-label {
+    @apply mt-2 text-label uppercase font-bold text-cri-humus;
+  }
+
+  /* Container */
+  .container-cri {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+}
+
+@layer utilities {
+  /* Pattern décoratif fève de cacao */
+  .bg-feve-pattern {
+    background-image: var(--cri-pattern-feve);
+    background-size: 60px 60px;
+  }
+
+  /* Gradient de marque */
+  .bg-cri-gradient {
+    background-image: linear-gradient(135deg, #1F4A2E 0%, #2D6B3E 100%);
+  }
+}
+
+/* ============================================
+   Leaflet overrides (Brandbook)
+   ============================================ */
+.leaflet-container {
+  font-family: Calibri, "Segoe UI", sans-serif;
+}
+.leaflet-popup-content-wrapper {
+  background-color: var(--cri-parchment);
+  color: var(--cri-humus);
+  border-radius: var(--cri-radius);
+}
+.leaflet-popup-tip {
+  background-color: var(--cri-parchment);
+}
+
+/* ============================================
+   Accessibilité
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mode sombre désactivé par défaut (Brandbook priorise le mode clair) */
+@media (prefers-color-scheme: dark) {
+  /* Pas de dark mode pour respecter la charte */
+}

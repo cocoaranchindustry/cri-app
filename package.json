@@ -1,0 +1,46 @@
+{
+  "name": "cri-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cocoa Ranch & Industry — Plateforme web (React · Next.js · Firebase)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "start": "npm run start --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "lint:fix": "npm run lint:fix --workspace=apps/web",
+    "type-check": "npm run type-check --workspace=apps/web",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "test": "npm run test --workspace=apps/web",
+    "test:e2e": "npm run test:e2e --workspace=apps/web",
+    "prepare": "husky",
+    "rules:deploy": "firebase deploy --only firestore:rules,storage",
+    "functions:deploy": "firebase deploy --only functions"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "author": "AGRO-PME Fondation",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production
+dist/
+build/
+.next/
+out/
+.vercel/
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# IDE
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*-debug.log
+
+# Secrets (jamais commit)
+secrets/
+*.pem
+*.key
+*.crt
+
+# OS
+.DS_Store
+Desktop.ini
+$RECYCLE.BIN/
+
+# Turbo / Nx
+.turbo/
+nx/cache
+nx/workspace-data

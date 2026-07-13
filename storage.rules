@@ -1,0 +1,52 @@
+rules_version = '2';
+
+// =============================================================================
+// CLOUD STORAGE RULES — Cocoa Ranch & Industry
+// =============================================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin()    { return request.auth.token.role == 'admin'; }
+    function isManager()  { return request.auth.token.role in ['admin', 'manager']; }
+    function isField()    { return request.auth.token.role in
+                              ['admin', 'manager', 'enqueteur', 'supervisor']; }
+
+    // ─── Photos de parcelles (5 MB max, image uniquement) ──────────────────
+    match /parcels/{parcelId}/{fileName} {
+      allow read: if true;  // Public pour affichage carte
+      allow write: if isField()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // ─── Médiathèque publique ─────────────────────────────────────────────
+    match /media/{allPaths=**} {
+      allow read: if true;
+      allow write: if isManager()
+        && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // ─── Documents investisseurs (signed URL via Cloud Function) ──────────
+    match /investor-docs/{docId}/{fileName} {
+      allow read: if isManager();
+      allow write: if isAdmin()
+        && request.resource.size < 50 * 1024 * 1024;
+    }
+
+    // ─── Rapports téléchargeables (publics) ───────────────────────────────
+    match /public-reports/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── Avatars utilisateurs ─────────────────────────────────────────────
+    match /avatars/{userId}/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == userId
+        && request.resource.size < 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}
