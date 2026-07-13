@@ -5,6 +5,11 @@
  * - Configuration par variables d'env (NEXT_PUBLIC_*)
  * - Pas de secrets en dur
  * - App Check activable en production (reCAPTCHA Enterprise)
+ *
+ * ROBUSTESSE :
+ * - Singleton : évite la réinitialisation en mode dev (Fast Refresh)
+ * - Validation des env vars au démarrage
+ * - Analytics chargé uniquement côté client et si supporté
  */
 
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
@@ -12,6 +17,34 @@ import { getAuth, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from "firebase/storage";
 import { getAnalytics, isSupported, type Analytics } from "firebase/analytics";
+
+/**
+ * Validation des variables d'environnement Firebase.
+ * Échoue tôt avec un message clair si une variable manque.
+ */
+function validateFirebaseConfig(): void {
+  const required = [
+    "NEXT_PUBLIC_FIREBASE_API_KEY",
+    "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
+    "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+    "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
+    "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+    "NEXT_PUBLIC_FIREBASE_APP_ID",
+  ] as const;
+
+  const missing = required.filter((k) => !process.env[k] || process.env[k] === "");
+  if (missing.length > 0) {
+    throw new Error(
+      `[Firebase] Variables d'environnement manquantes : ${missing.join(", ")}.\n` +
+        `Vérifier apps/web/.env.local`
+    );
+  }
+}
+
+// Validation au chargement du module (côté client uniquement)
+if (typeof window !== "undefined") {
+  validateFirebaseConfig();
+}
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,7 +56,7 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Singleton : éviter la réinitialisation en mode dev
+// Singleton : éviter la réinitialisation en mode dev (HMR / Fast Refresh)
 const app: FirebaseApp = getApps().length
   ? (getApps()[0] as FirebaseApp)
   : initializeApp(firebaseConfig);
@@ -32,14 +65,18 @@ export const auth: Auth = getAuth(app);
 export const db: Firestore = getFirestore(app);
 export const storage: FirebaseStorage = getStorage(app);
 
-// Analytics : uniquement côté client et si supporté
+// Analytics : uniquement côté client et si supporté (évite les erreurs SSR)
 let analytics: Analytics | null = null;
 if (typeof window !== "undefined") {
-  isSupported().then((supported) => {
-    if (supported) {
-      analytics = getAnalytics(app);
-    }
-  });
+  isSupported()
+    .then((supported) => {
+      if (supported) {
+        analytics = getAnalytics(app);
+      }
+    })
+    .catch(() => {
+      // Silencieux : analytics est optionnel
+    });
 }
 export { analytics };
 
