@@ -46,6 +46,7 @@ cri-app/
 | `rgpd-antic-checker` | Vérifier la conformité RGPD/ANTIC d'un formulaire |
 | `eudr-traceability-reviewer` | Vérifier un flux de traçabilité EUDR |
 | `cri-code-style` | Conventions de code (nommage, TypeScript, imports) |
+| `web-design-guidelines` | Audit UI générique (Vercel Web Interface Guidelines) |
 
 Invoquer un skill : décrire la tâche + mentionner le skill, ou demander explicitement "utilise le skill X".
 
