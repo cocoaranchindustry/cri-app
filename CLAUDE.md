@@ -39,6 +39,7 @@ cri-app/
 
 ## Skills disponibles dans `.claude/skills/`
 
+### Skills CRI (spécifiques)
 | Skill | Usage |
 |---|---|
 | `brandbook-cri-guardian` | Auditer une UI contre la charte CRI v5 |
@@ -46,9 +47,20 @@ cri-app/
 | `rgpd-antic-checker` | Vérifier la conformité RGPD/ANTIC d'un formulaire |
 | `eudr-traceability-reviewer` | Vérifier un flux de traçabilité EUDR |
 | `cri-code-style` | Conventions de code (nommage, TypeScript, imports) |
-| `web-design-guidelines` | Audit UI générique (Vercel Web Interface Guidelines) |
 
-Invoquer un skill : décrire la tâche + mentionner le skill, ou demander explicitement "utilise le skill X".
+### Skills UI génériques
+| Skill | Usage |
+|---|---|
+| `web-design-guidelines` | Audit UI conforme Web Interface Guidelines (Vercel Labs) |
+
+### Skills marketing (`coreyhaines31/marketingskills` — 47 installés)
+Voir **`.claude/README-MARKETING.md`** pour le guide complet (top 5, à éviter, workflow par phase).
+
+**Top 5 phase 1** : `cro`, `copywriting`, `seo-audit`, `marketing-plan`, `pricing`.
+
+⚠️ **Avant d'invoquer un skill marketing**, s'assurer que `.agents/product-marketing.md` est à jour (il contient le brief produit/audience).
+
+Invoquer un skill : décrire la tâche + mentionner le skill, ou demander "utilise le skill X".
 
 ## Commandes principales
 
