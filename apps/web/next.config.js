@@ -5,7 +5,13 @@
  * - Headers stricts (CSP, HSTS, X-Frame-Options, etc.)
  * - Bundle analyzer (optionnel via ANALYZE=true)
  * - Images : whitelist pour les médias CRI + Firebase Storage
+ *
+ * i18n : intégration next-intl v3 via `createNextIntlPlugin` qui
+ * résout `./i18n/request.ts` automatiquement.
  */
+
+const createNextIntlPlugin = require("next-intl/plugin");
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "on" },
@@ -77,10 +83,7 @@ const nextConfig = {
       },
       {
         source: "/api/(.*)",
-        headers: [
-          ...securityHeaders,
-          { key: "Cache-Control", value: "no-store, max-age=0" },
-        ],
+        headers: [...securityHeaders, { key: "Cache-Control", value: "no-store, max-age=0" }],
       },
     ];
   },
@@ -90,4 +93,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-module.exports = withBundleAnalyzer(nextConfig);
+// Ordre d'application des wrappers : next-intl d'abord (le plugin
+// ajoute le wiring i18n dans le build), puis le bundle analyzer en
+// couche externe.
+module.exports = withBundleAnalyzer(withNextIntl(nextConfig));

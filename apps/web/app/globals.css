@@ -3,24 +3,37 @@
 @tailwind utilities;
 
 /* ============================================
-   BRANDBOOK CRI v5 — Styles globaux
+   BRANDBOOK CRI v6 — Styles globaux
+   Source : affiches officielles COCOA RANCH
    ============================================ */
 
 :root {
-  /* Palette Brandbook */
-  --cri-forest: #1F4A2E;
-  --cri-canopy: #2D6B3E;
-  --cri-cacao: #9C7A3A;
-  --cri-gold: #C8A84B;
-  --cri-parchment: #F5F0E8;
-  --cri-humus: #3D3320;
-  --cri-ink-muted: #9C8A6A;
+  /* Palette Brandbook officielle v6 */
+  --cri-forest: #1f4a2e;
+  --cri-forest-dark: #14322b;
+  --cri-canopy: #2d6b3e;
+  --cri-canopy-light: #3d8b52;
+  --cri-moss: #4a7c59;
+  --cri-cacao: #9c4a1a;
+  --cri-cacao-light: #b5651f;
+  --cri-cacao-dark: #7a3812;
+  --cri-gold: #d4a024;
+  --cri-gold-light: #e5b946;
+  --cri-gold-dark: #a87e15;
+  --cri-parchment: #f5efe0;
+  --cri-cream: #e5dcc8;
+  --cri-cream-light: #faf6eb;
+  --cri-humus: #3d3320;
+  --cri-ink-muted: #8b7860;
 
   /* Tokens dérivés */
   --cri-radius: 0.5rem;
   --cri-shadow: 0 2px 6px rgba(20, 50, 59, 0.08);
   --cri-shadow-md: 0 4px 12px rgba(20, 50, 59, 0.12);
-  --cri-shadow-gold: 0 4px 12px rgba(200, 168, 75, 0.25);
+  --cri-shadow-gold: 0 4px 12px rgba(212, 160, 36, 0.25);
+  --cri-shadow-cacao: 0 4px 12px rgba(156, 74, 26, 0.25);
+
+  --cri-pattern-feve: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='20' fill='none' stroke='%239C4A1A' stroke-width='0.5' opacity='0.15'/><circle cx='30' cy='30' r='10' fill='none' stroke='%23D4A024' stroke-width='0.5' opacity='0.15'/></svg>");
 }
 
 @layer base {
@@ -39,14 +52,26 @@
   }
 
   /* Typographie Brandbook : Georgia pour titres */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: Georgia, Cambria, "Times New Roman", serif;
     color: var(--cri-forest);
   }
 
-  h1 { color: var(--cri-forest); }
-  h2 { color: var(--cri-canopy); }
-  h3 { color: var(--cri-cacao); font-style: italic; }
+  h1 {
+    color: var(--cri-forest);
+  }
+  h2 {
+    color: var(--cri-canopy);
+  }
+  h3 {
+    color: var(--cri-cacao);
+    font-style: italic;
+  }
 
   /* Liens */
   a {
@@ -75,24 +100,27 @@
 @layer components {
   /* Boutons Brandbook */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-cri font-bold transition-all duration-200;
+    @apply rounded-cri inline-flex items-center justify-center px-6 py-3 font-bold transition-all duration-200;
   }
   .btn-primary {
-    @apply btn bg-cri-forest text-white hover:bg-cri-canopy hover:shadow-cri-md;
+    @apply btn bg-cri-forest hover:bg-cri-canopy hover:shadow-cri-md text-white;
   }
   .btn-gold {
     @apply btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light hover:shadow-cri-gold;
   }
+  .btn-cacao {
+    @apply btn bg-cri-cacao text-cri-parchment hover:bg-cri-cacao-dark hover:shadow-cri-cacao;
+  }
   .btn-outline {
-    @apply btn bg-transparent border-2 border-cri-forest text-cri-forest hover:bg-cri-forest hover:text-white;
+    @apply btn border-cri-forest text-cri-forest hover:bg-cri-forest border-2 bg-transparent hover:text-white;
   }
   .btn-ghost {
-    @apply btn bg-transparent text-cri-forest hover:bg-cri-parchment;
+    @apply btn text-cri-forest hover:bg-cri-parchment bg-transparent;
   }
 
   /* Cards */
   .card {
-    @apply bg-white rounded-cri shadow-cri p-6 transition-shadow hover:shadow-cri-md;
+    @apply rounded-cri shadow-cri hover:shadow-cri-md bg-white p-6 transition-shadow;
   }
 
   /* Section */
@@ -105,18 +133,36 @@
   .section-parchment {
     @apply section bg-cri-parchment;
   }
+  .section-cream {
+    @apply section bg-cri-cream;
+  }
 
   /* KPI chiffre Brandbook */
   .kpi-value {
-    @apply font-serif text-5xl md:text-6xl font-bold text-cri-gold leading-none;
+    @apply text-cri-gold font-serif text-5xl font-bold leading-none md:text-6xl;
   }
   .kpi-label {
-    @apply mt-2 text-label uppercase font-bold text-cri-humus;
+    @apply text-label text-cri-humus mt-2 font-bold uppercase;
   }
 
   /* Container */
   .container-cri {
-    @apply max-w-7xl mx-auto px-4 md:px-8;
+    @apply mx-auto max-w-7xl px-4 md:px-8;
+  }
+
+  /* Liseré vertical d'accent (gauche) — signature Brandbook v6 */
+  .accent-rail {
+    @apply relative pl-5;
+  }
+  .accent-rail::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    width: 3px;
+    background-image: linear-gradient(180deg, var(--cri-gold) 0%, var(--cri-cacao) 100%);
+    border-radius: 2px;
   }
 }
 
@@ -129,7 +175,16 @@
 
   /* Gradient de marque */
   .bg-cri-gradient {
-    background-image: linear-gradient(135deg, #1F4A2E 0%, #2D6B3E 100%);
+    background-image: linear-gradient(135deg, #1f4a2e 0%, #2d6b3e 100%);
+  }
+  .bg-cri-gradient-cacao {
+    background-image: linear-gradient(135deg, #9c4a1a 0%, #7a3812 100%);
+  }
+  .bg-cri-gradient-gold {
+    background-image: linear-gradient(135deg, #d4a024 0%, #a87e15 100%);
+  }
+  .bg-cri-gradient-hero {
+    background-image: linear-gradient(135deg, #14322b 0%, #1f4a2e 50%, #2d6b3e 100%);
   }
 }
 

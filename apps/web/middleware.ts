@@ -1,29 +1,33 @@
 import { NextResponse, type NextRequest } from "next/server";
-import createIntlMiddleware from "next-intl/middleware";
 
 /**
  * Middleware Next.js — Cocoa Ranch & Industry
  *
  * Responsabilités :
- * 1. Routage i18n (FR/EN) via next-intl
- * 2. Protection des routes admin / investisseurs / terrain (auth Firebase)
- * 3. Headers de sécurité additionnels
- * 4. Rate limiting basique
+ * 1. Protection des routes admin / investisseurs / terrain (auth Firebase)
+ * 2. Headers de sécurité additionnels
+ * 3. Rate limiting basique
+ *
+ * NOTE i18n : le routage next-intl avec `app/[locale]/` sera activé
+ * dans une refonte ultérieure. Pour l'instant, le site est servi en
+ * français par défaut à la racine (`/`) — les helpers `useTranslations`
+ * et `getTranslations` de next-intl restent utilisables dans les
+ * Server Components via le `request.ts` actuel (la locale est déduite
+ * de l'en-tête `Accept-Language`).
  *
  * NOTE : La vérification des rôles finaux se fait côté serveur dans
  * les pages (Server Components) et côté client via les Security Rules
  * Firestore (le middleware ici agit comme première barrière).
  */
 
-const intl = createIntlMiddleware({
-  locales: ["fr", "en"],
-  defaultLocale: "fr",
-  localePrefix: "as-needed",
-});
-
+// Préfixes protégés par Firebase Auth (session cookie requise).
+// `/investisseurs` est PUBLIQUE (page marketing + formulaire de demande
+// d'accès). Seules les sous-routes data room, admin et terrain sont
+// protégées — l'authentification réelle se fait ensuite par Firebase
+// côté client.
 const PROTECTED_PREFIXES = [
+  "/investisseurs/data-room",
   "/admin",
-  "/investisseurs",
   "/terrain",
   "/api/admin",
   "/api/investor",
@@ -74,10 +78,9 @@ export async function middleware(req: NextRequest) {
   if (isProtected) {
     const sessionCookie = req.cookies.get("__session")?.value;
     if (!sessionCookie) {
-      // Rediriger vers login en conservant l'URL cible
-      const locale = pathname.split("/")[1] || "fr";
+      // Rediriger vers /auth/login en conservant l'URL cible
       const url = req.nextUrl.clone();
-      url.pathname = `/${locale}/auth/login`;
+      url.pathname = "/auth/login";
       url.searchParams.set("redirect", pathname);
       return NextResponse.redirect(url);
     }
@@ -85,10 +88,8 @@ export async function middleware(req: NextRequest) {
     // les Server Components via firebase-admin
   }
 
-  // 3. i18n routing
-  const response = intl(req);
-
-  // 4. Headers additionnels
+  // 3. Headers de sécurité additionnels
+  const response = NextResponse.next();
   response.headers.set("X-Pathname", pathname);
   response.headers.set("X-Content-Type-Options", "nosniff");
 

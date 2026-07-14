@@ -5,22 +5,27 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Logo } from "./Logo";
+import { LogoMark } from "./Logo";
 
 /**
- * Navbar — Brandbook CRI v5
+ * Navbar — Brandbook CRI v6
  *
  * Sticky, fond vert profond (cri-forest), liens blancs/or.
+ * Logo : emblème cabosse SVG (or) + wordmark "COCOA RANCH" en serif.
  * Menu mobile : drawer plein écran.
  * CTA "Investisseurs" en bouton or.
  */
 
 const NAV_ITEMS = [
   { href: "/projet", label: "Le projet" },
-  { href: "/activites", label: "Activités", children: [
-    { href: "/activites/cacao", label: "Cacao Premium" },
-    { href: "/activites/provendes", label: "Provendes & Ferme" },
-  ] },
+  {
+    href: "/activites",
+    label: "Activités",
+    children: [
+      { href: "/activites/cacao", label: "Cacao Premium" },
+      { href: "/activites/provendes", label: "Provendes & Ferme" },
+    ],
+  },
   { href: "/impact", label: "Impact RSE" },
   { href: "/produits", label: "Produits" },
   { href: "/actualites", label: "Actualités" },
@@ -32,41 +37,52 @@ export const Navbar: React.FC = () => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 bg-cri-forest text-white shadow-cri">
-      <nav className="container-cri flex items-center justify-between h-20" aria-label="Navigation principale">
+    <header className="bg-cri-forest shadow-cri-lg border-cri-gold/20 sticky top-0 z-50 border-b-2 text-white">
+      <nav
+        className="container-cri flex h-20 items-center justify-between"
+        aria-label="Navigation principale"
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <Logo className="h-12 w-12 text-cri-gold" />
-          <div className="hidden sm:block">
-            <div className="font-serif font-bold text-white text-lg leading-none">
-              Cocoa Ranch
+        <Link
+          href="/"
+          className="group flex items-center gap-3"
+          aria-label="COCOA RANCH & INDUSTRY — Accueil"
+        >
+          <div className="relative">
+            <LogoMark size={48} className="transition-transform group-hover:scale-105" />
+            <div className="bg-cri-gold/20 absolute -inset-1 rounded-full opacity-0 blur-md transition-opacity group-hover:opacity-100" />
+          </div>
+          <div className="hidden leading-none sm:block">
+            <div className="font-serif text-xl font-black tracking-tight text-white">
+              COCOA <span className="text-cri-gold italic">RANCH</span>
             </div>
-            <div className="text-cri-gold text-xs uppercase tracking-wider font-bold">
-              &amp; Industry
+            <div className="text-cri-gold mt-1 text-[0.65rem] font-bold uppercase tracking-[0.2em]">
+              & Industry
+            </div>
+            <div className="text-cri-parchment/60 mt-0.5 text-[0.6rem] uppercase tracking-wider">
+              Agro-PME · Depuis 2010
             </div>
           </div>
         </Link>
 
         {/* Desktop menu */}
-        <ul className="hidden lg:flex items-center gap-6">
+        <ul className="hidden items-center gap-6 lg:flex">
           {NAV_ITEMS.map((item) => (
-            <li key={item.href} className="relative group">
+            <li key={item.href} className="group relative">
               <Link
                 href={item.href}
-                className="text-white hover:text-cri-gold transition-colors font-bold text-sm uppercase tracking-wider flex items-center"
+                className="hover:text-cri-gold flex items-center text-sm font-bold uppercase tracking-wider text-white transition-colors"
               >
                 {item.label}
-                {item.children && (
-                  <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" />
-                )}
+                {item.children && <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" />}
               </Link>
               {item.children && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white text-cri-humus shadow-cri-lg rounded-cri opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <div className="text-cri-humus shadow-cri-lg rounded-cri invisible absolute left-0 top-full mt-2 w-56 bg-white opacity-0 transition-all group-hover:visible group-hover:opacity-100">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block px-4 py-3 hover:bg-cri-parchment hover:text-cri-canopy text-sm"
+                      className="hover:bg-cri-parchment hover:text-cri-canopy block px-4 py-3 text-sm"
                     >
                       {child.label}
                     </Link>
@@ -78,7 +94,7 @@ export const Navbar: React.FC = () => {
         </ul>
 
         {/* CTA Investisseurs */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/lang/en"
             className="text-cri-gold hover:text-cri-gold-light text-sm font-bold"
@@ -88,7 +104,7 @@ export const Navbar: React.FC = () => {
           </Link>
           <Link
             href="/investisseurs"
-            className="btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light text-sm px-5 py-2"
+            className="btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light px-5 py-2 text-sm"
           >
             Investisseurs
           </Link>
@@ -97,7 +113,7 @@ export const Navbar: React.FC = () => {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="lg:hidden p-2 text-white hover:text-cri-gold"
+          className="hover:text-cri-gold p-2 text-white lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={isOpen}
@@ -108,16 +124,14 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="lg:hidden border-t border-cri-canopy bg-cri-forest text-white">
-          <ul className="container-cri py-4 space-y-1">
+        <div className="border-cri-canopy bg-cri-forest border-t text-white lg:hidden">
+          <ul className="container-cri space-y-1 py-4">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <button
-                  onClick={() =>
-                    setOpenSubmenu(openSubmenu === item.href ? null : item.href)
-                  }
+                  onClick={() => setOpenSubmenu(openSubmenu === item.href ? null : item.href)}
                   className={cn(
-                    "w-full flex items-center justify-between py-3 px-2 text-white hover:text-cri-gold font-bold uppercase text-sm tracking-wider"
+                    "hover:text-cri-gold flex w-full items-center justify-between px-2 py-3 text-sm font-bold uppercase tracking-wider text-white"
                   )}
                 >
                   {item.label}
@@ -131,12 +145,12 @@ export const Navbar: React.FC = () => {
                   )}
                 </button>
                 {item.children && openSubmenu === item.href && (
-                  <ul className="pl-4 pb-2">
+                  <ul className="pb-2 pl-4">
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className="block py-2 text-cri-parchment hover:text-cri-gold text-sm"
+                          className="text-cri-parchment hover:text-cri-gold block py-2 text-sm"
                           onClick={() => setIsOpen(false)}
                         >
                           {child.label}
@@ -145,10 +159,10 @@ export const Navbar: React.FC = () => {
                     ))}
                   </ul>
                 )}
-                {(!item.children || openSubmenu !== item.href) && !item.children && (
+                {!item.children && (
                   <Link
                     href={item.href}
-                    className="block py-3 px-2 text-white hover:text-cri-gold"
+                    className="hover:text-cri-gold block px-2 py-3 text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -156,10 +170,10 @@ export const Navbar: React.FC = () => {
                 )}
               </li>
             ))}
-            <li className="pt-4 border-t border-cri-canopy">
+            <li className="border-cri-canopy border-t pt-4">
               <Link
                 href="/investisseurs"
-                className="block text-center btn bg-cri-gold text-cri-humus py-3"
+                className="btn bg-cri-gold text-cri-humus block py-3 text-center"
                 onClick={() => setIsOpen(false)}
               >
                 Espace investisseurs

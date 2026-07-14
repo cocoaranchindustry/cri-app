@@ -1,19 +1,29 @@
 import type { Config } from "tailwindcss";
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
+import animate from "tailwindcss-animate";
 
 /**
- * Configuration Tailwind — Brandbook CRI v5
+ * Configuration Tailwind — Brandbook CRI v6 (Mise à jour juillet 2026)
  *
- * Palette officielle :
- * - Forêt profonde : #1F4A2E (primaire)
- * - Canopée        : #2D6B3E (secondaire)
- * - Or cacao       : #9C7A3A (accent premium)
- * - Or lumière     : #C8A84B (KPI, CTA secondaires)
- * - Parchemin      : #F5F0E8 (fond principal)
- * - Humus          : #3D3320 (corps de texte)
- * - Ink muted      : #9C8A6A (notes)
+ * Source : affiches officielles COCOA RANCH & INDUSTRY (Bassin du Mungo)
  *
- * Règle Brandbook : AUCUNE couleur rouge ni bleue. Dominante verte 60-70 %.
+ * Palette officielle (vraie charte) :
+ * - Forêt profonde : #1F4A2E (primaire — fond vert)
+ * - Canopée        : #2D6B3E (secondaire — vert canopée)
+ * - Cacao brûlé    : #9C4A1A (orange-brûlé signature — accents premium, replaces l'ancien #9C7A3A olive)
+ * - Or lumière     : #D4A024 (or vif pour "N°1" et CTA gold)
+ * - Crème          : #F5EFE0 (fond clair / texte sur fond vert)
+ * - Crème claire   : #E5DCC8 (fonds de section alternatifs)
+ * - Humus          : #3D3320 (corps de texte brun foncé)
+ * - Ink muted      : #8B7860 (notes, sources)
+ *
+ * Règles strictes :
+ * - AUCUNE couleur rouge ni bleue. Dominante verte 55-65 %.
+ * - Cacao brûlé (orange) et or vif sont les 2 seules couleurs chaudes.
+ * - Crème claire est utilisée pour les fonds de section (jamais blanc pur en grande surface).
  */
+
 const config: Config = {
   content: [
     "./app/**/*.{ts,tsx,js,jsx,mdx}",
@@ -24,39 +34,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* ─── Brandbook CRI v5 ─── */
-        "cri-forest": "#1F4A2E",
-        "cri-canopy": "#2D6B3E",
-        "cri-cacao": "#9C7A3A",
-        "cri-gold": "#C8A84B",
-        "cri-parchment": "#F5F0E8",
-        "cri-humus": "#3D3320",
-        "cri-ink-muted": "#9C8A6A",
+        /* ─── Brandbook CRI v6 — Charte officielle ─── */
+        /* Verts (dominants 55-65%) */
+        "cri-forest": "#1F4A2E", // vert forêt principal — fonds
+        "cri-forest-dark": "#14322B", // vert très sombre — overlays
+        "cri-canopy": "#2D6B3E", // vert canopée — CTA, hover
+        "cri-canopy-light": "#3D8B52", // vert clair — accents
+        "cri-moss": "#4A7C59", // mousse — séparateurs
 
-        /* Tons de vert dérivés (dégradés/hover) */
-        "cri-forest-dark": "#14322B",
-        "cri-forest-light": "#2D6B3E",
-        "cri-canopy-light": "#3D8B52",
-        "cri-canopy-dark": "#1F4A2E",
+        /* Cacao brûlé (signature, accent premium) */
+        "cri-cacao": "#9C4A1A", // cacao grillé/brûlé — signature (changement majeur v5→v6)
+        "cri-cacao-light": "#B5651F", // cacao clair
+        "cri-cacao-dark": "#7A3812", // cacao très sombre
 
-        /* Tons d'or/cacao dérivés */
-        "cri-cacao-light": "#B5915A",
-        "cri-cacao-dark": "#7A5F2D",
-        "cri-gold-light": "#D8BC65",
-        "cri-gold-dark": "#A88A30",
+        /* Or vif (chiffres clés, CTA gold) */
+        "cri-gold": "#D4A024", // or vif — KPI, "N°1"
+        "cri-gold-light": "#E5B946", // or clair
+        "cri-gold-dark": "#A87E15", // or sombre
 
-        /* Neutres harmonisés (jamais rouge ni bleu) */
-        "cri-bg": "#f6f7f9",
+        /* Crème (fonds clairs) */
+        "cri-parchment": "#F5EFE0", // crème — fond principal
+        "cri-cream": "#E5DCC8", // crème claire — fonds alternatifs
+        "cri-cream-light": "#FAF6EB", // crème très claire
+
+        /* Texte */
+        "cri-humus": "#3D3320", // brun foncé — corps de texte
+        "cri-ink-muted": "#8B7860", // beige grisé — notes
+        "cri-text-on-dark": "#F5EFE0", // texte sur fond vert
+
+        /* Neutres */
+        "cri-bg": "#FAF6EB",
         "cri-surface": "#FFFFFF",
-        "cri-border": "#E3E6EB",
-        "cri-success": "#2E7D32", /* vert sombre uniquement */
-        "cri-warning": "#B8860B", /* ocre (pas d'orange vif) */
-        "cri-error": "#8B3A2E",   /* brun-rouge sourd (pas rouge vif) */
+        "cri-border": "#E5DCC8",
+        "cri-success": "#2E7D32", // vert sombre uniquement
+        "cri-warning": "#B8860B", // ocre (pas d'orange vif)
+        "cri-error": "#7A3812", // brun-cacao sourd (pas rouge vif)
       },
 
       fontFamily: {
-        /* Brandbook : Georgia (serif) + Calibri (sans) */
+        /* Brandbook : typographie serif distinctive pour "COCOA RANCH" */
         serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
+        display: ["Georgia", "Playfair Display", "serif"], // pour titres d'impact
         sans: ["Calibri", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif"],
         mono: ["Consolas", "Monaco", "Courier New", "monospace"],
       },
@@ -72,19 +90,20 @@ const config: Config = {
       },
 
       backgroundImage: {
-        "cri-gradient":
-          "linear-gradient(135deg, #1F4A2E 0%, #2D6B3E 100%)",
-        "cri-gradient-gold":
-          "linear-gradient(135deg, #9C7A3A 0%, #C8A84B 100%)",
+        "cri-gradient": "linear-gradient(135deg, #1F4A2E 0%, #2D6B3E 100%)",
+        "cri-gradient-cacao": "linear-gradient(135deg, #9C4A1A 0%, #7A3812 100%)",
+        "cri-gradient-gold": "linear-gradient(135deg, #D4A024 0%, #A87E15 100%)",
+        "cri-gradient-hero": "linear-gradient(135deg, #14322B 0%, #1F4A2E 50%, #2D6B3E 100%)",
         "cri-pattern-feve":
-          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='20' fill='none' stroke='%239C7A3A' stroke-width='0.5' opacity='0.15'/><circle cx='30' cy='30' r='10' fill='none' stroke='%23C8A84B' stroke-width='0.5' opacity='0.15'/></svg>\")",
+          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='20' fill='none' stroke='%239C4A1A' stroke-width='0.5' opacity='0.15'/><circle cx='30' cy='30' r='10' fill='none' stroke='%23D4A024' stroke-width='0.5' opacity='0.15'/></svg>\")",
       },
 
       boxShadow: {
-        cri: "0 2px 6px rgba(20, 50, 59, 0.08)",
-        "cri-md": "0 4px 12px rgba(20, 50, 59, 0.12)",
-        "cri-lg": "0 8px 24px rgba(20, 50, 59, 0.16)",
-        "cri-gold": "0 4px 12px rgba(200, 168, 75, 0.25)",
+        cri: "0 2px 6px rgba(31, 74, 46, 0.10)",
+        "cri-md": "0 4px 12px rgba(31, 74, 46, 0.15)",
+        "cri-lg": "0 12px 32px rgba(31, 74, 46, 0.20)",
+        "cri-cacao": "0 4px 12px rgba(156, 74, 26, 0.30)",
+        "cri-gold": "0 4px 12px rgba(212, 160, 36, 0.30)",
       },
 
       borderRadius: {
@@ -99,6 +118,7 @@ const config: Config = {
         "fade-in": "fadeIn 0.5s ease-out",
         "slide-up": "slideUp 0.5s ease-out",
         "count-up": "countUp 1.5s ease-out",
+        "float-slow": "float 6s ease-in-out infinite",
       },
 
       keyframes: {
@@ -110,10 +130,14 @@ const config: Config = {
           "0%": { transform: "translateY(20px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [forms, typography, animate],
 };
 
 export default config;
