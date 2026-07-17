@@ -133,4 +133,3 @@ export const config = {
   // Exclure : fichiers statiques, _next, favicon, robots, sitemap
   matcher: ["/((?!_next|.*\\..*|favicon.ico|robots.txt|sitemap.xml).*)"],
 };
-

@@ -39,18 +39,18 @@ export default function BrevetPage() {
           viewportHeight
         />
 
-        <section className="py-20 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Référence
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 Brevet n° OAPI 15012
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+            <StaggerGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.1}>
               {[
                 { icon: Award, label: "Office", value: "OAPI" },
                 { icon: Calendar, label: "Date de dépôt", value: "15 mars 2022" },
@@ -59,14 +59,17 @@ export default function BrevetPage() {
               ].map((b) => {
                 const Icon = b.icon;
                 return (
-                  <GlassCard key={b.label} variant="default" className="text-center p-6">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-cri-cacao/10 text-cri-cacao mb-3" aria-hidden="true">
+                  <GlassCard key={b.label} variant="default" className="p-6 text-center">
+                    <div
+                      className="bg-cri-cacao/10 text-cri-cacao mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full"
+                      aria-hidden="true"
+                    >
                       <Icon className="h-6 w-6" />
                     </div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-cri-ink-muted mb-1">
+                    <p className="text-cri-ink-muted mb-1 text-[10px] font-bold uppercase tracking-wider">
                       {b.label}
                     </p>
-                    <p className="font-serif text-lg font-bold text-cri-forest">{b.value}</p>
+                    <p className="text-cri-forest font-serif text-lg font-bold">{b.value}</p>
                   </GlassCard>
                 );
               })}
@@ -76,28 +79,31 @@ export default function BrevetPage() {
 
         <SectionDivider variant="wave" fillClassName="fill-cri-cream" height={80} />
 
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Innovation
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-4xl">
                 Description technique
               </h2>
             </RevealOnScroll>
 
-            <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
               <GlassCard variant="default" className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-cri-cacao/10 text-cri-cacao flex items-center justify-center" aria-hidden="true">
+                <div className="mb-5 flex items-center gap-3">
+                  <div
+                    className="bg-cri-cacao/10 text-cri-cacao flex h-12 w-12 items-center justify-center rounded-xl"
+                    aria-hidden="true"
+                  >
                     <Beaker className="h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-cri-forest">Revendication 1</h3>
+                  <h3 className="text-cri-forest font-serif text-2xl font-bold">Revendication 1</h3>
                 </div>
-                <p className="text-cri-humus leading-relaxed mb-4">
-                  Procédé de fabrication d&apos;aliment pour animaux d&apos;élevage,
-                  caractérisé en ce qu&apos;il comprend les étapes suivantes :
+                <p className="text-cri-humus mb-4 leading-relaxed">
+                  Procédé de fabrication d&apos;aliment pour animaux d&apos;élevage, caractérisé en
+                  ce qu&apos;il comprend les étapes suivantes :
                 </p>
                 <ul className="space-y-2">
                   {[
@@ -107,8 +113,11 @@ export default function BrevetPage() {
                     "Granulation à froid (≤ 70 °C)",
                     "Conditionnement hermétique",
                   ].map((s) => (
-                    <li key={s} className="flex items-start gap-2 text-sm text-cri-humus">
-                      <CheckCircle2 className="h-4 w-4 text-cri-canopy flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <li key={s} className="text-cri-humus flex items-start gap-2 text-sm">
+                      <CheckCircle2
+                        className="text-cri-canopy mt-0.5 h-4 w-4 flex-shrink-0"
+                        aria-hidden="true"
+                      />
                       <span>{s}</span>
                     </li>
                   ))}
@@ -116,11 +125,14 @@ export default function BrevetPage() {
               </GlassCard>
 
               <GlassCard variant="default" className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center" aria-hidden="true">
+                <div className="mb-5 flex items-center gap-3">
+                  <div
+                    className="bg-cri-canopy/10 text-cri-canopy flex h-12 w-12 items-center justify-center rounded-xl"
+                    aria-hidden="true"
+                  >
                     <Award className="h-6 w-6" />
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-cri-forest">Résultats</h3>
+                  <h3 className="text-cri-forest font-serif text-2xl font-bold">Résultats</h3>
                 </div>
                 <ul className="space-y-3">
                   {[
@@ -130,8 +142,11 @@ export default function BrevetPage() {
                     "Indice de conversion : -8 % chez le poulet",
                     "Valorisation de 100 % des cabosses",
                   ].map((s) => (
-                    <li key={s} className="flex items-start gap-2 text-sm text-cri-humus">
-                      <CheckCircle2 className="h-4 w-4 text-cri-cacao flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <li key={s} className="text-cri-humus flex items-start gap-2 text-sm">
+                      <CheckCircle2
+                        className="text-cri-cacao mt-0.5 h-4 w-4 flex-shrink-0"
+                        aria-hidden="true"
+                      />
                       <span>{s}</span>
                     </li>
                   ))}
@@ -141,28 +156,27 @@ export default function BrevetPage() {
           </div>
         </section>
 
-        <section className="py-20 md:py-24 bg-cri-forest text-cri-text-on-dark">
-          <div className="container-cri text-center max-w-2xl">
+        <section className="bg-cri-forest text-cri-text-on-dark py-20 md:py-24">
+          <div className="container-cri max-w-2xl text-center">
             <RevealOnScroll variant="zoom-in">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Licence ou transfert
               </h2>
-              <p className="text-lg text-cri-text-on-dark/85 mb-8">
-                Nous proposons des licences de fabrication sous royalties, ou
-                un transfert de technologie clés en main (formation, formulation,
-                mise en service de l&apos;unité).
+              <p className="text-cri-text-on-dark/85 mb-8 text-lg">
+                Nous proposons des licences de fabrication sous royalties, ou un transfert de
+                technologie clés en main (formation, formulation, mise en service de l&apos;unité).
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-cri-gold text-cri-humus font-semibold hover:bg-cri-gold-light transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
+                  className="bg-cri-gold text-cri-humus hover:bg-cri-gold-light focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest inline-flex h-14 items-center justify-center gap-2 rounded-xl px-8 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 >
                   Demander une licence
                   <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </Link>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl border-2 border-cri-text-on-dark/40 text-cri-text-on-dark font-semibold hover:bg-cri-text-on-dark/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
+                  className="border-cri-text-on-dark/40 text-cri-text-on-dark hover:bg-cri-text-on-dark/10 focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest inline-flex h-14 items-center justify-center gap-2 rounded-xl border-2 px-8 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 >
                   <Download className="h-4 w-4" aria-hidden="true" />
                   Brochure technique (PDF)

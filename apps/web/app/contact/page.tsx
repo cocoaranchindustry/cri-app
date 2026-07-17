@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  CheckCircle2,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
@@ -34,13 +28,13 @@ export default function ContactPage() {
           viewportHeight
         />
 
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <div className="grid lg:grid-cols-5 gap-12">
+            <div className="grid gap-12 lg:grid-cols-5">
               {/* Coordonnées */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="space-y-6 lg:col-span-2">
                 <RevealOnScroll variant="slide-up">
-                  <h2 className="font-serif text-2xl md:text-3xl font-bold text-cri-forest mb-6">
+                  <h2 className="text-cri-forest mb-6 font-serif text-2xl font-bold md:text-3xl">
                     Nos coordonnées
                   </h2>
                 </RevealOnScroll>
@@ -77,25 +71,41 @@ export default function ContactPage() {
                   />
                 </StaggerGroup>
 
-                <RevealOnScroll variant="fade" className="mt-8 p-5 rounded-2xl bg-cri-cream border border-cri-moss/20">
+                <RevealOnScroll
+                  variant="fade"
+                  className="bg-cri-cream border-cri-moss/20 mt-8 rounded-2xl border p-5"
+                >
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-cri-canopy flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <CheckCircle2
+                      className="text-cri-canopy mt-0.5 h-5 w-5 flex-shrink-0"
+                      aria-hidden="true"
+                    />
                     <div>
-                      <p className="font-serif font-bold text-cri-forest">Présidence</p>
-                      <p className="text-sm text-cri-ink-muted mt-1">
-                        <span className="font-semibold text-cri-canopy">TCHAHA MONKAM</span> epouse AWUNGIA TAZINYA Lorraine Nadia
-                        <br />Présidente — COCOA RANCH & INDUSTRY
+                      <p className="text-cri-forest font-serif font-bold">Présidence</p>
+                      <p className="text-cri-ink-muted mt-1 text-sm">
+                        <span className="text-cri-canopy font-semibold">TCHAHA MONKAM</span> epouse
+                        AWUNGIA TAZINYA Lorraine Nadia
+                        <br />
+                        Présidente — COCOA RANCH & INDUSTRY
                       </p>
                     </div>
                   </div>
                 </RevealOnScroll>
 
-                <RevealOnScroll variant="fade" className="mt-8 p-5 rounded-2xl bg-cri-cream border border-cri-moss/20">
+                <RevealOnScroll
+                  variant="fade"
+                  className="bg-cri-cream border-cri-moss/20 mt-8 rounded-2xl border p-5"
+                >
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-cri-canopy flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <CheckCircle2
+                      className="text-cri-canopy mt-0.5 h-5 w-5 flex-shrink-0"
+                      aria-hidden="true"
+                    />
                     <div>
-                      <p className="font-serif font-bold text-cri-forest">Réponse garantie sous 48h</p>
-                      <p className="text-sm text-cri-ink-muted mt-1">
+                      <p className="text-cri-forest font-serif font-bold">
+                        Réponse garantie sous 48h
+                      </p>
+                      <p className="text-cri-ink-muted mt-1 text-sm">
                         Notre équipe vous répond par email, dans la langue de votre choix (FR/EN).
                       </p>
                     </div>
@@ -106,7 +116,7 @@ export default function ContactPage() {
               {/* Formulaire */}
               <div className="lg:col-span-3">
                 <RevealOnScroll variant="slide-up">
-                  <div className="p-8 rounded-2xl bg-white border-2 border-cri-moss/20 shadow-soft">
+                  <div className="border-cri-moss/20 shadow-soft rounded-2xl border-2 bg-white p-8">
                     <ContactForm />
                   </div>
                 </RevealOnScroll>
@@ -117,13 +127,13 @@ export default function ContactPage() {
 
         <SectionDivider variant="curve" fillClassName="fill-cri-cream" height={80} />
 
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Plan d&apos;accès
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-4xl">
                 Venez nous rencontrer
               </h2>
             </RevealOnScroll>
@@ -145,16 +155,17 @@ const ContactItem: React.FC<{
 }> = ({ icon, title, value, href, badge }) => {
   const content = (
     <>
-      <div className="w-12 h-12 rounded-xl bg-cri-cacao/10 text-cri-cacao flex items-center justify-center flex-shrink-0" aria-hidden="true">
+      <div
+        className="bg-cri-cacao/10 text-cri-cacao flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl"
+        aria-hidden="true"
+      >
         {icon}
       </div>
       <div className="flex-1">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-cri-ink-muted">
-          {title}
-        </p>
-        <p className="font-serif font-semibold text-cri-forest">{value}</p>
+        <p className="text-cri-ink-muted text-[10px] font-bold uppercase tracking-wider">{title}</p>
+        <p className="text-cri-forest font-serif font-semibold">{value}</p>
         {badge && (
-          <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-cri-gold/20 text-cri-cacao-dark text-[10px] font-bold uppercase tracking-wider">
+          <span className="bg-cri-gold/20 text-cri-cacao-dark mt-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
             {badge}
           </span>
         )}
@@ -166,12 +177,12 @@ const ContactItem: React.FC<{
       href={href}
       target={href.startsWith("https://wa.me") ? "_blank" : undefined}
       rel={href.startsWith("https://wa.me") ? "noopener noreferrer" : undefined}
-      className="flex items-center gap-4 p-4 rounded-xl bg-cri-cream border border-cri-moss/20 hover:border-cri-cacao/40 transition-colors"
+      className="bg-cri-cream border-cri-moss/20 hover:border-cri-cacao/40 flex items-center gap-4 rounded-xl border p-4 transition-colors"
     >
       {content}
     </a>
   ) : (
-    <div className="flex items-center gap-4 p-4 rounded-xl bg-cri-cream border border-cri-moss/20">
+    <div className="bg-cri-cream border-cri-moss/20 flex items-center gap-4 rounded-xl border p-4">
       {content}
     </div>
   );

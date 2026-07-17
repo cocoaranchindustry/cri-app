@@ -22,20 +22,21 @@ public/images/
 
 ## 🎨 Spécifications techniques
 
-| Type | Format | Dimensions | Poids max | Qualité JPEG |
-|---|---|---|---|---|
-| Hero | JPEG | 2400×1350 (16:9) | 350 KB | 82% |
-| Section | JPEG | 1600×1067 (3:2) | 250 KB | 80% |
-| Card | JPEG | 1200×800 (3:2) | 180 KB | 80% |
-| Portrait | JPEG | 800×800 (1:1) | 120 KB | 82% |
-| Wide | JPEG | 1920×1080 (16:9) | 280 KB | 80% |
-| OG | PNG | 1200×630 | 200 KB | — |
-| Logo partenaire | SVG | vectoriel | 5 KB | — |
-| Favicon/Icon | PNG | 32×32 / 180×180 | — | lossless |
+| Type            | Format | Dimensions       | Poids max | Qualité JPEG |
+| --------------- | ------ | ---------------- | --------- | ------------ |
+| Hero            | JPEG   | 2400×1350 (16:9) | 350 KB    | 82%          |
+| Section         | JPEG   | 1600×1067 (3:2)  | 250 KB    | 80%          |
+| Card            | JPEG   | 1200×800 (3:2)   | 180 KB    | 80%          |
+| Portrait        | JPEG   | 800×800 (1:1)    | 120 KB    | 82%          |
+| Wide            | JPEG   | 1920×1080 (16:9) | 280 KB    | 80%          |
+| OG              | PNG    | 1200×630         | 200 KB    | —            |
+| Logo partenaire | SVG    | vectoriel        | 5 KB      | —            |
+| Favicon/Icon    | PNG    | 32×32 / 180×180  | —         | lossless     |
 
 ## 📐 Conventions de nommage
 
 ### Règles
+
 - ✅ **kebab-case** uniquement (pas de CamelCase, pas d'espaces)
 - ✅ **ASCII** uniquement (pas d'accents : `cacao` et non `cacaô`)
 - ✅ **Préfixe section** : `hero-`, `team-`, `terrain-`, `produit-`, `activite-`
@@ -43,6 +44,7 @@ public/images/
 - ✅ **Descriptif** : `lieu-action-sujet.jpg`
 
 ### Exemples valides
+
 ```
 hero-home.jpg
 team-emmanuel-takou.jpg
@@ -53,6 +55,7 @@ og-investisseurs.png
 ```
 
 ### Exemples invalides
+
 ```
 ❌ IMG_20260115_143022.jpg          ← pas descriptif
 ❌ Cacao Premium (3).jpg           ← espaces, accents
@@ -63,7 +66,9 @@ og-investisseurs.png
 ## 🛠️ Workflow de préparation
 
 ### 1. Déposer les photos brutes
+
 Place tes photos brutes (JPEG, PNG, HEIC depuis iPhone) dans un dossier temporaire :
+
 ```
 ./photos-brutes/
 ├── terrain/
@@ -76,12 +81,14 @@ Place tes photos brutes (JPEG, PNG, HEIC depuis iPhone) dans un dossier temporai
 ```
 
 ### 2. Installer Sharp (une seule fois)
+
 ```bash
 cd apps/web
 npm install --save-dev sharp
 ```
 
 ### 3. Lancer le script de préparation
+
 ```bash
 # Pour le terrain
 node public/scripts/prepare-images.js ./photos-brutes/terrain ./public/images/terrain
@@ -96,6 +103,7 @@ node public/scripts/prepare-images.js ./photos-brutes/equipe ./public/images/tea
 ```
 
 ### 4. Ce que fait le script
+
 - ✅ Convertit HEIC/PNG → JPEG
 - ✅ Respecte l'orientation EXIF (rotation auto)
 - ✅ Redimensionne au preset du dossier
@@ -105,6 +113,7 @@ node public/scripts/prepare-images.js ./photos-brutes/equipe ./public/images/tea
 - ✅ Écrit `_lqip.json` pour les `blurDataURL`
 
 ### 5. Utiliser dans le code
+
 ```tsx
 import { CrioImage } from "@/components/ui/CrioImage";
 import lqip from "@/../public/images/terrain/_lqip.json";
@@ -116,20 +125,20 @@ import lqip from "@/../public/images/terrain/_lqip.json";
   aspect="3/2"
   blurDataURL={lqip["parcelle-cacao"]}
   className="rounded-cri"
-/>
+/>;
 ```
 
 ## 🎯 Tailles prédéfinies (composant `<CrioImage>`)
 
-| Preset | Dimensions | Usage |
-|---|---|---|
-| `hero` | 2400×1350 | Hero pages (1 par page max) |
-| `section` | 1600×1067 | Sections principales |
-| `card` | 1200×800 | Cards produits, piliers |
-| `portrait` | 800×800 | Photos équipe (carré) |
-| `wide` | 1920×1080 | Sections larges (banner) |
-| `og` | 1200×630 | Open Graph (FB, LinkedIn) |
-| `thumbnail` | 400×267 | Miniatures |
+| Preset      | Dimensions | Usage                       |
+| ----------- | ---------- | --------------------------- |
+| `hero`      | 2400×1350  | Hero pages (1 par page max) |
+| `section`   | 1600×1067  | Sections principales        |
+| `card`      | 1200×800   | Cards produits, piliers     |
+| `portrait`  | 800×800    | Photos équipe (carré)       |
+| `wide`      | 1920×1080  | Sections larges (banner)    |
+| `og`        | 1200×630   | Open Graph (FB, LinkedIn)   |
+| `thumbnail` | 400×267    | Miniatures                  |
 
 ## ⚡ Performance
 
@@ -143,6 +152,7 @@ import lqip from "@/../public/images/terrain/_lqip.json";
 ## 🖼️ Logos partenaires (SVG)
 
 Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
+
 - ✅ **SVG vectoriel** (pas de PNG)
 - ✅ **Fond transparent**
 - ✅ **Optimisé** (SVGO, <5 KB)
@@ -152,6 +162,7 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 ## 📊 Liste des images attendues
 
 ### Hero & pages
+
 - [ ] `hero/hero-home.jpg` (vue aérienne ranch)
 - [ ] `hero/hero-projet.jpg` (équipe fondatrice)
 - [ ] `hero/hero-impact.jpg` (producteurs locaux)
@@ -160,11 +171,13 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 - [ ] `hero/hero-activites.jpg` (3 pôles en photo)
 
 ### Activités
+
 - [ ] `activites/cacao/1-4.jpg` (5 photos : parcelle, cueillette, fermentation, séchage, producteur)
 - [ ] `activites/provendes/1-4.jpg` (4 photos : usine, broyeur, granulés, brevet)
 - [ ] `activites/elevage/1-4.jpg` (4 photos : poulets, porcs, compost, drone)
 
 ### Produits (studio)
+
 - [ ] `produits/feve-premium.jpg`
 - [ ] `produits/provende-poulet.jpg`
 - [ ] `produits/provende-porc.jpg`
@@ -173,6 +186,7 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 - [ ] `produits/viande-porc.jpg`
 
 ### Équipe
+
 - [ ] `team/emmanuel-takou.jpg`
 - [ ] `team/marie-nguema.jpg`
 - [ ] `team/paul-atangana.jpg`
@@ -180,6 +194,7 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 - [ ] `team/groupe.jpg`
 
 ### Terrain
+
 - [ ] `terrain/village-njombe.jpg`
 - [ ] `terrain/parcelle-cacao.jpg`
 - [ ] `terrain/cooperative-femmes.jpg`
@@ -188,12 +203,14 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 - [ ] `terrain/vue-drone.jpg`
 
 ### Impact
+
 - [ ] `impact/plantation-jeune.jpg`
 - [ ] `impact/compostage.jpg`
 - [ ] `impact/femmes-leaders.jpg`
 - [ ] `impact/eudr-tracabilite.jpg`
 
 ### Partenaires (SVG)
+
 - [ ] `partenaires/agro-pme.svg`
 - [ ] `partenaires/oapi.svg`
 - [ ] `partenaires/minader.svg`
@@ -205,6 +222,7 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 - [ ] `partenaires/irad.svg`
 
 ### Open Graph
+
 - [ ] `og/default.png` (1200×630)
 - [ ] `og/projet.png` (1200×630)
 - [ ] `og/investisseurs.png` (1200×630)
@@ -214,6 +232,7 @@ Les logos des partenaires (AGRO-PME, OAPI, MINADER, etc.) doivent être :
 ## ✅ Checklist avant commit
 
 Pour chaque image ajoutée :
+
 - [ ] Nom en kebab-case ASCII
 - [ ] Placée dans le bon sous-dossier
 - [ ] Dimensions respectées (cf. tableau)

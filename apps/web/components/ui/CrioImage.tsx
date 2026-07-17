@@ -38,19 +38,14 @@ import { cn } from "@/lib/utils";
  *   />
  */
 
-export type CrioImageSize =
-  | "hero"
-  | "section"
-  | "card"
-  | "portrait"
-  | "wide"
-  | "og"
-  | "thumbnail";
+export type CrioImageSize = "hero" | "section" | "card" | "portrait" | "wide" | "og" | "thumbnail";
 
 export type CrioImageAspect = "16/9" | "3/2" | "1/1" | "4/3" | "auto";
 
-export interface CrioImageProps
-  extends Omit<React.ComponentProps<typeof Image>, "src" | "alt" | "width" | "height"> {
+export interface CrioImageProps extends Omit<
+  React.ComponentProps<typeof Image>,
+  "src" | "alt" | "width" | "height"
+> {
   src: string;
   alt: string;
   size?: CrioImageSize;
@@ -72,10 +67,7 @@ export interface CrioImageProps
   quality?: number;
 }
 
-const SIZE_PRESETS: Record<
-  CrioImageSize,
-  { width: number; height: number; sizes: string }
-> = {
+const SIZE_PRESETS: Record<CrioImageSize, { width: number; height: number; sizes: string }> = {
   hero: {
     width: 2400,
     height: 1350,
@@ -118,7 +110,7 @@ const ASPECT_CLASS: Record<CrioImageAspect, string> = {
   "3/2": "aspect-[3/2]",
   "1/1": "aspect-square",
   "4/3": "aspect-[4/3]",
-  "auto": "",
+  auto: "",
 };
 
 /**
@@ -149,11 +141,7 @@ export const CrioImage: React.FC<CrioImageProps> = ({
   if (!src) {
     return (
       <div
-        className={cn(
-          "bg-cri-moss/20 animate-pulse",
-          ASPECT_CLASS[aspect],
-          className
-        )}
+        className={cn("bg-cri-moss/20 animate-pulse", ASPECT_CLASS[aspect], className)}
         role="img"
         aria-label={alt}
       />
@@ -195,11 +183,7 @@ export const CrioImage: React.FC<CrioImageProps> = ({
       quality={quality}
       placeholder={blurDataURL ? "blur" : "empty"}
       blurDataURL={blurDataURL}
-      className={cn(
-        "h-auto w-auto",
-        aspect !== "auto" && ASPECT_CLASS[aspect],
-        className
-      )}
+      className={cn("h-auto w-auto", aspect !== "auto" && ASPECT_CLASS[aspect], className)}
       {...props}
     />
   );

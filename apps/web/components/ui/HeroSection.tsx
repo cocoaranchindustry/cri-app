@@ -107,31 +107,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const badgeLabel = typeof badge === "string" ? badge : badge?.label;
   const badgeIcon =
-    typeof badge === "object" && badge?.icon
-      ? badge.icon
-      : Icon
-      ? <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-      : null;
+    typeof badge === "object" && badge?.icon ? (
+      badge.icon
+    ) : Icon ? (
+      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+    ) : null;
 
   return (
     <section
       ref={ref}
-      className={cn(
-        "relative overflow-hidden",
-        heightClass,
-        "flex items-center",
-        className
-      )}
+      className={cn("relative overflow-hidden", heightClass, "flex items-center", className)}
       aria-label="Section héro"
     >
       {/* Background layer */}
       {variant === "image" && image && (
         <>
-          <motion.div
-            className="absolute inset-0 z-0"
-            style={{ y }}
-            aria-hidden="true"
-          >
+          <motion.div className="absolute inset-0 z-0" style={{ y }} aria-hidden="true">
             <Image
               src={image}
               alt={imageAlt ?? ""}
@@ -144,11 +135,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </motion.div>
           {/* Overlay gradient — multi-layer pour profondeur */}
           <div
-            className="absolute inset-0 z-10 bg-gradient-to-br from-cri-forest-dark/95 via-cri-forest/75 to-cri-forest-dark/90"
+            className="from-cri-forest-dark/95 via-cri-forest/75 to-cri-forest-dark/90 absolute inset-0 z-10 bg-gradient-to-br"
             aria-hidden="true"
           />
           <div
-            className="absolute inset-0 z-10 bg-gradient-to-t from-cri-forest-dark/80 via-transparent to-cri-forest-dark/40"
+            className="from-cri-forest-dark/80 to-cri-forest-dark/40 absolute inset-0 z-10 bg-gradient-to-t via-transparent"
             aria-hidden="true"
           />
           <div
@@ -161,7 +152,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {variant === "gradient" && (
         <>
           <div
-            className="absolute inset-0 z-0 bg-gradient-to-br from-cri-forest via-cri-forest to-cri-canopy"
+            className="from-cri-forest via-cri-forest to-cri-canopy absolute inset-0 z-0 bg-gradient-to-br"
             aria-hidden="true"
           />
           <div
@@ -183,7 +174,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <>
           {/* Base gradient vert profond */}
           <div
-            className="absolute inset-0 z-0 bg-gradient-to-br from-cri-forest-dark via-cri-forest to-cri-canopy"
+            className="from-cri-forest-dark via-cri-forest to-cri-canopy absolute inset-0 z-0 bg-gradient-to-br"
             aria-hidden="true"
           />
           {/* Lueur or subtile en haut à droite */}
@@ -201,12 +192,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Pattern cabosse SVG animé (subtil, parallaxe inverse) */}
       <motion.div
-        className="absolute inset-0 z-10 opacity-[0.06] pointer-events-none"
+        className="pointer-events-none absolute inset-0 z-10 opacity-[0.06]"
         style={{ y: patternY }}
         aria-hidden="true"
       >
         <svg
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 h-full w-full"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMid slice"
         >
@@ -242,21 +233,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Floating orbs (optionnel) */}
       {floatingOrbs.length > 0 && (
-        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div
+          className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+          aria-hidden="true"
+        >
           {floatingOrbs.map((orb, i) => {
             const colorClass =
               orb.color === "cacao"
                 ? "bg-cri-cacao"
                 : orb.color === "canopy"
-                ? "bg-cri-canopy"
-                : "bg-cri-gold";
+                  ? "bg-cri-canopy"
+                  : "bg-cri-gold";
             return (
               <motion.div
                 key={i}
                 className={cn(
-                  "absolute rounded-full blur-3xl opacity-25",
-                  orb.size ?? "w-96 h-96",
-                  orb.position ?? "top-1/4 -left-20",
+                  "absolute rounded-full opacity-25 blur-3xl",
+                  orb.size ?? "h-96 w-96",
+                  orb.position ?? "-left-20 top-1/4",
                   colorClass
                 )}
                 animate={
@@ -282,10 +276,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Content */}
       <motion.div
-        className={cn(
-          "container-cri relative z-20 flex flex-col",
-          alignClass
-        )}
+        className={cn("container-cri relative z-20 flex flex-col", alignClass)}
         style={{ opacity }}
       >
         <div className="max-w-4xl">
@@ -294,7 +285,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-cri-gold mb-4"
+              className="text-cri-gold mb-4 text-[10px] font-bold uppercase tracking-[0.3em] md:text-xs"
             >
               {tagline}
             </motion.p>
@@ -315,8 +306,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 )}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cri-gold opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-cri-gold" />
+                  <span className="bg-cri-gold absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+                  <span className="bg-cri-gold relative inline-flex h-2 w-2 rounded-full" />
                 </span>
                 {badgeIcon}
                 {badgeLabel}
@@ -343,10 +334,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "mt-6 max-w-2xl text-lg md:text-xl leading-relaxed",
-                variant === "gradient"
-                  ? "text-cri-humus"
-                  : "text-cri-text-on-dark/90"
+                "mt-6 max-w-2xl text-lg leading-relaxed md:text-xl",
+                variant === "gradient" ? "text-cri-humus" : "text-cri-text-on-dark/90"
               )}
             >
               {subtitle}
@@ -359,7 +348,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "mt-10 flex flex-col sm:flex-row gap-4 items-center",
+                "mt-10 flex flex-col items-center gap-4 sm:flex-row",
                 align === "center" && "justify-center"
               )}
             >
@@ -368,13 +357,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   href={primaryCta.href}
                   className={cn(
                     "group relative inline-flex items-center justify-center gap-2",
-                    "h-12 px-6 rounded-full font-semibold text-base",
+                    "h-12 rounded-full px-6 text-base font-semibold",
                     "bg-cri-gold text-cri-forest",
                     "hover:bg-cri-gold-light hover:scale-[1.03] hover:shadow-[0_8px_30px_rgba(212,160,36,0.35)]",
                     "transition-all duration-300",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest-dark",
+                    "focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                     "min-h-[48px]",
-                    "before:absolute before:inset-0 before:rounded-full before:bg-cri-gold-light/20 before:opacity-0 hover:before:opacity-100 before:transition-opacity"
+                    "before:bg-cri-gold-light/20 before:absolute before:inset-0 before:rounded-full before:opacity-0 before:transition-opacity hover:before:opacity-100"
                   )}
                 >
                   {primaryCta.label}
@@ -395,12 +384,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   href={secondaryCta.href}
                   className={cn(
                     "group inline-flex items-center justify-center gap-2",
-                    "h-12 px-6 rounded-full font-semibold text-base",
+                    "h-12 rounded-full px-6 text-base font-semibold",
                     variant === "gradient"
-                      ? "border-2 border-cri-forest text-cri-forest hover:bg-cri-forest hover:text-cri-text-on-dark"
-                      : "border-2 border-cri-text-on-dark/40 bg-cri-text-on-dark/10 backdrop-blur-md text-cri-text-on-dark hover:bg-cri-text-on-dark/20 hover:border-cri-text-on-dark/70",
+                      ? "border-cri-forest text-cri-forest hover:bg-cri-forest hover:text-cri-text-on-dark border-2"
+                      : "border-cri-text-on-dark/40 bg-cri-text-on-dark/10 text-cri-text-on-dark hover:bg-cri-text-on-dark/20 hover:border-cri-text-on-dark/70 border-2 backdrop-blur-md",
                     "transition-all duration-300 hover:scale-[1.02]",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest-dark",
+                    "focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                     "min-h-[48px]"
                   )}
                 >
@@ -417,16 +406,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   href={videoUrl}
                   className={cn(
                     "group inline-flex items-center justify-center gap-3",
-                    "h-12 px-4 rounded-full font-medium text-base",
+                    "h-12 rounded-full px-4 text-base font-medium",
                     "text-cri-text-on-dark hover:text-cri-gold",
                     "transition-colors duration-200",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest-dark",
+                    "focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                     "min-h-[48px]"
                   )}
                   aria-label="Lire la vidéo de présentation"
                 >
-                  <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-cri-text-on-dark/15 backdrop-blur-md border border-cri-text-on-dark/30 group-hover:bg-cri-gold/20 group-hover:border-cri-gold/60 transition-colors">
-                    <Play className="h-4 w-4 ml-0.5" aria-hidden="true" />
+                  <span className="bg-cri-text-on-dark/15 border-cri-text-on-dark/30 group-hover:bg-cri-gold/20 group-hover:border-cri-gold/60 relative flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-md transition-colors">
+                    <Play className="ml-0.5 h-4 w-4" aria-hidden="true" />
                   </span>
                   <span className="text-sm">Voir la vidéo</span>
                 </Link>
@@ -446,18 +435,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               )}
             >
               {stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col"
-                >
-                  <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cri-gold/80 mb-1 order-2">
+                <div key={i} className="flex flex-col">
+                  <dt className="text-cri-gold/80 order-2 mb-1 text-[10px] font-semibold uppercase tracking-[0.2em]">
                     {stat.label}
                   </dt>
-                  <dd className="font-serif text-3xl md:text-4xl font-bold text-cri-text-on-dark leading-none order-1">
+                  <dd className="text-cri-text-on-dark order-1 font-serif text-3xl font-bold leading-none md:text-4xl">
                     {stat.value}
-                    {stat.suffix && (
-                      <span className="text-cri-gold">{stat.suffix}</span>
-                    )}
+                    {stat.suffix && <span className="text-cri-gold">{stat.suffix}</span>}
                   </dd>
                 </div>
               ))}
@@ -472,21 +456,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-0 left-0 right-0 z-20 border-t border-cri-text-on-dark/10 bg-cri-forest-dark/40 backdrop-blur-md"
+          className="border-cri-text-on-dark/10 bg-cri-forest-dark/40 absolute bottom-0 left-0 right-0 z-20 border-t backdrop-blur-md"
         >
           <div className="container-cri py-4">
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:gap-x-10">
               {trustBadges.map((badge, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 text-cri-text-on-dark/70"
-                >
+                <div key={i} className="text-cri-text-on-dark/70 flex items-center gap-2">
                   {badge.icon && (
                     <span className="text-cri-gold [&>svg]:h-3.5 [&>svg]:w-3.5" aria-hidden="true">
                       {badge.icon}
                     </span>
                   )}
-                  <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.15em]">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.15em] md:text-xs">
                     {badge.label}
                   </span>
                 </div>
@@ -499,23 +480,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Scroll indicator (only for full/hero height) */}
       {(height === "full" || height === "hero") && !trustBadges.length && (
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2"
           initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
           aria-hidden="true"
         >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cri-text-on-dark/60">
+          <span className="text-cri-text-on-dark/60 text-[10px] font-semibold uppercase tracking-[0.25em]">
             Défiler pour explorer
           </span>
-          <div className="h-10 w-6 rounded-full border-2 border-cri-text-on-dark/40 flex items-start justify-center p-1.5">
+          <div className="border-cri-text-on-dark/40 flex h-10 w-6 items-start justify-center rounded-full border-2 p-1.5">
             <motion.div
-              className="h-2 w-1 rounded-full bg-cri-text-on-dark/70"
-              animate={
-                prefersReducedMotion
-                  ? {}
-                  : { y: [0, 12, 0] }
-              }
+              className="bg-cri-text-on-dark/70 h-2 w-1 rounded-full"
+              animate={prefersReducedMotion ? {} : { y: [0, 12, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             />
           </div>

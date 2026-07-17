@@ -23,88 +23,90 @@ export default function PrivacyPage() {
           viewportHeight
         />
 
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri max-w-4xl">
-            <p className="text-cri-ink-muted text-sm mb-8">
-              Dernière mise à jour : juillet 2026
-            </p>
+            <p className="text-cri-ink-muted mb-8 text-sm">Dernière mise à jour : juillet 2026</p>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               1. Responsable du traitement
             </h2>
             <p className="text-cri-humus leading-relaxed">
               <strong>Cocoa Ranch &amp; Industry</strong> — Programme porté par AGRO-PME Fondation
               (Cameroun).
               <br />
-              Contact DPO : <a href="mailto:dpo@cri.africa" className="text-cri-cacao hover:underline">dpo@cri.africa</a>
+              Contact DPO :{" "}
+              <a href="mailto:dpo@cri.africa" className="text-cri-cacao hover:underline">
+                dpo@cri.africa
+              </a>
             </p>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               2. Données collectées
             </h2>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>
-                <strong>Producteurs</strong> : identité, géolocalisation des parcelles (≥ 6 décimales
-                WGS84), composition du ménage (CLMRS), données économiques
+                <strong>Producteurs</strong> : identité, géolocalisation des parcelles (≥ 6
+                décimales WGS84), composition du ménage (CLMRS), données économiques
               </li>
               <li>
                 <strong>Visiteurs du site</strong> : analytique anonymisée (Plausible, sans cookie),
                 cookies strictement nécessaires (session)
               </li>
               <li>
-                <strong>Investisseurs</strong> : identité, organisation, KYC, accès aux documents, adresse
-                IP (journalisée)
+                <strong>Investisseurs</strong> : identité, organisation, KYC, accès aux documents,
+                adresse IP (journalisée)
               </li>
               <li>
                 <strong>Leads/Contacts</strong> : nom, email, message, IP hashée (SHA-256)
               </li>
             </ul>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               3. Bases légales
             </h2>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>
                 <strong>Consentement explicite</strong> pour les producteurs et la newsletter
               </li>
               <li>
-                <strong>Intérêt légitime</strong> pour la sécurité, l&apos;anti-fraude, la traçabilité
-                agricole
+                <strong>Intérêt légitime</strong> pour la sécurité, l&apos;anti-fraude, la
+                traçabilité agricole
               </li>
               <li>
-                <strong>Exécution contractuelle</strong> pour les investisseurs, clients et partenaires
+                <strong>Exécution contractuelle</strong> pour les investisseurs, clients et
+                partenaires
               </li>
               <li>
-                <strong>Obligation légale</strong> pour la conformité EUDR 2023/1115 et la régulation
-                ANTIC
+                <strong>Obligation légale</strong> pour la conformité EUDR 2023/1115 et la
+                régulation ANTIC
               </li>
             </ul>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               4. Durée de conservation
             </h2>
             <div className="overflow-x-auto">
               <table className="mt-4 w-full text-sm">
                 <thead>
-                  <tr className="border-b-2 border-cri-cacao/30">
-                    <th className="text-left py-2 text-cri-forest">Catégorie</th>
-                    <th className="text-left py-2 text-cri-forest">Durée</th>
+                  <tr className="border-cri-cacao/30 border-b-2">
+                    <th className="text-cri-forest py-2 text-left">Catégorie</th>
+                    <th className="text-cri-forest py-2 text-left">Durée</th>
                   </tr>
                 </thead>
                 <tbody className="text-cri-humus">
-                  <tr className="border-b border-cri-moss/20">
+                  <tr className="border-cri-moss/20 border-b">
                     <td className="py-2">Producteurs</td>
                     <td className="py-2">10 ans après dernière relation</td>
                   </tr>
-                  <tr className="border-b border-cri-moss/20">
+                  <tr className="border-cri-moss/20 border-b">
                     <td className="py-2">Prospects / Leads</td>
                     <td className="py-2">3 ans</td>
                   </tr>
-                  <tr className="border-b border-cri-moss/20">
+                  <tr className="border-cri-moss/20 border-b">
                     <td className="py-2">Investisseurs (KYC)</td>
                     <td className="py-2">10 ans (obligation comptable)</td>
                   </tr>
-                  <tr className="border-b border-cri-moss/20">
+                  <tr className="border-cri-moss/20 border-b">
                     <td className="py-2">Logs serveur</td>
                     <td className="py-2">1 an</td>
                   </tr>
@@ -116,13 +118,13 @@ export default function PrivacyPage() {
               </table>
             </div>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               5. Sous-traitants
             </h2>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>
-                <strong>Firebase / Google Cloud</strong> (région europe-west1) — hébergement, base de
-                données, authentification
+                <strong>Firebase / Google Cloud</strong> (région europe-west1) — hébergement, base
+                de données, authentification
               </li>
               <li>
                 <strong>Vercel</strong> — hébergement du site web (CDN edge)
@@ -137,18 +139,18 @@ export default function PrivacyPage() {
                 <strong>Sentry</strong> — monitoring d&apos;erreurs (UE)
               </li>
             </ul>
-            <p className="text-cri-humus leading-relaxed mt-3">
-              Tous nos sous-traitants sont signataires de clauses contractuelles types (SCC) pour les
-              transferts hors UE.
+            <p className="text-cri-humus mt-3 leading-relaxed">
+              Tous nos sous-traitants sont signataires de clauses contractuelles types (SCC) pour
+              les transferts hors UE.
             </p>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               6. Vos droits
             </h2>
             <p className="text-cri-humus leading-relaxed">
               Conformément au RGPD, vous disposez à tout moment des droits suivants :
             </p>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>
                 <strong>Droit d&apos;accès</strong> : savoir quelles données nous détenons sur vous
               </li>
@@ -160,8 +162,8 @@ export default function PrivacyPage() {
                 l&apos;oubli)
               </li>
               <li>
-                <strong>Droit à la portabilité</strong> : recevoir vos données dans un format structuré
-                (JSON)
+                <strong>Droit à la portabilité</strong> : recevoir vos données dans un format
+                structuré (JSON)
               </li>
               <li>
                 <strong>Droit d&apos;opposition</strong> : vous opposer à un traitement
@@ -170,22 +172,23 @@ export default function PrivacyPage() {
                 <strong>Droit à la limitation</strong> : geler temporairement un traitement
               </li>
             </ul>
-            <p className="text-cri-humus leading-relaxed mt-3">
-              Pour exercer vos droits : <a href="mailto:dpo@cri.africa" className="text-cri-cacao hover:underline">dpo@cri.africa</a>. Réponse sous{" "}
-              <strong>30 jours</strong>.
+            <p className="text-cri-humus mt-3 leading-relaxed">
+              Pour exercer vos droits :{" "}
+              <a href="mailto:dpo@cri.africa" className="text-cri-cacao hover:underline">
+                dpo@cri.africa
+              </a>
+              . Réponse sous <strong>30 jours</strong>.
             </p>
-            <p className="text-cri-humus leading-relaxed mt-2">
+            <p className="text-cri-humus mt-2 leading-relaxed">
               En cas de réclamation, vous pouvez saisir la <strong>CNIL</strong> (France) ou l&apos;
               <strong>ANTIC</strong> (Cameroun).
             </p>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
-              7. Sécurité
-            </h2>
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">7. Sécurité</h2>
             <p className="text-cri-humus leading-relaxed">
               Nous mettons en œuvre les mesures techniques et organisationnelles appropriées :
             </p>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>Chiffrement TLS 1.3 (en transit) et AES-256 (at-rest)</li>
               <li>Firestore Security Rules strictes (multi-rôles, validation des données)</li>
               <li>Authentification multi-facteur (MFA TOTP) pour les rôles sensibles</li>
@@ -194,29 +197,27 @@ export default function PrivacyPage() {
               <li>Tests d&apos;intrusion réguliers et audits de sécurité</li>
             </ul>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">
               8. Notification de violation
             </h2>
             <p className="text-cri-humus leading-relaxed">
-              En cas de violation de données personnelles, nous notifierons la CNIL et/ou l&apos;ANTIC
-              dans les <strong>72 heures</strong> et informerons les personnes concernées si la violation
-              présente un risque élevé pour leurs droits.
+              En cas de violation de données personnelles, nous notifierons la CNIL et/ou
+              l&apos;ANTIC dans les <strong>72 heures</strong> et informerons les personnes
+              concernées si la violation présente un risque élevé pour leurs droits.
             </p>
 
-            <h2 className="font-serif text-2xl font-bold text-cri-forest mt-8 mb-3">
-              9. Cookies
-            </h2>
+            <h2 className="text-cri-forest mb-3 mt-8 font-serif text-2xl font-bold">9. Cookies</h2>
             <p className="text-cri-humus leading-relaxed">Notre site utilise uniquement :</p>
-            <ul className="list-disc pl-6 text-cri-humus space-y-2 leading-relaxed">
+            <ul className="text-cri-humus list-disc space-y-2 pl-6 leading-relaxed">
               <li>
-                <strong>Cookies strictement nécessaires</strong> (session, sécurité) — pas de consentement
-                requis
+                <strong>Cookies strictement nécessaires</strong> (session, sécurité) — pas de
+                consentement requis
               </li>
               <li>
                 <strong>Plausible Analytics</strong> — analytique anonymisée, sans cookie
               </li>
             </ul>
-            <p className="text-cri-humus leading-relaxed mt-3">
+            <p className="text-cri-humus mt-3 leading-relaxed">
               Nous n&apos;utilisons aucun cookie publicitaire ou de traçage tiers.
             </p>
           </div>

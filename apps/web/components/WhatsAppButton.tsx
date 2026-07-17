@@ -42,45 +42,40 @@ export const WhatsAppButton: React.FC = () => {
     >
       {open && (
         <div
-          className="bg-white rounded-2xl shadow-2xl border-2 border-cri-gold/40 p-5 w-72 animate-fade-in-up"
+          className="border-cri-gold/40 animate-fade-in-up w-72 rounded-2xl border-2 bg-white p-5 shadow-2xl"
           role="dialog"
           aria-labelledby="wa-title"
         >
-          <div className="flex items-start justify-between mb-3">
+          <div className="mb-3 flex items-start justify-between">
             <div>
-              <p
-                id="wa-title"
-                className="font-serif font-bold text-cri-forest text-base"
-              >
+              <p id="wa-title" className="text-cri-forest font-serif text-base font-bold">
                 Discutons sur WhatsApp
               </p>
-              <p className="text-xs text-cri-ink-muted mt-0.5">
-                Réponse sous 24h ouvrées
-              </p>
+              <p className="text-cri-ink-muted mt-0.5 text-xs">Réponse sous 24h ouvrées</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="text-cri-ink-muted hover:text-cri-forest transition-colors p-1 -m-1 rounded focus:outline-none focus:ring-2 focus:ring-cri-gold"
+              className="text-cri-ink-muted hover:text-cri-forest focus:ring-cri-gold -m-1 rounded p-1 transition-colors focus:outline-none focus:ring-2"
               aria-label="Fermer la fenêtre WhatsApp"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
-          <p className="text-sm text-cri-ink-muted leading-relaxed mb-4">
-            Échangez directement avec notre équipe sur le cacao premium,
-            les provendes brevetées OAPI ou les opportunités de partenariat.
+          <p className="text-cri-ink-muted mb-4 text-sm leading-relaxed">
+            Échangez directement avec notre équipe sur le cacao premium, les provendes brevetées
+            OAPI ou les opportunités de partenariat.
           </p>
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-[#25D366] hover:bg-[#1FB85A] text-white font-semibold text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1FB85A] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
           >
             <MessageCircle className="h-4 w-4" aria-hidden="true" />
             Démarrer la discussion
           </a>
-          <p className="text-[10px] text-center text-cri-ink-muted mt-3">
+          <p className="text-cri-ink-muted mt-3 text-center text-[10px]">
             +237 694 89 77 10 · Présidence CRI
           </p>
         </div>
@@ -89,15 +84,15 @@ export const WhatsAppButton: React.FC = () => {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="group relative w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1FB85A] text-white shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-4 focus:ring-[#25D366]/40 flex items-center justify-center"
+        className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all hover:bg-[#1FB85A] hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
         aria-label={open ? "Fermer le contact WhatsApp" : "Ouvrir le contact WhatsApp"}
         aria-expanded={open}
       >
         <span
-          className="absolute inset-0 rounded-full bg-[#25D366] opacity-50 animate-ping"
+          className="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-50"
           aria-hidden="true"
         />
-        <MessageCircle className="h-6 w-6 relative z-10" aria-hidden="true" />
+        <MessageCircle className="relative z-10 h-6 w-6" aria-hidden="true" />
         <span className="sr-only">Contacter CRI sur WhatsApp</span>
       </button>
     </div>

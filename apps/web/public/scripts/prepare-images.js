@@ -179,7 +179,9 @@ async function main() {
     const lqipFile = path.join(dstDir, "_lqip.json");
     fs.writeFileSync(lqipFile, JSON.stringify(lqipMap, null, 2));
     console.log(`\n✨ Mapping LQIP sauvegardé : ${lqipFile}`);
-    console.log(`   → Importer dans les composants : import lqip from "@/../public/images/.../_lqip.json"`);
+    console.log(
+      `   → Importer dans les composants : import lqip from "@/../public/images/.../_lqip.json"`
+    );
   }
 
   console.log(`\n✅ Terminé !\n`);

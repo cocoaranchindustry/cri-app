@@ -39,10 +39,28 @@
       "subtitle": "Trusted names in sustainable cocoa, animal nutrition and impact investing"
     },
     "kpis": {
-      "producers": { "value": "1200", "label": "Supported producers", "description": "6 villages of the Mungo Basin" },
-      "hectares": { "value": "200", "label": "Ranch hectares", "description": "Agroforestry cocoa" },
-      "tons": { "value": "18000", "suffix": " t", "label": "Feed capacity / year", "description": "OAPI patent" },
-      "revenue": { "value": "1.7", "suffix": " Bn", "label": "Target revenue", "description": "FCFA by 2030" }
+      "producers": {
+        "value": "1200",
+        "label": "Supported producers",
+        "description": "6 villages of the Mungo Basin"
+      },
+      "hectares": {
+        "value": "200",
+        "label": "Ranch hectares",
+        "description": "Agroforestry cocoa"
+      },
+      "tons": {
+        "value": "18000",
+        "suffix": " t",
+        "label": "Feed capacity / year",
+        "description": "OAPI patent"
+      },
+      "revenue": {
+        "value": "1.7",
+        "suffix": " Bn",
+        "label": "Target revenue",
+        "description": "FCFA by 2030"
+      }
     },
     "poles": {
       "subtitle": "Our model",

@@ -52,10 +52,7 @@ const SUBJECTS = [
   { value: "autre", label: "Autre demande" },
 ];
 
-export const ContactForm: React.FC<ContactFormProps> = ({
-  className,
-  recaptchaSiteKey,
-}) => {
+export const ContactForm: React.FC<ContactFormProps> = ({ className, recaptchaSiteKey }) => {
   const [form, setForm] = React.useState({
     name: "",
     email: "",
@@ -93,12 +90,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       return "L'email est invalide.";
     if (!form.subject) return "Veuillez sélectionner un sujet.";
-    if (form.message.trim().length < 20)
-      return "Le message doit contenir au moins 20 caractères.";
-    if (form.message.length > 2000)
-      return "Le message ne peut pas dépasser 2 000 caractères.";
-    if (!form.consent)
-      return "Vous devez accepter le traitement de vos données (RGPD).";
+    if (form.message.trim().length < 20) return "Le message doit contenir au moins 20 caractères.";
+    if (form.message.length > 2000) return "Le message ne peut pas dépasser 2 000 caractères.";
+    if (!form.consent) return "Vous devez accepter le traitement de vos données (RGPD).";
     return null;
   };
 
@@ -143,22 +137,17 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             key="success"
             initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="rounded-2xl p-8 bg-cri-canopy/10 border-2 border-cri-canopy/30 text-center"
+            className="bg-cri-canopy/10 border-cri-canopy/30 rounded-2xl border-2 p-8 text-center"
             role="status"
             id={ids.status}
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-cri-canopy mb-4">
-              <CheckCircle2
-                className="h-8 w-8 text-cri-text-on-dark"
-                aria-hidden="true"
-              />
+            <div className="bg-cri-canopy mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full">
+              <CheckCircle2 className="text-cri-text-on-dark h-8 w-8" aria-hidden="true" />
             </div>
-            <h3 className="font-serif text-2xl font-bold text-cri-forest mb-2">
-              Message envoyé !
-            </h3>
-            <p className="text-cri-ink-muted max-w-md mx-auto">
-              Merci de nous avoir contactés. Notre équipe vous répondra dans les
-              48h ouvrées. Une copie de votre message vous a été envoyée par email.
+            <h3 className="text-cri-forest mb-2 font-serif text-2xl font-bold">Message envoyé !</h3>
+            <p className="text-cri-ink-muted mx-auto max-w-md">
+              Merci de nous avoir contactés. Notre équipe vous répondra dans les 48h ouvrées. Une
+              copie de votre message vous a été envoyée par email.
             </p>
           </motion.div>
         ) : (
@@ -172,18 +161,18 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             className="space-y-5"
             aria-describedby={state === "error" ? ids.error : undefined}
           >
-            <div className="grid sm:grid-cols-2 gap-5">
+            <div className="grid gap-5 sm:grid-cols-2">
               {/* Nom */}
               <div>
                 <label
                   htmlFor={ids.name}
-                  className="block text-sm font-semibold text-cri-forest mb-1.5"
+                  className="text-cri-forest mb-1.5 block text-sm font-semibold"
                 >
                   Nom complet <span className="text-cri-cacao">*</span>
                 </label>
                 <div className="relative">
                   <User
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-cri-ink-muted"
+                    className="text-cri-ink-muted absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2"
                     aria-hidden="true"
                   />
                   <input
@@ -204,13 +193,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               <div>
                 <label
                   htmlFor={ids.email}
-                  className="block text-sm font-semibold text-cri-forest mb-1.5"
+                  className="text-cri-forest mb-1.5 block text-sm font-semibold"
                 >
                   Email <span className="text-cri-cacao">*</span>
                 </label>
                 <div className="relative">
                   <Mail
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-cri-ink-muted"
+                    className="text-cri-ink-muted absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2"
                     aria-hidden="true"
                   />
                   <input
@@ -232,16 +221,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               <div>
                 <label
                   htmlFor={ids.phone}
-                  className="block text-sm font-semibold text-cri-forest mb-1.5"
+                  className="text-cri-forest mb-1.5 block text-sm font-semibold"
                 >
-                  Téléphone{" "}
-                  <span className="text-cri-ink-muted/60 font-normal">
-                    (optionnel)
-                  </span>
+                  Téléphone <span className="text-cri-ink-muted/60 font-normal">(optionnel)</span>
                 </label>
                 <div className="relative">
                   <Phone
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-cri-ink-muted"
+                    className="text-cri-ink-muted absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2"
                     aria-hidden="true"
                   />
                   <input
@@ -262,16 +248,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               <div>
                 <label
                   htmlFor={ids.organization}
-                  className="block text-sm font-semibold text-cri-forest mb-1.5"
+                  className="text-cri-forest mb-1.5 block text-sm font-semibold"
                 >
                   Organisation{" "}
-                  <span className="text-cri-ink-muted/60 font-normal">
-                    (optionnel)
-                  </span>
+                  <span className="text-cri-ink-muted/60 font-normal">(optionnel)</span>
                 </label>
                 <div className="relative">
                   <Building2
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-cri-ink-muted"
+                    className="text-cri-ink-muted absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2"
                     aria-hidden="true"
                   />
                   <input
@@ -279,9 +263,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                     type="text"
                     autoComplete="organization"
                     value={form.organization}
-                    onChange={(e) =>
-                      updateField("organization", e.target.value)
-                    }
+                    onChange={(e) => updateField("organization", e.target.value)}
                     className={inputBase}
                     placeholder="Coopérative, ONG, entreprise…"
                     disabled={state === "submitting"}
@@ -294,7 +276,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             <div>
               <label
                 htmlFor={ids.subject}
-                className="block text-sm font-semibold text-cri-forest mb-1.5"
+                className="text-cri-forest mb-1.5 block text-sm font-semibold"
               >
                 Sujet <span className="text-cri-cacao">*</span>
               </label>
@@ -302,7 +284,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 id={ids.subject}
                 value={form.subject}
                 onChange={(e) => updateField("subject", e.target.value)}
-                className={cn(inputBase, "pl-4 cursor-pointer")}
+                className={cn(inputBase, "cursor-pointer pl-4")}
                 required
                 disabled={state === "submitting"}
               >
@@ -319,13 +301,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             <div>
               <label
                 htmlFor={ids.message}
-                className="block text-sm font-semibold text-cri-forest mb-1.5"
+                className="text-cri-forest mb-1.5 block text-sm font-semibold"
               >
                 Message <span className="text-cri-cacao">*</span>
               </label>
               <div className="relative">
                 <MessageSquare
-                  className="absolute left-3.5 top-3.5 h-4 w-4 text-cri-ink-muted"
+                  className="text-cri-ink-muted absolute left-3.5 top-3.5 h-4 w-4"
                   aria-hidden="true"
                 />
                 <textarea
@@ -343,7 +325,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               </div>
               <p
                 className={cn(
-                  "text-xs mt-1 text-right tabular-nums",
+                  "mt-1 text-right text-xs tabular-nums",
                   charCount > 2000 ? "text-cri-cacao" : "text-cri-ink-muted/60"
                 )}
               >
@@ -352,38 +334,36 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             </div>
 
             {/* Consentement RGPD */}
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-cri-cream/50 border border-cri-moss/20">
+            <div className="bg-cri-cream/50 border-cri-moss/20 flex items-start gap-3 rounded-xl border p-4">
               <input
                 id={ids.consent}
                 type="checkbox"
                 checked={form.consent}
                 onChange={(e) => updateField("consent", e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-cri-moss/40 text-cri-cacao focus:ring-cri-gold focus:ring-2 cursor-pointer"
+                className="border-cri-moss/40 text-cri-cacao focus:ring-cri-gold mt-1 h-4 w-4 cursor-pointer rounded focus:ring-2"
                 required
                 disabled={state === "submitting"}
               />
               <label
                 htmlFor={ids.consent}
-                className="text-xs leading-relaxed text-cri-humus cursor-pointer"
+                className="text-cri-humus cursor-pointer text-xs leading-relaxed"
               >
-                <span className="text-cri-cacao">*</span> J&apos;accepte que mes
-                données personnelles soient traitées par Cocoa Ranch &amp;
-                Industry (SAS AGRO-PME Fondation) aux fins de traitement de ma
-                demande, conformément au RGPD (UE 2016/679) et à la loi
-                camerounaise n°2010/012 relative à la protection des données à
-                caractère personnel. Les données sont conservées 12 mois et
-                vous pouvez exercer vos droits (accès, rectification,
-                effacement, portabilité) à{" "}
+                <span className="text-cri-cacao">*</span> J&apos;accepte que mes données
+                personnelles soient traitées par Cocoa Ranch &amp; Industry (SAS AGRO-PME Fondation)
+                aux fins de traitement de ma demande, conformément au RGPD (UE 2016/679) et à la loi
+                camerounaise n°2010/012 relative à la protection des données à caractère personnel.
+                Les données sont conservées 12 mois et vous pouvez exercer vos droits (accès,
+                rectification, effacement, portabilité) à{" "}
                 <a
                   href="mailto:rgpd@cri-agropole.com"
-                  className="underline font-semibold text-cri-cacao hover:text-cri-forest"
+                  className="text-cri-cacao hover:text-cri-forest font-semibold underline"
                 >
                   rgpd@cri-agropole.com
                 </a>
                 .{" "}
                 <a
                   href="/privacy"
-                  className="underline hover:text-cri-cacao"
+                  className="hover:text-cri-cacao underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -400,19 +380,19 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 role="alert"
                 id={ids.error}
-                className="flex items-start gap-2 p-3 rounded-lg bg-cri-cacao/10 border border-cri-cacao/30"
+                className="bg-cri-cacao/10 border-cri-cacao/30 flex items-start gap-2 rounded-lg border p-3"
               >
                 <AlertCircle
-                  className="h-4 w-4 text-cri-cacao flex-shrink-0 mt-0.5"
+                  className="text-cri-cacao mt-0.5 h-4 w-4 flex-shrink-0"
                   aria-hidden="true"
                 />
-                <p className="text-sm text-cri-cacao">{errorMessage}</p>
+                <p className="text-cri-cacao text-sm">{errorMessage}</p>
               </motion.div>
             )}
 
             {/* reCAPTCHA notice */}
             {recaptchaSiteKey && (
-              <p className="text-[10px] text-cri-ink-muted/60 text-center">
+              <p className="text-cri-ink-muted/60 text-center text-[10px]">
                 Ce formulaire est protégé par reCAPTCHA et soumis à la{" "}
                 <a
                   href="https://policies.google.com/privacy"
@@ -440,11 +420,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               type="submit"
               disabled={state === "submitting"}
               className={cn(
-                "w-full sm:w-auto h-12 px-8 rounded-xl font-semibold text-sm",
+                "h-12 w-full rounded-xl px-8 text-sm font-semibold sm:w-auto",
                 "bg-cri-cacao text-cri-text-on-dark",
                 "hover:bg-cri-forest transition-colors",
-                "focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2",
-                "disabled:opacity-60 disabled:cursor-not-allowed",
+                "focus:ring-cri-gold focus:outline-none focus:ring-2 focus:ring-offset-2",
+                "disabled:cursor-not-allowed disabled:opacity-60",
                 "inline-flex items-center justify-center gap-2"
               )}
             >
@@ -457,10 +437,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 <>
                   <Send className="h-4 w-4" aria-hidden="true" />
                   Envoyer le message
-                  <Lock
-                    className="h-3.5 w-3.5 ml-1 opacity-70"
-                    aria-hidden="true"
-                  />
+                  <Lock className="ml-1 h-3.5 w-3.5 opacity-70" aria-hidden="true" />
                 </>
               )}
             </button>

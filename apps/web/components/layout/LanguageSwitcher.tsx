@@ -30,9 +30,7 @@ const OPTIONS = [
   { code: "en" as const, label: "English" },
 ];
 
-export const LanguageSwitcher: React.FC<{ className?: string }> = ({
-  className,
-}) => {
+export const LanguageSwitcher: React.FC<{ className?: string }> = ({ className }) => {
   const currentLocale = useLocale() as "fr" | "en";
   const pathname = usePathname();
   const router = useRouter();
@@ -57,9 +55,9 @@ export const LanguageSwitcher: React.FC<{ className?: string }> = ({
         aria-label={t("languageSwitcher")}
         className={cn(
           "flex items-center gap-1.5 rounded-md px-2.5 py-1.5",
-          "text-sm font-bold text-cri-gold transition-colors",
+          "text-cri-gold text-sm font-bold transition-colors",
           "hover:bg-cri-forest-light/20 hover:text-cri-gold-light",
-          "focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2 focus:ring-offset-cri-forest",
+          "focus:ring-cri-gold focus:ring-offset-cri-forest focus:outline-none focus:ring-2 focus:ring-offset-2",
           isPending && "opacity-60"
         )}
       >
@@ -81,8 +79,8 @@ export const LanguageSwitcher: React.FC<{ className?: string }> = ({
             role="listbox"
             aria-label={t("languageSwitcher")}
             className={cn(
-              "absolute right-0 top-full z-40 mt-2 w-44 overflow-hidden rounded-cri",
-              "bg-white text-cri-humus shadow-cri-lg border border-cri-moss/10"
+              "rounded-cri absolute right-0 top-full z-40 mt-2 w-44 overflow-hidden",
+              "text-cri-humus shadow-cri-lg border-cri-moss/10 border bg-white"
             )}
           >
             {OPTIONS.map((opt) => {
@@ -97,17 +95,17 @@ export const LanguageSwitcher: React.FC<{ className?: string }> = ({
                     className={cn(
                       "flex w-full items-center justify-between gap-2 px-3 py-2.5 text-left text-sm",
                       "hover:bg-cri-parchment hover:text-cri-canopy",
-                      "focus:outline-none focus:bg-cri-parchment",
+                      "focus:bg-cri-parchment focus:outline-none",
                       active && "text-cri-canopy font-semibold"
                     )}
                   >
                     <span className="flex items-center gap-2">
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-cri-cacao">
+                      <span className="text-cri-cacao font-mono text-[10px] font-bold uppercase tracking-widest">
                         {opt.code}
                       </span>
                       <span>{opt.label}</span>
                     </span>
-                    {active && <Check className="h-3.5 w-3.5 text-cri-canopy" aria-hidden="true" />}
+                    {active && <Check className="text-cri-canopy h-3.5 w-3.5" aria-hidden="true" />}
                   </button>
                 </li>
               );

@@ -125,11 +125,11 @@ export const KpiCounter: React.FC<KpiCounterProps> = ({
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="flex items-start justify-between gap-3 mb-2">
+      <div className="mb-2 flex items-start justify-between gap-3">
         <div className="flex-1">
           <div
             className={cn(
-              "font-serif font-bold leading-none tracking-tight tabular-nums",
+              "font-serif font-bold tabular-nums leading-none tracking-tight",
               sizeClass.value,
               variantClass.value
             )}
@@ -144,27 +144,17 @@ export const KpiCounter: React.FC<KpiCounterProps> = ({
 
       <div
         className={cn(
-          "font-semibold uppercase tracking-wider mt-3",
+          "mt-3 font-semibold uppercase tracking-wider",
           sizeClass.label,
           variantClass.label
         )}
       >
         {label}
-        {trend && (
-          <span className="ml-1.5 inline-flex text-cri-cacao">
-            {trendIcons[trend]}
-          </span>
-        )}
+        {trend && <span className="text-cri-cacao ml-1.5 inline-flex">{trendIcons[trend]}</span>}
       </div>
 
       {description && (
-        <p
-          className={cn(
-            "mt-2 leading-snug",
-            sizeClass.description,
-            variantClass.description
-          )}
-        >
+        <p className={cn("mt-2 leading-snug", sizeClass.description, variantClass.description)}>
           {description}
         </p>
       )}

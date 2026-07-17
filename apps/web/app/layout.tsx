@@ -49,7 +49,8 @@ export const metadata: Metadata = {
     "agro-industrie Cameroun",
   ],
   authors: [{ name: "Tchaha Monkam Lorraine Nadia" }, { name: "AGRO-PME Fondation" }],
-  creator: "Cocoa Ranch & Industry — Présidente : TCHAHA MONKAM epouse AWUNGIA TAZINYA Lorraine Nadia",
+  creator:
+    "Cocoa Ranch & Industry — Présidente : TCHAHA MONKAM epouse AWUNGIA TAZINYA Lorraine Nadia",
   publisher: "Cocoa Ranch & Industry",
   formatDetection: {
     telephone: false,
@@ -123,7 +124,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-cri focus:bg-cri-gold focus:px-4 focus:py-2 focus:font-bold focus:text-cri-forest focus:shadow-cri-lg focus:outline-none"
+          className="focus:rounded-cri focus:bg-cri-gold focus:text-cri-forest focus:shadow-cri-lg sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:font-bold focus:outline-none"
         >
           Aller au contenu principal
         </a>
@@ -136,4 +137,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
-

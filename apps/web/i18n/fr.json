@@ -39,10 +39,28 @@
       "subtitle": "Acteurs de référence du cacao durable, de la nutrition animale et de l'investissement à impact"
     },
     "kpis": {
-      "producers": { "value": "1200", "label": "Producteurs accompagnés", "description": "6 villages du Bassin du Mungo" },
-      "hectares": { "value": "200", "label": "Hectares de ranch", "description": "Cacaoyers agroforestiers" },
-      "tons": { "value": "18000", "suffix": " t", "label": "Capacité provendes / an", "description": "Brevet OAPI" },
-      "revenue": { "value": "1.7", "suffix": " Md", "label": "Chiffre d'affaires cible", "description": "FCFA à l'horizon 2030" }
+      "producers": {
+        "value": "1200",
+        "label": "Producteurs accompagnés",
+        "description": "6 villages du Bassin du Mungo"
+      },
+      "hectares": {
+        "value": "200",
+        "label": "Hectares de ranch",
+        "description": "Cacaoyers agroforestiers"
+      },
+      "tons": {
+        "value": "18000",
+        "suffix": " t",
+        "label": "Capacité provendes / an",
+        "description": "Brevet OAPI"
+      },
+      "revenue": {
+        "value": "1.7",
+        "suffix": " Md",
+        "label": "Chiffre d'affaires cible",
+        "description": "FCFA à l'horizon 2030"
+      }
     },
     "poles": {
       "subtitle": "Notre modèle",

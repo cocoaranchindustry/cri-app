@@ -92,7 +92,7 @@ const MapLeafletInner: React.FC<MapLeafletProps> = ({
 }) => {
   return (
     <div
-      className="rounded-2xl overflow-hidden border-2 border-cri-moss/20 shadow-soft"
+      className="border-cri-moss/20 shadow-soft overflow-hidden rounded-2xl border-2"
       style={{ height }}
     >
       <LeafletMapContainer
@@ -113,9 +113,7 @@ const MapLeafletInner: React.FC<MapLeafletProps> = ({
                 <div className="font-sans">
                   <strong className="text-cri-forest text-sm">{m.name}</strong>
                   {m.description && (
-                    <p className="text-xs text-cri-ink-muted mt-1 max-w-[200px]">
-                      {m.description}
-                    </p>
+                    <p className="text-cri-ink-muted mt-1 max-w-[200px] text-xs">{m.description}</p>
                   )}
                 </div>
               </Popup>

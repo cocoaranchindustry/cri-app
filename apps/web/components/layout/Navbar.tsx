@@ -53,7 +53,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-cri-gold/20 bg-cri-forest text-white shadow-cri-lg">
+    <header className="border-cri-gold/20 bg-cri-forest shadow-cri-lg sticky top-0 z-50 border-b-2 text-white">
       <nav
         className="container-cri flex h-20 items-center justify-between"
         aria-label="Navigation principale"
@@ -65,11 +65,7 @@ export const Navbar: React.FC = () => {
           aria-label="COCOA RANCH & INDUSTRY — Accueil"
         >
           <div className="relative">
-            <LogoMark
-              size={48}
-              priority
-              className="transition-transform group-hover:scale-105"
-            />
+            <LogoMark size={48} priority className="transition-transform group-hover:scale-105" />
             <div className="bg-cri-gold/20 absolute -inset-1 -z-10 rounded-full opacity-0 blur-md transition-opacity group-hover:opacity-100" />
           </div>
         </Link>
@@ -82,7 +78,7 @@ export const Navbar: React.FC = () => {
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "flex items-center text-sm font-bold uppercase tracking-wider transition-colors hover:text-cri-gold",
+                  "hover:text-cri-gold flex items-center text-sm font-bold uppercase tracking-wider transition-colors",
                   isActive(item.href) ? "text-cri-gold" : "text-white"
                 )}
               >
@@ -90,12 +86,12 @@ export const Navbar: React.FC = () => {
                 {item.children && <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" />}
               </Link>
               {item.children && (
-                <div className="invisible absolute left-0 top-full z-10 mt-2 w-56 rounded-cri bg-white text-cri-humus opacity-0 shadow-cri-lg transition-all group-hover:visible group-hover:opacity-100 focus-within:visible focus-within:opacity-100">
+                <div className="rounded-cri text-cri-humus shadow-cri-lg invisible absolute left-0 top-full z-10 mt-2 w-56 bg-white opacity-0 transition-all focus-within:visible focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block px-4 py-3 text-sm hover:bg-cri-parchment hover:text-cri-canopy"
+                      className="hover:bg-cri-parchment hover:text-cri-canopy block px-4 py-3 text-sm"
                     >
                       {child.label}
                     </Link>
@@ -112,7 +108,7 @@ export const Navbar: React.FC = () => {
           <Link
             href="/investisseurs"
             aria-current={isActive("/investisseurs") ? "page" : undefined}
-            className="btn bg-cri-gold px-5 py-2 text-sm text-cri-humus hover:bg-cri-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold-light focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
+            className="btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light focus-visible:ring-cri-gold-light focus-visible:ring-offset-cri-forest px-5 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             Investisseurs
           </Link>
@@ -121,7 +117,7 @@ export const Navbar: React.FC = () => {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="p-2 text-white hover:text-cri-gold lg:hidden"
+          className="hover:text-cri-gold p-2 text-white lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={isOpen}
@@ -135,7 +131,7 @@ export const Navbar: React.FC = () => {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="border-t border-cri-canopy bg-cri-forest text-white lg:hidden"
+          className="border-cri-canopy bg-cri-forest border-t text-white lg:hidden"
         >
           <ul className="container-cri space-y-1 py-4">
             {NAV_ITEMS.map((item) => (
@@ -143,10 +139,8 @@ export const Navbar: React.FC = () => {
                 {item.children ? (
                   <>
                     <button
-                      onClick={() =>
-                        setOpenSubmenu(openSubmenu === item.href ? null : item.href)
-                      }
-                      className="flex w-full items-center justify-between px-2 py-3 text-sm font-bold uppercase tracking-wider text-white hover:text-cri-gold"
+                      onClick={() => setOpenSubmenu(openSubmenu === item.href ? null : item.href)}
+                      className="hover:text-cri-gold flex w-full items-center justify-between px-2 py-3 text-sm font-bold uppercase tracking-wider text-white"
                       aria-expanded={openSubmenu === item.href}
                     >
                       {item.label}
@@ -163,7 +157,7 @@ export const Navbar: React.FC = () => {
                           <li key={child.href}>
                             <Link
                               href={child.href}
-                              className="block py-2 text-sm text-cri-parchment hover:text-cri-gold"
+                              className="text-cri-parchment hover:text-cri-gold block py-2 text-sm"
                               onClick={() => setIsOpen(false)}
                             >
                               {child.label}
@@ -176,7 +170,7 @@ export const Navbar: React.FC = () => {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block px-2 py-3 text-white hover:text-cri-gold"
+                    className="hover:text-cri-gold block px-2 py-3 text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -184,13 +178,13 @@ export const Navbar: React.FC = () => {
                 )}
               </li>
             ))}
-            <li className="border-t border-cri-canopy pt-4">
+            <li className="border-cri-canopy border-t pt-4">
               <div className="flex items-center gap-3 px-2 pb-3">
                 <LanguageSwitcher />
               </div>
               <Link
                 href="/investisseurs"
-                className="btn block bg-cri-gold py-3 text-center text-cri-humus"
+                className="btn bg-cri-gold text-cri-humus block py-3 text-center"
                 onClick={() => setIsOpen(false)}
               >
                 Espace investisseurs

@@ -130,10 +130,7 @@ export const PillarCard: React.FC<PillarCardProps> = ({
         <ul className="text-cri-parchment/85 mt-5 flex-1 space-y-2 text-sm">
           {bullets.map((b) => (
             <li key={b} className="flex items-start">
-              <Check
-                className="text-cri-gold mr-2 mt-0.5 h-4 w-4 shrink-0"
-                aria-hidden="true"
-              />
+              <Check className="text-cri-gold mr-2 mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
               <span>{b}</span>
             </li>
           ))}

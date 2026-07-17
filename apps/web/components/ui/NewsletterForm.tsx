@@ -82,12 +82,9 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
 
   return (
     <div className={cn("rounded-2xl p-7", variantClasses, className)}>
-      <div className="flex items-center gap-2 mb-3">
+      <div className="mb-3 flex items-center gap-2">
         <Mail
-          className={cn(
-            "h-5 w-5",
-            variant === "dark" ? "text-cri-gold" : "text-cri-cacao"
-          )}
+          className={cn("h-5 w-5", variant === "dark" ? "text-cri-gold" : "text-cri-cacao")}
           aria-hidden="true"
         />
         <h3
@@ -101,7 +98,7 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
       </div>
       <p
         className={cn(
-          "text-sm leading-relaxed mb-5",
+          "mb-5 text-sm leading-relaxed",
           variant === "dark" ? "text-cri-text-on-dark/80" : "text-cri-ink-muted"
         )}
       >
@@ -117,19 +114,17 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
             exit={{ opacity: 0, y: -8 }}
             role="status"
             id={statusId}
-            className="flex items-start gap-3 p-4 rounded-xl bg-cri-canopy/10 border border-cri-canopy/30"
+            className="bg-cri-canopy/10 border-cri-canopy/30 flex items-start gap-3 rounded-xl border p-4"
           >
             <CheckCircle2
-              className="h-5 w-5 text-cri-canopy flex-shrink-0 mt-0.5"
+              className="text-cri-canopy mt-0.5 h-5 w-5 flex-shrink-0"
               aria-hidden="true"
             />
             <div>
-              <p className="font-semibold text-cri-forest">
-                Merci pour votre inscription !
-              </p>
-              <p className="text-sm text-cri-ink-muted mt-1">
-                Un email de confirmation vient de vous être envoyé. Veuillez cliquer
-                sur le lien pour valider votre inscription (double opt-in RGPD).
+              <p className="text-cri-forest font-semibold">Merci pour votre inscription !</p>
+              <p className="text-cri-ink-muted mt-1 text-sm">
+                Un email de confirmation vient de vous être envoyé. Veuillez cliquer sur le lien
+                pour valider votre inscription (double opt-in RGPD).
               </p>
             </div>
           </motion.div>
@@ -163,8 +158,8 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
                 aria-invalid={state === "error"}
                 aria-describedby={state === "error" ? errorId : undefined}
                 className={cn(
-                  "w-full h-12 px-4 rounded-xl border-2 text-sm transition-colors",
-                  "focus:outline-none focus:ring-2 focus:ring-cri-gold/40 focus:border-cri-gold",
+                  "h-12 w-full rounded-xl border-2 px-4 text-sm transition-colors",
+                  "focus:ring-cri-gold/40 focus:border-cri-gold focus:outline-none focus:ring-2",
                   inputClasses
                 )}
                 disabled={state === "submitting"}
@@ -180,22 +175,22 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
                   setConsent(e.target.checked);
                   if (state === "error") setState("idle");
                 }}
-                className="mt-1 h-4 w-4 rounded border-cri-moss/40 text-cri-cacao focus:ring-cri-gold focus:ring-2"
+                className="border-cri-moss/40 text-cri-cacao focus:ring-cri-gold mt-1 h-4 w-4 rounded focus:ring-2"
                 required
                 disabled={state === "submitting"}
               />
               <label
                 htmlFor={consentId}
                 className={cn(
-                  "text-xs leading-relaxed cursor-pointer",
+                  "cursor-pointer text-xs leading-relaxed",
                   variant === "dark" ? "text-cri-text-on-dark/80" : "text-cri-ink-muted"
                 )}
               >
-                J&apos;accepte de recevoir des emails de Cocoa Ranch &amp; Industry. Mes
-                données sont traitées conformément à notre{" "}
+                J&apos;accepte de recevoir des emails de Cocoa Ranch &amp; Industry. Mes données
+                sont traitées conformément à notre{" "}
                 <a
                   href="/privacy"
-                  className="underline hover:text-cri-cacao"
+                  className="hover:text-cri-cacao underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -211,13 +206,13 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 role="alert"
                 id={errorId}
-                className="flex items-start gap-2 p-3 rounded-lg bg-cri-cacao/10 border border-cri-cacao/30"
+                className="bg-cri-cacao/10 border-cri-cacao/30 flex items-start gap-2 rounded-lg border p-3"
               >
                 <AlertCircle
-                  className="h-4 w-4 text-cri-cacao flex-shrink-0 mt-0.5"
+                  className="text-cri-cacao mt-0.5 h-4 w-4 flex-shrink-0"
                   aria-hidden="true"
                 />
-                <p className="text-sm text-cri-cacao">{errorMessage}</p>
+                <p className="text-cri-cacao text-sm">{errorMessage}</p>
               </motion.div>
             )}
 
@@ -225,11 +220,11 @@ export const NewsletterForm: React.FC<NewsletterFormProps> = ({
               type="submit"
               disabled={state === "submitting"}
               className={cn(
-                "w-full h-12 rounded-xl font-semibold text-sm",
+                "h-12 w-full rounded-xl text-sm font-semibold",
                 "bg-cri-cacao text-cri-text-on-dark",
                 "hover:bg-cri-forest transition-colors",
-                "focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2",
-                "disabled:opacity-60 disabled:cursor-not-allowed",
+                "focus:ring-cri-gold focus:outline-none focus:ring-2 focus:ring-offset-2",
+                "disabled:cursor-not-allowed disabled:opacity-60",
                 "inline-flex items-center justify-center gap-2"
               )}
             >

@@ -43,9 +43,9 @@ export default function CacaoPage() {
         />
 
         {/* KPIs */}
-        <section className="py-20 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20">
           <div className="container-cri">
-            <StaggerGroup className="grid grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+            <StaggerGroup className="grid grid-cols-2 gap-5 lg:grid-cols-4" staggerDelay={0.1}>
               <KpiCounter
                 value={1200}
                 label="Producteurs"
@@ -83,18 +83,18 @@ export default function CacaoPage() {
         <SectionDivider variant="wave" fillClassName="fill-cri-cream" height={80} />
 
         {/* PROCESS DE PRODUCTION */}
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Savoir-faire
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 Notre process de production
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+            <StaggerGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-4" staggerDelay={0.1}>
               {[
                 {
                   step: "01",
@@ -124,18 +124,19 @@ export default function CacaoPage() {
                 const Icon = s.icon;
                 return (
                   <GlassCard key={s.step} variant="default" hover className="h-full">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="font-serif text-4xl font-bold text-cri-cacao/30">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-cri-cacao/30 font-serif text-4xl font-bold">
                         {s.step}
                       </span>
-                      <div className="w-10 h-10 rounded-full bg-cri-cacao/10 text-cri-cacao flex items-center justify-center" aria-hidden="true">
+                      <div
+                        className="bg-cri-cacao/10 text-cri-cacao flex h-10 w-10 items-center justify-center rounded-full"
+                        aria-hidden="true"
+                      >
                         <Icon className="h-5 w-5" />
                       </div>
                     </div>
-                    <h3 className="font-serif text-lg font-bold text-cri-forest mb-2">
-                      {s.title}
-                    </h3>
-                    <p className="text-sm text-cri-ink-muted leading-relaxed">{s.desc}</p>
+                    <h3 className="text-cri-forest mb-2 font-serif text-lg font-bold">{s.title}</h3>
+                    <p className="text-cri-ink-muted text-sm leading-relaxed">{s.desc}</p>
                   </GlassCard>
                 );
               })}
@@ -144,21 +145,24 @@ export default function CacaoPage() {
         </section>
 
         {/* TRAÇABILITÉ */}
-        <section className="py-20 md:py-24 bg-cri-forest text-cri-text-on-dark relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.04] bg-cri-pattern-feve pointer-events-none" aria-hidden="true" />
+        <section className="bg-cri-forest text-cri-text-on-dark relative overflow-hidden py-20 md:py-24">
+          <div
+            className="bg-cri-pattern-feve pointer-events-none absolute inset-0 opacity-[0.04]"
+            aria-hidden="true"
+          />
           <div className="container-cri relative">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
               <RevealOnScroll variant="slide-right">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-gold mb-3">
+                <p className="text-cri-gold mb-3 text-[10px] font-bold uppercase tracking-[0.3em]">
                   CacaoTrace · EUDR
                 </p>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="mb-6 font-serif text-3xl font-bold md:text-4xl">
                   Traçabilité totale, de la parcelle au conteneur
                 </h2>
-                <p className="text-cri-text-on-dark/85 leading-relaxed mb-6">
-                  Chaque lot de fèves CRI est tracé individuellement : coordonnées GPS
-                  de la parcelle (≥ 6 décimales), identité du producteur, dates de
-                  récolte, fermentation et séchage, analyses physico-chimiques.
+                <p className="text-cri-text-on-dark/85 mb-6 leading-relaxed">
+                  Chaque lot de fèves CRI est tracé individuellement : coordonnées GPS de la
+                  parcelle (≥ 6 décimales), identité du producteur, dates de récolte, fermentation
+                  et séchage, analyses physico-chimiques.
                 </p>
                 <ul className="space-y-3">
                   {[
@@ -169,7 +173,10 @@ export default function CacaoPage() {
                     "Conformité Rainforest Alliance",
                   ].map((b) => (
                     <li key={b} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-cri-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      <CheckCircle2
+                        className="text-cri-gold mt-0.5 h-5 w-5 flex-shrink-0"
+                        aria-hidden="true"
+                      />
                       <span className="text-cri-text-on-dark/90">{b}</span>
                     </li>
                   ))}
@@ -177,12 +184,12 @@ export default function CacaoPage() {
               </RevealOnScroll>
 
               <RevealOnScroll variant="zoom-in" className="relative">
-                <div className="aspect-square rounded-3xl bg-gradient-to-br from-cri-canopy to-cri-forest p-12 flex items-center justify-center">
+                <div className="from-cri-canopy to-cri-forest flex aspect-square items-center justify-center rounded-3xl bg-gradient-to-br p-12">
                   <div className="text-center">
-                    <div className="inline-flex items-center justify-center w-32 h-32 rounded-3xl bg-cri-gold mb-6">
-                      <QrCode className="h-16 w-16 text-cri-forest" aria-hidden="true" />
+                    <div className="bg-cri-gold mb-6 inline-flex h-32 w-32 items-center justify-center rounded-3xl">
+                      <QrCode className="text-cri-forest h-16 w-16" aria-hidden="true" />
                     </div>
-                    <p className="font-mono text-cri-text-on-dark/80 text-sm">
+                    <p className="text-cri-text-on-dark/80 font-mono text-sm">
                       Scannez · Vérifiez · Traçabilité garantie
                     </p>
                   </div>
@@ -193,40 +200,36 @@ export default function CacaoPage() {
         </section>
 
         {/* ZONES DE PRODUCTION */}
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Origine
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 Nos zones de production
               </h2>
-              <p className="mt-4 text-cri-ink-muted leading-relaxed">
-                6 villages du Bassin du Mungo, dans le département du Moungo
-                (Région du Littoral, Cameroun).
+              <p className="text-cri-ink-muted mt-4 leading-relaxed">
+                6 villages du Bassin du Mungo, dans le département du Moungo (Région du Littoral,
+                Cameroun).
               </p>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.08}>
-              {[
-                "Njombé",
-                "Penja",
-                "Tombel",
-                "Ekombité",
-                "Loumgou",
-                "Baboutcha",
-              ].map((village) => (
+            <StaggerGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.08}>
+              {["Njombé", "Penja", "Tombel", "Ekombité", "Loumgou", "Baboutcha"].map((village) => (
                 <div
                   key={village}
-                  className="flex items-center gap-3 p-5 rounded-xl bg-cri-cream border border-cri-moss/20 hover:border-cri-cacao/40 transition-colors"
+                  className="bg-cri-cream border-cri-moss/20 hover:border-cri-cacao/40 flex items-center gap-3 rounded-xl border p-5 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-cri-cacao text-cri-text-on-dark flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="bg-cri-cacao text-cri-text-on-dark flex h-10 w-10 items-center justify-center rounded-full"
+                    aria-hidden="true"
+                  >
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-serif font-bold text-cri-forest">{village}</p>
-                    <p className="text-xs text-cri-ink-muted">Bassin du Mungo</p>
+                    <p className="text-cri-forest font-serif font-bold">{village}</p>
+                    <p className="text-cri-ink-muted text-xs">Bassin du Mungo</p>
                   </div>
                 </div>
               ))}
@@ -235,19 +238,19 @@ export default function CacaoPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-cri-cream">
-          <div className="container-cri text-center max-w-2xl">
+        <section className="bg-cri-cream py-20">
+          <div className="container-cri max-w-2xl text-center">
             <RevealOnScroll variant="zoom-in">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest mb-4">
+              <h2 className="text-cri-forest mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Intéressé par notre cacao ?
               </h2>
-              <p className="text-lg text-cri-ink-muted mb-8">
-                Contactez notre équipe commerciale pour un devis, des échantillons
-                ou une visite du ranch.
+              <p className="text-cri-ink-muted mb-8 text-lg">
+                Contactez notre équipe commerciale pour un devis, des échantillons ou une visite du
+                ranch.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-cacao text-cri-text-on-dark font-semibold hover:bg-cri-forest transition-colors focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2"
+                className="bg-cri-cacao text-cri-text-on-dark hover:bg-cri-forest focus:ring-cri-gold inline-flex h-14 items-center gap-2 rounded-xl px-8 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
               >
                 Demander un devis
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />

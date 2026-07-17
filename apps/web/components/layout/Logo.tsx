@@ -114,29 +114,19 @@ export const Logo: React.FC<LogoProps> = ({
         href="/"
         className={cn(
           "group inline-block transition-opacity hover:opacity-90",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:rounded-cri",
+          "focus-visible:ring-cri-gold focus-visible:rounded-cri focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
           className
         )}
         aria-label="COCOA RANCH & INDUSTRY — Accueil"
       >
-        <LogoImage
-          size={size}
-          variant={variant}
-          showTagline={showTagline}
-          priority={priority}
-        />
+        <LogoImage size={size} variant={variant} showTagline={showTagline} priority={priority} />
       </Link>
     );
   }
 
   return (
     <div className={cn("inline-block", className)}>
-      <LogoImage
-        size={size}
-        variant={variant}
-        showTagline={showTagline}
-        priority={priority}
-      />
+      <LogoImage size={size} variant={variant} showTagline={showTagline} priority={priority} />
     </div>
   );
 };

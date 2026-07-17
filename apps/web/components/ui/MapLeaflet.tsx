@@ -38,7 +38,13 @@ const DEFAULT_CENTER: [number, number] = [4.65, 9.85]; // Njombé-Penja, Bassin 
 const DEFAULT_ZOOM = 11;
 
 const DEFAULT_MARKERS: MapMarker[] = [
-  { id: "penja", name: "Penja (chef-lieu)", position: [4.6389, 9.8794], kind: "city", description: "Bassin du Mungo, département du Moungo" },
+  {
+    id: "penja",
+    name: "Penja (chef-lieu)",
+    position: [4.6389, 9.8794],
+    kind: "city",
+    description: "Bassin du Mungo, département du Moungo",
+  },
   { id: "njombe", name: "Njombé", position: [4.58, 9.85], kind: "city" },
   { id: "tombel", name: "Tombel", position: [4.75, 9.81], kind: "village" },
   { id: "ekombite", name: "Village Ekombité", position: [4.62, 9.92], kind: "village" },
@@ -46,8 +52,20 @@ const DEFAULT_MARKERS: MapMarker[] = [
   { id: "mamelles", name: "Mamelles", position: [4.59, 9.83], kind: "village" },
   { id: "baboutcha", name: "Baboutcha", position: [4.71, 9.86], kind: "village" },
   { id: "nkongsamba", name: "Nkongsamba", position: [4.95, 9.93], kind: "village" },
-  { id: "usine", name: "Usine de séchage CRI", position: [4.63, 9.87], kind: "site", description: "Capacité 1 200 t/an, fermentation 7 jours, séchage premium" },
-  { id: "ferme", name: "Ferme intégrée", position: [4.66, 9.89], kind: "farm", description: "200 ha de cacao agroforestier, 15 000 poulets/an" },
+  {
+    id: "usine",
+    name: "Usine de séchage CRI",
+    position: [4.63, 9.87],
+    kind: "site",
+    description: "Capacité 1 200 t/an, fermentation 7 jours, séchage premium",
+  },
+  {
+    id: "ferme",
+    name: "Ferme intégrée",
+    position: [4.66, 9.89],
+    kind: "farm",
+    description: "200 ha de cacao agroforestier, 15 000 poulets/an",
+  },
 ];
 
 /**
@@ -56,13 +74,13 @@ const DEFAULT_MARKERS: MapMarker[] = [
  */
 const MapSkeleton: React.FC<{ height: number }> = ({ height }) => (
   <div
-    className="w-full rounded-2xl bg-cri-cream border-2 border-cri-moss/20 flex items-center justify-center"
+    className="bg-cri-cream border-cri-moss/20 flex w-full items-center justify-center rounded-2xl border-2"
     style={{ height }}
     role="status"
     aria-label="Chargement de la carte"
   >
-    <div className="flex flex-col items-center gap-3 text-cri-ink-muted">
-      <Loader2 className="h-8 w-8 animate-spin text-cri-cacao" aria-hidden="true" />
+    <div className="text-cri-ink-muted flex flex-col items-center gap-3">
+      <Loader2 className="text-cri-cacao h-8 w-8 animate-spin" aria-hidden="true" />
       <p className="text-sm font-medium">Chargement de la carte…</p>
     </div>
   </div>
@@ -116,44 +134,31 @@ export const MapLeaflet: React.FC<MapLeafletProps> = ({
   return (
     <div className={cn("space-y-4", className)}>
       {/* Légende */}
-      <div
-        className="flex flex-wrap gap-3 text-xs"
-        role="list"
-        aria-label="Légende de la carte"
-      >
+      <div className="flex flex-wrap gap-3 text-xs" role="list" aria-label="Légende de la carte">
         {(Object.keys(kindLabel) as MarkerKind[]).map((kind) => (
           <div
             key={kind}
             role="listitem"
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cri-parchment border border-cri-moss/20"
+            className="bg-cri-parchment border-cri-moss/20 inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
           >
             <span
               className={cn(
-                "w-5 h-5 rounded-full flex items-center justify-center",
+                "flex h-5 w-5 items-center justify-center rounded-full",
                 kindColor[kind]
               )}
               aria-hidden="true"
             >
               {kindIcon[kind]}
             </span>
-            <span className="font-semibold text-cri-forest">
-              {kindLabel[kind]}
-            </span>
-            <span className="text-cri-ink-muted tabular-nums">
-              ({counts[kind] || 0})
-            </span>
+            <span className="text-cri-forest font-semibold">{kindLabel[kind]}</span>
+            <span className="text-cri-ink-muted tabular-nums">({counts[kind] || 0})</span>
           </div>
         ))}
       </div>
 
       {/* Carte */}
       {isClient ? (
-        <MapContainer
-          center={center}
-          zoom={zoom}
-          markers={markers}
-          height={height}
-        />
+        <MapContainer center={center} zoom={zoom} markers={markers} height={height} />
       ) : (
         <MapSkeleton height={height} />
       )}

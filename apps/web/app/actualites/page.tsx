@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Calendar,
-  ArrowRight,
-} from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
@@ -32,42 +29,48 @@ const ARTICLES: {
     date: "12 juin 2026",
     category: "Communiqués",
     title: "CRI lève 1,2 Md FCFA pour son premier closing",
-    excerpt: "L'agropole Cocoa Ranch & Industry boucle son premier tour de table avec un pool d'investisseurs panafricains et un fonds européen spécialisé.",
+    excerpt:
+      "L'agropole Cocoa Ranch & Industry boucle son premier tour de table avec un pool d'investisseurs panafricains et un fonds européen spécialisé.",
     color: "cacao",
   },
   {
     date: "4 mai 2026",
     category: "Études",
     title: "Étude : impact du brevet CRI-PROVEND CACAO sur la filière porcine camerounaise",
-    excerpt: "Notre étude de terrain, menée en partenariat avec l'IRAD, démontre une réduction de 18 % du coût d'alimentation des élevages familiaux.",
+    excerpt:
+      "Notre étude de terrain, menée en partenariat avec l'IRAD, démontre une réduction de 18 % du coût d'alimentation des élevages familiaux.",
     color: "canopy",
   },
   {
     date: "22 avril 2026",
     category: "Événement",
     title: "Salon SARA 2026 : CRI présente son modèle à Abidjan",
-    excerpt: "Retrouvez-nous du 22 au 25 mai au Salon International de l'Agriculture et des Ressources Animales d'Abidjan, stand B-42.",
+    excerpt:
+      "Retrouvez-nous du 22 au 25 mai au Salon International de l'Agriculture et des Ressources Animales d'Abidjan, stand B-42.",
     color: "gold",
   },
   {
     date: "8 mars 2026",
     category: "Communiqués",
     title: "Première livraison pilote de 12 t de fèves CacaoTrace",
-    excerpt: "Nos premiers conteneurs de fèves tracées sont en route vers Amsterdam pour un torréfacteur européen partenaire.",
+    excerpt:
+      "Nos premiers conteneurs de fèves tracées sont en route vers Amsterdam pour un torréfacteur européen partenaire.",
     color: "cacao",
   },
   {
     date: "14 février 2026",
     category: "Média",
     title: "CRI dans le magazine Forbes Africa",
-    excerpt: "Notre agropole figure dans le top 10 des « Agritech africaines à suivre en 2026 » selon Forbes Africa.",
+    excerpt:
+      "Notre agropole figure dans le top 10 des « Agritech africaines à suivre en 2026 » selon Forbes Africa.",
     color: "canopy",
   },
   {
     date: "1er janvier 2026",
     category: "Études",
     title: "Lancement opérationnel du ranch et de l'usine de séchage",
-    excerpt: "Après 18 mois de travaux, l'usine de séchage de Njombé entre en service. 1 200 producteurs sont encadrés dès le premier trimestre.",
+    excerpt:
+      "Après 18 mois de travaux, l'usine de séchage de Njombé entre en service. 1 200 producteurs sont encadrés dès le premier trimestre.",
     color: "gold",
   },
 ];
@@ -83,9 +86,7 @@ export default function NewsPage() {
 
   const visibleArticles = useMemo(
     () =>
-      activeCategory === "Tous"
-        ? ARTICLES
-        : ARTICLES.filter((a) => a.category === activeCategory),
+      activeCategory === "Tous" ? ARTICLES : ARTICLES.filter((a) => a.category === activeCategory),
     [activeCategory]
   );
 
@@ -103,17 +104,14 @@ export default function NewsPage() {
           viewportHeight
         />
 
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
             {/* Filtres catégories — fonctionnels avec aria-pressed */}
-            <RevealOnScroll
-              variant="fade"
-              className="flex flex-wrap gap-2 justify-center mb-12"
-            >
+            <RevealOnScroll variant="fade" className="mb-12 flex flex-wrap justify-center gap-2">
               <div
                 role="group"
                 aria-label="Filtrer les actualités par catégorie"
-                className="flex flex-wrap gap-2 justify-center"
+                className="flex flex-wrap justify-center gap-2"
               >
                 {CATEGORIES.map((cat) => {
                   const isActive = cat === activeCategory;
@@ -124,8 +122,8 @@ export default function NewsPage() {
                       aria-pressed={isActive}
                       onClick={() => setActiveCategory(cat)}
                       className={cn(
-                        "px-4 py-2 rounded-full text-sm font-semibold border-2 transition-colors min-h-[40px]",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2",
+                        "min-h-[40px] rounded-full border-2 px-4 py-2 text-sm font-semibold transition-colors",
+                        "focus-visible:ring-cri-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                         isActive
                           ? "bg-cri-cacao text-cri-text-on-dark border-cri-cacao"
                           : "bg-cri-cream border-cri-moss/20 text-cri-forest hover:border-cri-cacao/40 hover:bg-cri-cacao/5"
@@ -139,44 +137,39 @@ export default function NewsPage() {
             </RevealOnScroll>
 
             {visibleArticles.length === 0 ? (
-              <p
-                role="status"
-                className="text-center text-cri-ink-muted py-12"
-              >
+              <p role="status" className="text-cri-ink-muted py-12 text-center">
                 Aucun article dans cette catégorie pour le moment.
               </p>
             ) : (
               <StaggerGroup
                 key={activeCategory}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
                 staggerDelay={0.1}
               >
                 {visibleArticles.map((a) => (
                   <Link
                     key={a.title}
                     href="#"
-                    className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 rounded-2xl"
+                    className="focus-visible:ring-cri-gold block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                     aria-label={`Lire : ${a.title}`}
                   >
-                    <article className="h-full p-6 rounded-2xl bg-cri-cream border-2 border-cri-moss/20 hover:border-cri-cacao/40 hover:shadow-soft transition-all hover:-translate-y-1">
-                      <div className="flex items-center gap-2 mb-4">
+                    <article className="bg-cri-cream border-cri-moss/20 hover:border-cri-cacao/40 hover:shadow-soft h-full rounded-2xl border-2 p-6 transition-all hover:-translate-y-1">
+                      <div className="mb-4 flex items-center gap-2">
                         <span
-                          className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border ${colorMap[a.color]}`}
+                          className={`rounded-md border px-2 py-1 text-[10px] font-bold uppercase tracking-wider ${colorMap[a.color]}`}
                         >
                           {a.category}
                         </span>
-                        <span className="text-xs text-cri-ink-muted flex items-center gap-1">
+                        <span className="text-cri-ink-muted flex items-center gap-1 text-xs">
                           <Calendar className="h-3 w-3" aria-hidden="true" />
                           {a.date}
                         </span>
                       </div>
-                      <h3 className="font-serif text-lg font-bold text-cri-forest leading-tight mb-3">
+                      <h3 className="text-cri-forest mb-3 font-serif text-lg font-bold leading-tight">
                         {a.title}
                       </h3>
-                      <p className="text-sm text-cri-ink-muted leading-relaxed mb-4">
-                        {a.excerpt}
-                      </p>
-                      <span className="inline-flex items-center gap-2 text-cri-cacao font-semibold text-sm">
+                      <p className="text-cri-ink-muted mb-4 text-sm leading-relaxed">{a.excerpt}</p>
+                      <span className="text-cri-cacao inline-flex items-center gap-2 text-sm font-semibold">
                         Lire l&apos;article
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </span>
@@ -190,16 +183,16 @@ export default function NewsPage() {
 
         <SectionDivider variant="leaf" fillClassName="fill-cri-cream" height={80} />
 
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <div className="grid lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-2">
               <RevealOnScroll variant="slide-left">
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest mb-4">
+                <h2 className="text-cri-forest mb-4 font-serif text-3xl font-bold md:text-4xl">
                   Ne manquez aucune actualité
                 </h2>
-                <p className="text-lg text-cri-ink-muted leading-relaxed">
-                  Recevez nos communiqués et publications par email, à raison
-                  d&apos;une lettre par trimestre. Désabonnement en un clic.
+                <p className="text-cri-ink-muted text-lg leading-relaxed">
+                  Recevez nos communiqués et publications par email, à raison d&apos;une lettre par
+                  trimestre. Désabonnement en un clic.
                 </p>
               </RevealOnScroll>
               <RevealOnScroll variant="slide-right">

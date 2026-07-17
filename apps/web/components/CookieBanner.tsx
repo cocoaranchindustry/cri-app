@@ -50,7 +50,7 @@ export const CookieBanner: React.FC = () => {
       <div className="flex items-start justify-between gap-3">
         <h2
           id="cookie-title"
-          className="text-cri-gold font-serif text-lg font-bold flex items-center gap-2"
+          className="text-cri-gold flex items-center gap-2 font-serif text-lg font-bold"
         >
           <Cookie className="h-5 w-5" aria-hidden="true" />
           Cookies &amp; confidentialité
@@ -58,7 +58,7 @@ export const CookieBanner: React.FC = () => {
         <button
           type="button"
           onClick={refuse}
-          className="text-cri-parchment/80 hover:text-white rounded-md p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold"
+          className="text-cri-parchment/80 focus-visible:ring-cri-gold rounded-md p-1 hover:text-white focus-visible:outline-none focus-visible:ring-2"
           aria-label="Fermer"
         >
           <X className="h-4 w-4" />
@@ -69,7 +69,7 @@ export const CookieBanner: React.FC = () => {
         d&apos;analyse anonymisé (Plausible, sans cookie). Aucun traceur publicitaire.
         <Link
           href="/privacy"
-          className="text-cri-gold ml-1 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold rounded"
+          className="text-cri-gold focus-visible:ring-cri-gold ml-1 rounded underline focus-visible:outline-none focus-visible:ring-2"
         >
           Politique de confidentialité
         </Link>
@@ -79,14 +79,14 @@ export const CookieBanner: React.FC = () => {
         <button
           type="button"
           onClick={accept}
-          className="bg-cri-gold text-cri-humus rounded-cri hover:bg-cri-gold-light flex-1 px-4 py-2.5 text-sm font-bold transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
+          className="bg-cri-gold text-cri-humus rounded-cri hover:bg-cri-gold-light focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest min-h-[44px] flex-1 px-4 py-2.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         >
           Accepter
         </button>
         <button
           type="button"
           onClick={refuse}
-          className="border-cri-parchment/30 rounded-cri hover:bg-cri-canopy flex-1 border bg-transparent px-4 py-2.5 text-sm font-bold text-white transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
+          className="border-cri-parchment/30 rounded-cri hover:bg-cri-canopy focus-visible:ring-cri-gold focus-visible:ring-offset-cri-forest min-h-[44px] flex-1 border bg-transparent px-4 py-2.5 text-sm font-bold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         >
           Refuser
         </button>

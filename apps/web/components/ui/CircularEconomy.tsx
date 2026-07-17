@@ -87,12 +87,12 @@ export const CircularEconomy: React.FC<{ className?: string }> = ({ className })
 
   return (
     <div ref={ref} className={cn("relative", className)}>
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="grid items-center gap-12 lg:grid-cols-2">
         {/* Visuel SVG circulaire */}
-        <div className="relative aspect-square max-w-md mx-auto w-full">
+        <div className="relative mx-auto aspect-square w-full max-w-md">
           <svg
             viewBox="0 0 400 400"
-            className="w-full h-full"
+            className="h-full w-full"
             aria-hidden="true"
             role="presentation"
           >
@@ -194,14 +194,7 @@ export const CircularEconomy: React.FC<{ className?: string }> = ({ className })
             >
               CIRCULAIRE
             </text>
-            <text
-              x="200"
-              y="235"
-              textAnchor="middle"
-              fill="#3D3320"
-              fontSize="10"
-              fontWeight="500"
-            >
+            <text x="200" y="235" textAnchor="middle" fill="#3D3320" fontSize="10" fontWeight="500">
               100 % valorisé
             </text>
           </svg>
@@ -224,31 +217,23 @@ export const CircularEconomy: React.FC<{ className?: string }> = ({ className })
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: "easeOut" }}
               >
-                <GlassCard
-                  variant="default"
-                  hover
-                  className="flex items-center gap-4 p-4"
-                >
+                <GlassCard variant="default" hover className="flex items-center gap-4 p-4">
                   <div
                     className={cn(
-                      "flex items-center justify-center w-10 h-10 rounded-full border-2 flex-shrink-0",
+                      "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2",
                       colorClass
                     )}
                   >
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono text-cri-ink-muted">
+                      <span className="text-cri-ink-muted font-mono text-xs">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="font-serif font-semibold text-cri-forest">
-                        {step.label}
-                      </h3>
+                      <h3 className="text-cri-forest font-serif font-semibold">{step.label}</h3>
                     </div>
-                    <p className="text-sm text-cri-humus/80 mt-0.5">
-                      {step.description}
-                    </p>
+                    <p className="text-cri-humus/80 mt-0.5 text-sm">{step.description}</p>
                   </div>
                 </GlassCard>
               </motion.div>

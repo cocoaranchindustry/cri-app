@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Drumstick,
-  ArrowRight,
-  Award,
-  Package,
-} from "lucide-react";
+import { Drumstick, ArrowRight, Award, Package } from "lucide-react";
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -33,18 +28,18 @@ export default function ProductsPage() {
           viewportHeight
         />
 
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Notre gamme
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 4 produits, 1 modèle circulaire
               </h2>
             </RevealOnScroll>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid gap-6 md:grid-cols-2">
               <ProductCard
                 category="cacao"
                 title="Fèves Cacao Premium"
@@ -111,34 +106,49 @@ export default function ProductsPage() {
 
         <SectionDivider variant="leaf" fillClassName="fill-cri-cream" height={80} />
 
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Élevage
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-4xl">
                 Viandes de la ferme intégrée
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.1}>
+            <StaggerGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" staggerDelay={0.1}>
               {[
-                { icon: Drumstick, name: "Poulets de chair", desc: "1,8-2,2 kg à 45 jours. Alimentés CRI-PROVEND CACAO." },
-                { icon: Package, name: "Cuisses & filets", desc: "Découpe à la demande, sous vide, livraison 48h." },
-                { icon: Award, name: "Porc frais", desc: "Carcasse entière ou découpe. Race Large White locale." },
+                {
+                  icon: Drumstick,
+                  name: "Poulets de chair",
+                  desc: "1,8-2,2 kg à 45 jours. Alimentés CRI-PROVEND CACAO.",
+                },
+                {
+                  icon: Package,
+                  name: "Cuisses & filets",
+                  desc: "Découpe à la demande, sous vide, livraison 48h.",
+                },
+                {
+                  icon: Award,
+                  name: "Porc frais",
+                  desc: "Carcasse entière ou découpe. Race Large White locale.",
+                },
               ].map((p) => {
                 const Icon = p.icon;
                 return (
                   <div
                     key={p.name}
-                    className="p-6 rounded-2xl bg-cri-parchment border-2 border-cri-moss/20 hover:border-cri-cacao/40 transition-colors"
+                    className="bg-cri-parchment border-cri-moss/20 hover:border-cri-cacao/40 rounded-2xl border-2 p-6 transition-colors"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center mb-4" aria-hidden="true">
+                    <div
+                      className="bg-cri-canopy/10 text-cri-canopy mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                      aria-hidden="true"
+                    >
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="font-serif text-xl font-bold text-cri-forest mb-2">{p.name}</h3>
-                    <p className="text-sm text-cri-ink-muted leading-relaxed">{p.desc}</p>
+                    <h3 className="text-cri-forest mb-2 font-serif text-xl font-bold">{p.name}</h3>
+                    <p className="text-cri-ink-muted text-sm leading-relaxed">{p.desc}</p>
                   </div>
                 );
               })}
@@ -146,19 +156,19 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-cri-forest text-cri-text-on-dark">
-          <div className="container-cri text-center max-w-2xl">
+        <section className="bg-cri-forest text-cri-text-on-dark py-20">
+          <div className="container-cri max-w-2xl text-center">
             <RevealOnScroll variant="zoom-in">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Commander nos produits
               </h2>
-              <p className="text-lg text-cri-text-on-dark/85 mb-8">
-                Devis personnalisé sous 24h. Livraison Bassin du Mungo et
-                départements limitrophes. Export international sur demande.
+              <p className="text-cri-text-on-dark/85 mb-8 text-lg">
+                Devis personnalisé sous 24h. Livraison Bassin du Mungo et départements limitrophes.
+                Export international sur demande.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-gold text-cri-humus font-semibold hover:bg-cri-gold-light transition-colors focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2 focus:ring-offset-cri-forest"
+                className="bg-cri-gold text-cri-humus hover:bg-cri-gold-light focus:ring-cri-gold focus:ring-offset-cri-forest inline-flex h-14 items-center gap-2 rounded-xl px-8 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
               >
                 Demander un devis
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />

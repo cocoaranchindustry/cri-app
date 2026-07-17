@@ -35,30 +35,31 @@ git push -u origin main
 
 Dans l'onglet **Variables** du service, ajouter **toutes** les variables du fichier `apps/web/.env.example`. Voici les **obligatoires** pour la mise en ligne :
 
-| Variable | Valeur exemple | Obligatoire |
-|---|---|---|
-| `NEXT_PUBLIC_APP_URL` | `https://cri-app.up.railway.app` | ✅ |
-| `NEXT_PUBLIC_APP_ENV` | `production` | ✅ |
-| `NEXT_PUBLIC_FIREBASE_API_KEY` | `<depuis Firebase Console>` | ⚠️ Requis pour Auth |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `cri-app.firebaseapp.com` | ⚠️ |
-| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `cri-app` | ⚠️ |
-| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `cri-app.appspot.com` | ⚠️ |
-| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `<10 chiffres>` | ⚠️ |
-| `NEXT_PUBLIC_FIREBASE_APP_ID` | `<depuis Firebase>` | ⚠️ |
-| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | `G-XXXXXXXXXX` | Optionnel |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | `cri.africa` | Optionnel |
-| `SESSION_COOKIE_SECRET` | `<32+ caractères aléatoires>` | ⚠️ Pour routes protégées |
-| `ENCRYPTION_KEY` | `<32 bytes base64>` | ⚠️ Pour données sensibles |
-| `BREVO_API_KEY` | `<depuis Brevo>` | Optionnel (newsletter) |
-| `SENTRY_DSN` | `<depuis Sentry>` | Optionnel (monitoring) |
-| `PORT` | `3000` (auto par Railway) | Auto |
-| `HOSTNAME` | `0.0.0.0` (auto par Railway) | Auto |
+| Variable                                   | Valeur exemple                   | Obligatoire               |
+| ------------------------------------------ | -------------------------------- | ------------------------- |
+| `NEXT_PUBLIC_APP_URL`                      | `https://cri-app.up.railway.app` | ✅                        |
+| `NEXT_PUBLIC_APP_ENV`                      | `production`                     | ✅                        |
+| `NEXT_PUBLIC_FIREBASE_API_KEY`             | `<depuis Firebase Console>`      | ⚠️ Requis pour Auth       |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `cri-app.firebaseapp.com`        | ⚠️                        |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `cri-app`                        | ⚠️                        |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`      | `cri-app.appspot.com`            | ⚠️                        |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `<10 chiffres>`                  | ⚠️                        |
+| `NEXT_PUBLIC_FIREBASE_APP_ID`              | `<depuis Firebase>`              | ⚠️                        |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | `G-XXXXXXXXXX`                   | Optionnel                 |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`             | `cri.africa`                     | Optionnel                 |
+| `SESSION_COOKIE_SECRET`                    | `<32+ caractères aléatoires>`    | ⚠️ Pour routes protégées  |
+| `ENCRYPTION_KEY`                           | `<32 bytes base64>`              | ⚠️ Pour données sensibles |
+| `BREVO_API_KEY`                            | `<depuis Brevo>`                 | Optionnel (newsletter)    |
+| `SENTRY_DSN`                               | `<depuis Sentry>`                | Optionnel (monitoring)    |
+| `PORT`                                     | `3000` (auto par Railway)        | Auto                      |
+| `HOSTNAME`                                 | `0.0.0.0` (auto par Railway)     | Auto                      |
 
 > **Important** : `FIREBASE_PRIVATE_KEY` doit être saisi **en une seule ligne** avec les `\n` conservés. Railway le détecte automatiquement.
 
 ### Étape 4 — Configurer Firebase (domaines autorisés)
 
 Dans **Firebase Console → Authentication → Settings → Authorized domains**, ajouter :
+
 - `cri-app.up.railway.app` (ou votre domaine Railway)
 - Votre domaine custom (ex. `cri.africa`)
 
@@ -119,32 +120,38 @@ curl -I https://<votre-app>.up.railway.app/projet
 
 ## 💰 Coûts estimés
 
-| Plan | Coût | Limites |
-|---|---|---|
-| **Trial** | Gratuit ($5 crédit) | 500h/mois, 1GB RAM |
-| **Hobby** | $5/mois + usage | 8GB RAM, 100GB egress |
-| **Pro** | $20/mois + usage | 32GB RAM, illimité |
+| Plan      | Coût                | Limites               |
+| --------- | ------------------- | --------------------- |
+| **Trial** | Gratuit ($5 crédit) | 500h/mois, 1GB RAM    |
+| **Hobby** | $5/mois + usage     | 8GB RAM, 100GB egress |
+| **Pro**   | $20/mois + usage    | 32GB RAM, illimité    |
 
 Pour le site CRI (Next.js statique + Server Components), le plan **Hobby à $5/mois** suffit largement (~50-200 MB RAM, < 10 GB egress/mois).
 
 ## 🚨 Dépannage
 
 ### Build échoue avec "Cannot find module"
+
 → Vérifier que `package-lock.json` est commité. Le `npm ci` en a besoin.
 
 ### Build échoue avec "Module not found: Can't resolve '@/...' "
+
 → Les alias `@/*` sont définis dans `apps/web/tsconfig.json` → `paths`. Le build Next.js les résout automatiquement, pas d'action requise.
 
 ### L'app démarre mais 404 sur toutes les routes
+
 → Vérifier que `NEXT_PUBLIC_APP_URL` correspond à l'URL Railway. Cette variable est utilisée dans `metadataBase` (voir `apps/web/app/layout.tsx`).
 
 ### `FIREBASE_PRIVATE_KEY` invalide
+
 → Dans Railway, saisir la clé **avec les `\n` littéraux** (pas de conversion automatique). Format attendu :
+
 ```
 -----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n
 ```
 
 ### i18n : `/en` affiche une 404
+
 → Vérifier que `apps/web/app/[locale]/page.tsx` existe (déplacé depuis `app/page.tsx`). Si vous mettez à jour le code, ne pas oublier de redéployer.
 
 ## 📚 Ressources

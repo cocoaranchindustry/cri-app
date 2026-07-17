@@ -39,31 +39,56 @@ export default function ImpactPage() {
           viewportHeight
         />
 
-        <section className="py-20 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20">
           <div className="container-cri">
-            <StaggerGroup className="grid grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
-              <KpiCounter value={1200} label="Producteurs" description="Encadrés et formés" icon={<Users className="h-5 w-5" />} trend="up" />
-              <KpiCounter value={0} label="Déforestation" description="0 ha perdu (vérifié satellite)" icon={<TreePine className="h-5 w-5" />} trend="stable" />
-              <KpiCounter value={100} suffix=" %" label="Valorisation" description="Tous les sous-produits" icon={<Recycle className="h-5 w-5" />} trend="up" />
-              <KpiCounter value={5000} label="Familles" description="Impact social direct" icon={<Heart className="h-5 w-5" />} trend="up" />
+            <StaggerGroup className="grid grid-cols-2 gap-5 lg:grid-cols-4" staggerDelay={0.1}>
+              <KpiCounter
+                value={1200}
+                label="Producteurs"
+                description="Encadrés et formés"
+                icon={<Users className="h-5 w-5" />}
+                trend="up"
+              />
+              <KpiCounter
+                value={0}
+                label="Déforestation"
+                description="0 ha perdu (vérifié satellite)"
+                icon={<TreePine className="h-5 w-5" />}
+                trend="stable"
+              />
+              <KpiCounter
+                value={100}
+                suffix=" %"
+                label="Valorisation"
+                description="Tous les sous-produits"
+                icon={<Recycle className="h-5 w-5" />}
+                trend="up"
+              />
+              <KpiCounter
+                value={5000}
+                label="Familles"
+                description="Impact social direct"
+                icon={<Heart className="h-5 w-5" />}
+                trend="up"
+              />
             </StaggerGroup>
           </div>
         </section>
 
         <SectionDivider variant="wave" fillClassName="fill-cri-cream" height={80} />
 
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Piliers RSE
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 3 engagements mesurables
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid lg:grid-cols-3 gap-6" staggerDelay={0.12}>
+            <StaggerGroup className="grid gap-6 lg:grid-cols-3" staggerDelay={0.12}>
               <ImpactBlock
                 icon={<ShieldCheck className="h-7 w-7" />}
                 title="Conformité EUDR"
@@ -99,18 +124,18 @@ export default function ImpactPage() {
         </section>
 
         {/* CERTIFICATIONS */}
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Certifications
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 Nos certifications
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-4" staggerDelay={0.08}>
+            <StaggerGroup className="grid grid-cols-2 gap-4 md:grid-cols-4" staggerDelay={0.08}>
               {[
                 "EUDR",
                 "OAPI",
@@ -123,12 +148,10 @@ export default function ImpactPage() {
               ].map((cert) => (
                 <div
                   key={cert}
-                  className="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-cri-cream border-2 border-cri-moss/20 hover:border-cri-gold/50 transition-colors"
+                  className="bg-cri-cream border-cri-moss/20 hover:border-cri-gold/50 flex aspect-square flex-col items-center justify-center rounded-2xl border-2 p-4 transition-colors"
                 >
-                  <Award className="h-10 w-10 text-cri-cacao mb-2" aria-hidden="true" />
-                  <p className="font-serif font-bold text-cri-forest text-center text-sm">
-                    {cert}
-                  </p>
+                  <Award className="text-cri-cacao mb-2 h-10 w-10" aria-hidden="true" />
+                  <p className="text-cri-forest text-center font-serif text-sm font-bold">{cert}</p>
                 </div>
               ))}
             </StaggerGroup>
@@ -136,18 +159,19 @@ export default function ImpactPage() {
         </section>
 
         {/* RAPPORTS TÉLÉCHARGEABLES */}
-        <section className="py-20 md:py-24 bg-cri-forest text-cri-text-on-dark">
+        <section className="bg-cri-forest text-cri-text-on-dark py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-gold mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-gold mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Documentation
               </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold">
-                Rapports d&apos;impact
-              </h2>
+              <h2 className="font-serif text-3xl font-bold md:text-4xl">Rapports d&apos;impact</h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto" staggerDelay={0.1}>
+            <StaggerGroup
+              className="mx-auto grid max-w-5xl gap-5 md:grid-cols-3"
+              staggerDelay={0.1}
+            >
               {[
                 { title: "Rapport d'impact 2024", size: "2.4 Mo", date: "Mars 2025" },
                 { title: "Rapport ESG 2024", size: "1.8 Mo", date: "Février 2025" },
@@ -155,16 +179,16 @@ export default function ImpactPage() {
               ].map((doc) => (
                 <div
                   key={doc.title}
-                  className="p-6 rounded-2xl bg-cri-forest-light/30 backdrop-blur-md border-2 border-cri-gold/20 hover:border-cri-gold/50 transition-all"
+                  className="bg-cri-forest-light/30 border-cri-gold/20 hover:border-cri-gold/50 rounded-2xl border-2 p-6 backdrop-blur-md transition-all"
                 >
-                  <Calendar className="h-6 w-6 text-cri-gold mb-3" aria-hidden="true" />
-                  <h3 className="font-serif text-lg font-bold mb-2">{doc.title}</h3>
-                  <p className="text-xs text-cri-text-on-dark/60 mb-4">
+                  <Calendar className="text-cri-gold mb-3 h-6 w-6" aria-hidden="true" />
+                  <h3 className="mb-2 font-serif text-lg font-bold">{doc.title}</h3>
+                  <p className="text-cri-text-on-dark/60 mb-4 text-xs">
                     PDF · {doc.size} · {doc.date}
                   </p>
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 text-cri-gold font-semibold text-sm hover:gap-3 transition-all focus:outline-none focus:ring-2 focus:ring-cri-gold rounded-md px-2 py-1"
+                    className="text-cri-gold focus:ring-cri-gold inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm font-semibold transition-all hover:gap-3 focus:outline-none focus:ring-2"
                   >
                     <Download className="h-4 w-4" aria-hidden="true" />
                     Télécharger
@@ -175,19 +199,19 @@ export default function ImpactPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-cri-cream">
-          <div className="container-cri text-center max-w-2xl">
+        <section className="bg-cri-cream py-20">
+          <div className="container-cri max-w-2xl text-center">
             <RevealOnScroll variant="zoom-in">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest mb-4">
+              <h2 className="text-cri-forest mb-4 font-serif text-3xl font-bold md:text-4xl">
                 Rejoignez notre démarche
               </h2>
-              <p className="text-lg text-cri-ink-muted mb-8">
-                Producteurs, ONG, chercheurs : nous accueillons tous les acteurs
-                engagés pour la cacaoculture durable.
+              <p className="text-cri-ink-muted mb-8 text-lg">
+                Producteurs, ONG, chercheurs : nous accueillons tous les acteurs engagés pour la
+                cacaoculture durable.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-cacao text-cri-text-on-dark font-semibold hover:bg-cri-forest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2"
+                className="bg-cri-cacao text-cri-text-on-dark hover:bg-cri-forest focus-visible:ring-cri-gold inline-flex h-14 items-center gap-2 rounded-xl px-8 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               >
                 Devenir partenaire
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
@@ -207,14 +231,20 @@ const ImpactBlock: React.FC<{ icon: React.ReactNode; title: string; points: stri
   points,
 }) => (
   <GlassCard variant="default" hover className="h-full p-7">
-    <div className="w-14 h-14 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center mb-5" aria-hidden="true">
+    <div
+      className="bg-cri-canopy/10 text-cri-canopy mb-5 flex h-14 w-14 items-center justify-center rounded-xl"
+      aria-hidden="true"
+    >
       {icon}
     </div>
-    <h3 className="font-serif text-2xl font-bold text-cri-forest mb-4">{title}</h3>
+    <h3 className="text-cri-forest mb-4 font-serif text-2xl font-bold">{title}</h3>
     <ul className="space-y-2">
       {points.map((p) => (
-        <li key={p} className="flex items-start gap-2 text-sm text-cri-humus">
-          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cri-cacao flex-shrink-0" aria-hidden="true" />
+        <li key={p} className="text-cri-humus flex items-start gap-2 text-sm">
+          <span
+            className="bg-cri-cacao mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+            aria-hidden="true"
+          />
           <span>{p}</span>
         </li>
       ))}

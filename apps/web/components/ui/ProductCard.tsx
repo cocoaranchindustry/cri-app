@@ -98,22 +98,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <GlassCard
         variant="default"
         hover
-        className="relative h-full p-7 flex flex-col overflow-hidden"
+        className="relative flex h-full flex-col overflow-hidden p-7"
       >
         {/* Gradient hover overlay */}
         <div
           className={cn(
-            "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none",
-            "bg-gradient-to-br from-transparent via-transparent to-cri-gold/5"
+            "pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+            "to-cri-gold/5 bg-gradient-to-br from-transparent via-transparent"
           )}
           aria-hidden="true"
         />
 
         {/* Header */}
-        <div className="flex items-start gap-4 mb-5">
+        <div className="mb-5 flex items-start gap-4">
           <div
             className={cn(
-              "w-14 h-14 rounded-xl flex items-center justify-center border-2 flex-shrink-0",
+              "flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl border-2",
               meta.accentBg,
               meta.accentText,
               meta.accentBorder
@@ -122,35 +122,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           >
             {icon ?? (Icon ? <Icon className="h-7 w-7" /> : null)}
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             <p
               className={cn(
-                "text-[10px] font-bold uppercase tracking-widest mb-1",
+                "mb-1 text-[10px] font-bold uppercase tracking-widest",
                 meta.accentText
               )}
             >
               {meta.label}
             </p>
-            <h3 className="font-serif text-2xl font-bold text-cri-forest leading-tight">
-              {title}
-            </h3>
-            <p className="text-sm text-cri-ink-muted mt-1">{subtitle}</p>
+            <h3 className="text-cri-forest font-serif text-2xl font-bold leading-tight">{title}</h3>
+            <p className="text-cri-ink-muted mt-1 text-sm">{subtitle}</p>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-cri-humus leading-relaxed mb-5">{description}</p>
+        <p className="text-cri-humus mb-5 leading-relaxed">{description}</p>
 
         {/* Highlights */}
-        <ul className="space-y-2 mb-5 flex-1">
+        <ul className="mb-5 flex-1 space-y-2">
           {highlights.map((h, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-2 text-sm text-cri-humus"
-            >
+            <li key={i} className="text-cri-humus flex items-start gap-2 text-sm">
               <span
                 className={cn(
-                  "mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0",
+                  "mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full",
                   meta.accentText.replace("text-", "bg-")
                 )}
                 aria-hidden="true"
@@ -162,11 +157,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Certifications */}
         {certifications && certifications.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="mb-4 flex flex-wrap gap-1.5">
             {certifications.map((cert) => (
               <span
                 key={cert}
-                className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md bg-cri-moss/10 text-cri-canopy border border-cri-moss/20"
+                className="bg-cri-moss/10 text-cri-canopy border-cri-moss/20 rounded-md border px-2 py-1 text-[10px] font-semibold uppercase tracking-wider"
               >
                 {cert}
               </span>
@@ -179,7 +174,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <a
             href={ctaHref}
             className={cn(
-              "inline-flex items-center gap-2 mt-auto pt-4 border-t border-cri-moss/20",
+              "border-cri-moss/20 mt-auto inline-flex items-center gap-2 border-t pt-4",
               "text-sm font-semibold transition-colors",
               meta.accentText,
               "hover:gap-3"

@@ -83,10 +83,7 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
 
   const scrollPrev = React.useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = React.useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-  const scrollTo = React.useCallback(
-    (i: number) => emblaApi?.scrollTo(i),
-    [emblaApi]
-  );
+  const scrollTo = React.useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
 
   return (
     <div className={cn("relative", className)}>
@@ -97,28 +94,22 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
             return (
               <div
                 key={i}
-                className="flex-[0_0_100%] md:flex-[0_0_60%] lg:flex-[0_0_45%] min-w-0"
+                className="min-w-0 flex-[0_0_100%] md:flex-[0_0_60%] lg:flex-[0_0_45%]"
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${i + 1} sur ${TESTIMONIALS.length}`}
               >
-                <GlassCard
-                  variant="default"
-                  className="h-full p-8 flex flex-col justify-between"
-                >
+                <GlassCard variant="default" className="flex h-full flex-col justify-between p-8">
                   <div>
-                    <Quote
-                      className="h-10 w-10 text-cri-gold/40 mb-4"
-                      aria-hidden="true"
-                    />
-                    <p className="font-serif text-lg md:text-xl text-cri-humus leading-relaxed italic">
+                    <Quote className="text-cri-gold/40 mb-4 h-10 w-10" aria-hidden="true" />
+                    <p className="text-cri-humus font-serif text-lg italic leading-relaxed md:text-xl">
                       &ldquo;{t.quote}&rdquo;
                     </p>
                   </div>
                   <div className="mt-8 flex items-center gap-4">
                     <div
                       className={cn(
-                        "w-14 h-14 rounded-full flex items-center justify-center font-serif font-bold text-2xl",
+                        "flex h-14 w-14 items-center justify-center rounded-full font-serif text-2xl font-bold",
                         avatarClass
                       )}
                       aria-hidden="true"
@@ -126,15 +117,11 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
                       {t.avatar}
                     </div>
                     <div>
-                      <p className="font-serif font-bold text-cri-forest text-lg">
-                        {t.author}
-                      </p>
-                      <p className="text-sm text-cri-ink-muted">
+                      <p className="text-cri-forest font-serif text-lg font-bold">{t.author}</p>
+                      <p className="text-cri-ink-muted text-sm">
                         {t.role} · {t.location}
                       </p>
-                      <p className="text-xs text-cri-cacao font-medium mt-0.5">
-                        {t.years}
-                      </p>
+                      <p className="text-cri-cacao mt-0.5 text-xs font-medium">{t.years}</p>
                     </div>
                   </div>
                 </GlassCard>
@@ -148,7 +135,7 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
       <div className="mt-8 flex items-center justify-center gap-4">
         <button
           onClick={scrollPrev}
-          className="h-11 w-11 rounded-full bg-cri-parchment border border-cri-moss/40 flex items-center justify-center text-cri-forest hover:bg-cri-canopy hover:text-cri-text-on-dark transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold"
+          className="bg-cri-parchment border-cri-moss/40 text-cri-forest hover:bg-cri-canopy hover:text-cri-text-on-dark focus-visible:ring-cri-gold flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2"
           aria-label="Témoignage précédent"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
@@ -160,10 +147,8 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
               key={i}
               onClick={() => scrollTo(i)}
               className={cn(
-                "h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold",
-                i === selectedIndex
-                  ? "w-8 bg-cri-cacao"
-                  : "w-2 bg-cri-moss/40 hover:bg-cri-moss"
+                "focus-visible:ring-cri-gold h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2",
+                i === selectedIndex ? "bg-cri-cacao w-8" : "bg-cri-moss/40 hover:bg-cri-moss w-2"
               )}
               aria-label={`Aller au témoignage ${i + 1}`}
               aria-current={i === selectedIndex}
@@ -173,7 +158,7 @@ export const TestimonialSlider: React.FC<{ className?: string }> = ({ className 
 
         <button
           onClick={scrollNext}
-          className="h-11 w-11 rounded-full bg-cri-parchment border border-cri-moss/40 flex items-center justify-center text-cri-forest hover:bg-cri-canopy hover:text-cri-text-on-dark transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold"
+          className="bg-cri-parchment border-cri-moss/40 text-cri-forest hover:bg-cri-canopy hover:text-cri-text-on-dark focus-visible:ring-cri-gold flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2"
           aria-label="Témoignage suivant"
         >
           <ChevronRight className="h-5 w-5" aria-hidden="true" />

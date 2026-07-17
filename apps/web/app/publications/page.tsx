@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  FileText,
-  Download,
-  Calendar,
-  Award,
-  Beaker,
-  TrendingUp,
-  Newspaper,
-} from "lucide-react";
+import { FileText, Download, Calendar, Award, Beaker, TrendingUp, Newspaper } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
@@ -23,7 +15,8 @@ const PUBLICATIONS = [
     icon: TrendingUp,
     type: "Business plan",
     title: "Business Plan 2026-2030 (résumé exécutif)",
-    description: "Plan d&apos;affaires synthétique : modèle économique, projections financières, roadmap.",
+    description:
+      "Plan d&apos;affaires synthétique : modèle économique, projections financières, roadmap.",
     size: "2.4 Mo",
     date: "Mars 2026",
     color: "cacao",
@@ -96,34 +89,34 @@ export default function PublicationsPage() {
           viewportHeight
         />
 
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.1}>
+            <StaggerGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.1}>
               {PUBLICATIONS.map((doc) => {
                 const Icon = doc.icon;
                 return (
                   <article
                     key={doc.title}
-                    className="h-full p-6 rounded-2xl bg-cri-cream border-2 border-cri-moss/20 hover:border-cri-cacao/40 hover:shadow-soft transition-all hover:-translate-y-1"
+                    className="bg-cri-cream border-cri-moss/20 hover:border-cri-cacao/40 hover:shadow-soft h-full rounded-2xl border-2 p-6 transition-all hover:-translate-y-1"
                   >
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="mb-4 flex items-start justify-between">
                       <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center ${colorMap[doc.color as keyof typeof colorMap]}`}
+                        className={`flex h-12 w-12 items-center justify-center rounded-xl ${colorMap[doc.color as keyof typeof colorMap]}`}
                         aria-hidden="true"
                       >
                         <Icon className="h-6 w-6" />
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-cri-cacao">
+                      <span className="text-cri-cacao text-[10px] font-bold uppercase tracking-wider">
                         {doc.type}
                       </span>
                     </div>
-                    <h3 className="font-serif text-lg font-bold text-cri-forest leading-tight mb-3">
+                    <h3 className="text-cri-forest mb-3 font-serif text-lg font-bold leading-tight">
                       {doc.title}
                     </h3>
-                    <p className="text-sm text-cri-ink-muted leading-relaxed mb-5">
+                    <p className="text-cri-ink-muted mb-5 text-sm leading-relaxed">
                       {doc.description}
                     </p>
-                    <div className="flex items-center justify-between text-xs text-cri-ink-muted mb-4 pb-4 border-t border-cri-moss/20 pt-3">
+                    <div className="text-cri-ink-muted border-cri-moss/20 mb-4 flex items-center justify-between border-t pb-4 pt-3 text-xs">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" aria-hidden="true" />
                         {doc.date}
@@ -132,7 +125,7 @@ export default function PublicationsPage() {
                     </div>
                     <button
                       type="button"
-                      className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-lg bg-cri-cacao text-cri-text-on-dark text-sm font-semibold hover:bg-cri-forest transition-colors focus:outline-none focus:ring-2 focus:ring-cri-gold"
+                      className="bg-cri-cacao text-cri-text-on-dark hover:bg-cri-forest focus:ring-cri-gold inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg text-sm font-semibold transition-colors focus:outline-none focus:ring-2"
                     >
                       <Download className="h-4 w-4" aria-hidden="true" />
                       Télécharger

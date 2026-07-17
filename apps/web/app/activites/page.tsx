@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  Leaf,
-  Wheat,
-  Drumstick,
-  ArrowRight,
-} from "lucide-react";
+import { Leaf, Wheat, Drumstick, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
@@ -29,8 +24,7 @@ const POLES = [
     description:
       "Collecte, fermentation et séchage de fèves premium auprès de 1 200 producteurs encadrés. Traçabilité CacaoTrace, certification EUDR.",
     accent: "cacao",
-    image:
-      "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=1200&q=80",
   },
   {
     href: "/activites/provendes",
@@ -40,8 +34,7 @@ const POLES = [
     description:
       "Valorisation des cabosses de cacao en aliments pour bétail « CRI-PROVEND CACAO ». Brevet OAPI, -15 % vs marché.",
     accent: "gold",
-    image:
-      "https://images.unsplash.com/photo-1620004085588-a982825a5327?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1620004085588-a982825a5327?w=1200&q=80",
   },
   {
     href: "/activites/elevage",
@@ -51,8 +44,7 @@ const POLES = [
     description:
       "15 000 poulets/an et porcs d'engraissement. Cycle 45 jours, alimentés par la provenderie interne. Biofertilisants issus des fientes.",
     accent: "canopy",
-    image:
-      "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&q=80",
   },
 ] as const;
 
@@ -78,18 +70,18 @@ export default function ActivitiesPage() {
         />
 
         {/* HUB : 3 PÔLES */}
-        <section className="py-20 md:py-24 bg-cri-parchment">
+        <section className="bg-cri-parchment py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Notre modèle intégré
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 Découvrez nos 3 pôles
               </h2>
             </RevealOnScroll>
 
-            <StaggerGroup className="grid lg:grid-cols-3 gap-6" staggerDelay={0.15}>
+            <StaggerGroup className="grid gap-6 lg:grid-cols-3" staggerDelay={0.15}>
               {POLES.map((pole) => {
                 const Icon = pole.icon;
                 return (
@@ -99,9 +91,9 @@ export default function ActivitiesPage() {
                     className="group block h-full"
                     aria-label={`Découvrir ${pole.title}`}
                   >
-                    <article className="relative h-full rounded-2xl overflow-hidden bg-cri-cream border-2 border-cri-moss/20 hover:border-cri-gold/50 hover:shadow-soft transition-all duration-300 hover:-translate-y-1">
+                    <article className="bg-cri-cream border-cri-moss/20 hover:border-cri-gold/50 hover:shadow-soft relative h-full overflow-hidden rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1">
                       {/* Image */}
-                      <div className="aspect-[16/9] overflow-hidden bg-cri-moss/10">
+                      <div className="bg-cri-moss/10 aspect-[16/9] overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={pole.image}
@@ -112,24 +104,24 @@ export default function ActivitiesPage() {
                       </div>
                       {/* Contenu */}
                       <div className="p-7">
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="mb-4 flex items-center gap-3">
                           <div
-                            className={`w-12 h-12 rounded-xl flex items-center justify-center ${accentMap[pole.accent]}`}
+                            className={`flex h-12 w-12 items-center justify-center rounded-xl ${accentMap[pole.accent]}`}
                             aria-hidden="true"
                           >
                             <Icon className="h-6 w-6" />
                           </div>
-                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cri-cacao">
+                          <span className="text-cri-cacao text-[10px] font-bold uppercase tracking-[0.2em]">
                             {pole.label}
                           </span>
                         </div>
-                        <h3 className="font-serif text-2xl font-bold text-cri-forest mb-3">
+                        <h3 className="text-cri-forest mb-3 font-serif text-2xl font-bold">
                           {pole.title}
                         </h3>
-                        <p className="text-sm text-cri-ink-muted leading-relaxed mb-5">
+                        <p className="text-cri-ink-muted mb-5 text-sm leading-relaxed">
                           {pole.description}
                         </p>
-                        <span className="inline-flex items-center gap-2 text-cri-cacao font-semibold text-sm group-hover:gap-3 transition-all">
+                        <span className="text-cri-cacao inline-flex items-center gap-2 text-sm font-semibold transition-all group-hover:gap-3">
                           Découvrir
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
                         </span>
@@ -145,16 +137,16 @@ export default function ActivitiesPage() {
         <SectionDivider variant="leaf" fillClassName="fill-cri-cream" height={80} />
 
         {/* ÉCONOMIE CIRCULAIRE */}
-        <section className="py-20 md:py-24 bg-cri-cream">
+        <section className="bg-cri-cream py-20 md:py-24">
           <div className="container-cri">
-            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+            <RevealOnScroll variant="slide-up" className="mx-auto mb-12 max-w-2xl text-center">
+              <p className="text-cri-cacao mb-2 text-[10px] font-bold uppercase tracking-[0.3em]">
                 Économie circulaire
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+              <h2 className="text-cri-forest font-serif text-3xl font-bold md:text-5xl">
                 100 % de la fève est valorisée
               </h2>
-              <p className="mt-4 text-cri-ink-muted leading-relaxed">
+              <p className="text-cri-ink-muted mt-4 leading-relaxed">
                 Notre modèle en boucle fermée transforme chaque sous-produit en ressource.
               </p>
             </RevealOnScroll>

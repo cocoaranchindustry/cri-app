@@ -89,15 +89,15 @@ export const Timeline2026: React.FC<{ className?: string }> = ({ className }) =>
       <div className="relative">
         {/* Connection line - horizontal on desktop, vertical on mobile */}
         <div
-          className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cri-cacao via-cri-canopy to-cri-gold md:hidden"
+          className="from-cri-cacao via-cri-canopy to-cri-gold absolute bottom-0 left-4 top-0 w-0.5 bg-gradient-to-b md:hidden"
           aria-hidden="true"
         />
         <div
-          className="absolute left-0 right-0 top-6 h-0.5 bg-gradient-to-r from-cri-cacao via-cri-canopy to-cri-gold hidden md:block"
+          className="from-cri-cacao via-cri-canopy to-cri-gold absolute left-0 right-0 top-6 hidden h-0.5 bg-gradient-to-r md:block"
           aria-hidden="true"
         />
 
-        <ol className="space-y-8 md:space-y-0 md:grid md:grid-cols-5 md:gap-4 relative">
+        <ol className="relative space-y-8 md:grid md:grid-cols-5 md:gap-4 md:space-y-0">
           {MILESTONES.map((m, i) => {
             const dotColor = colorClasses[m.color as keyof typeof colorClasses];
             return (
@@ -115,16 +115,16 @@ export const Timeline2026: React.FC<{ className?: string }> = ({ className }) =>
                 {/* Dot marker */}
                 <div
                   className={cn(
-                    "absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 md:top-2",
-                    "w-8 h-8 md:w-12 md:h-12 rounded-full border-4",
+                    "absolute left-0 top-0 md:left-1/2 md:top-2 md:-translate-x-1/2",
+                    "h-8 w-8 rounded-full border-4 md:h-12 md:w-12",
                     dotColor,
                     "flex items-center justify-center",
                     "shadow-md",
-                    m.status === "current" && "ring-4 ring-cri-gold/30"
+                    m.status === "current" && "ring-cri-gold/30 ring-4"
                   )}
                   aria-hidden="true"
                 >
-                  <span className="text-cri-text-on-dark font-bold text-xs md:text-sm">
+                  <span className="text-cri-text-on-dark text-xs font-bold md:text-sm">
                     {m.year.toString().slice(-2)}
                   </span>
                 </div>
@@ -133,37 +133,28 @@ export const Timeline2026: React.FC<{ className?: string }> = ({ className }) =>
                 <div
                   className={cn(
                     "rounded-xl p-5 transition-all duration-200",
-                    "bg-cri-parchment border border-cri-moss/30 shadow-soft",
-                    "hover:shadow-md hover:-translate-y-1",
-                    m.status === "current" && "ring-2 ring-cri-gold/50"
+                    "bg-cri-parchment border-cri-moss/30 shadow-soft border",
+                    "hover:-translate-y-1 hover:shadow-md",
+                    m.status === "current" && "ring-cri-gold/50 ring-2"
                   )}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-serif text-2xl font-bold text-cri-forest">
-                      {m.year}
-                    </span>
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="text-cri-forest font-serif text-2xl font-bold">{m.year}</span>
                     {m.status === "current" && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cri-gold/20 text-cri-gold-dark">
+                      <span className="bg-cri-gold/20 text-cri-gold-dark rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
                         En cours
                       </span>
                     )}
                   </div>
-                  <h3 className="font-serif text-lg font-semibold text-cri-canopy mb-2">
+                  <h3 className="text-cri-canopy mb-2 font-serif text-lg font-semibold">
                     {m.title}
                   </h3>
-                  <p className="text-sm text-cri-humus/80 leading-relaxed mb-3">
-                    {m.description}
-                  </p>
-                  <dl className="space-y-1 pt-3 border-t border-cri-moss/20">
+                  <p className="text-cri-humus/80 mb-3 text-sm leading-relaxed">{m.description}</p>
+                  <dl className="border-cri-moss/20 space-y-1 border-t pt-3">
                     {m.metrics.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="flex items-center justify-between text-sm"
-                      >
+                      <div key={metric.label} className="flex items-center justify-between text-sm">
                         <dt className="text-cri-ink-muted">{metric.label}</dt>
-                        <dd className="font-mono font-semibold text-cri-cacao">
-                          {metric.value}
-                        </dd>
+                        <dd className="text-cri-cacao font-mono font-semibold">{metric.value}</dd>
                       </div>
                     ))}
                   </dl>
