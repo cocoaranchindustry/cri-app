@@ -1,314 +1,223 @@
-import Link from "next/link";
+"use client";
+
 import {
-  ArrowRight,
-  Leaf,
-  Users,
   ShieldCheck,
-  TrendingUp,
+  Recycle,
+  Heart,
+  Users,
   TreePine,
   Award,
-  Globe2,
+  ArrowRight,
+  Download,
+  Calendar,
 } from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionImpact } from "@/components/ui/SectionImpact";
-import { SectionCTA } from "@/components/ui/SectionCTA";
-import { KpiCard } from "@/components/ui/KpiCard";
-import { ChartGrowth, SproutLeaf } from "@/components/ui/Illustrations";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Impact RSE — Zéro déforestation, zéro déchet, zéro CO₂",
-  description:
-    "Rapport d'impact RSE de Cocoa Ranch & Industry : conformité EUDR 2023/1115, 100 % économie circulaire, 5 000 producteurs accompagnés, certifications Rainforest Alliance et Fair Trade.",
-  keywords: [
-    "impact RSE cacao",
-    "EUDR Cameroun",
-    "zéro déforestation",
-    "économie circulaire",
-    "Rainforest Alliance",
-    "Fair Trade cacao",
-    "développement durable",
-  ],
-  openGraph: {
-    title: "Impact RSE — Cocoa Ranch & Industry",
-    description:
-      "5 000 producteurs, 100 % circulaire, conformité EUDR. Notre impact social et environnemental mesuré.",
-    type: "website",
-  },
-};
+import { GlassCard } from "@/components/ui/GlassCard";
+import { KpiCounter } from "@/components/ui/KpiCounter";
+import { RevealOnScroll, StaggerGroup } from "@/components/ui/RevealOnScroll";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 /**
- * Page /impact — Rapport d'impact RSE
- * Brandbook CRI v5 : dominante verte, or cacao, parchemin.
- *
- * Sections :
- * 1. Hero
- * 2. 3 piliers RSE (Social, Environnemental, Économique)
- * 3. KPIs d'impact
- * 4. Engagements et certifications
- * 5. Conformité EUDR
- * 6. CTA
+ * Page /impact — Impact RSE, certifications, rapports
  */
-
-const PILLARS = [
-  {
-    icon: Users,
-    title: "Impact social",
-    color: "cri-forest",
-    items: [
-      "5 000 producteurs accompagnés d'ici 2028",
-      "1 000+ emplois directs et indirects créés",
-      "40 %+ de jeunes et de femmes dans les équipes",
-      "Rémunération > 50 % du prix FOB pour les planteurs",
-      "Programme de formation et d'insertion professionnelle",
-    ],
-  },
-  {
-    icon: Leaf,
-    title: "Impact environnemental",
-    color: "cri-canopy",
-    items: [
-      "Zéro déforestation : traçabilité parcelle → conteneur",
-      "100 % des sous-produits cacao valorisés (circularité)",
-      "Biofertilisants à partir des fientes de la ferme intégrée",
-      "Plantations en agroforesterie : ombrage, biodiversité",
-      "Réduction de 35 % de l'empreinte CO₂ vs filière classique",
-    ],
-  },
-  {
-    icon: TrendingUp,
-    title: "Impact économique",
-    color: "cri-cacao",
-    items: [
-      "1,7 Md FCFA de chiffre d'affaires cible à 2028",
-      "Création d'une filière porcine et avicole locale",
-      "Réduction de 15 % du coût des provendes pour les éleveurs",
-      "Développement de l'export premium vers l'Union européenne",
-      "350+ M FCFA de taxes et cotisations annuelles",
-    ],
-  },
-];
-
-const CERTIFICATIONS = [
-  { label: "EUDR 2023/1115", desc: "Traçabilité complète (géoloc ≥ 6 déc.)" },
-  { label: "Rainforest Alliance", desc: "Cacao durable, biodiversité" },
-  { label: "Fair Trade", desc: "Commerce équitable, prime collective" },
-  { label: "ISO 22000", desc: "Sécurité alimentaire" },
-  { label: "HACCP", desc: "Maîtrise des risques sanitaires" },
-  { label: "OAPI", desc: "Brevet formulation provendes" },
-];
 
 export default function ImpactPage() {
   return (
     <>
       <Navbar />
-
-      <main id="main">
-        {/* ─────── HERO ─────── */}
+      <main id="main-content" tabIndex={-1}>
         <PageHero
+          variant="image"
+          image="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80"
+          imageAlt="Forêt tropicale dense — engagement zéro déforestation"
           badge="Impact RSE"
           title="Zéro déforestation, zéro déchet, zéro CO₂"
-          subtitle={
-            <>
-              Notre engagement RSE est adossé au programme <strong>CIMAR-Technopôle</strong> :
-              promotion de l&apos;agroécologie, formation-insertion des jeunes et des femmes,
-              diffusion des bio-intrants.
-            </>
-          }
+          subtitle="Notre engagement RSE est adossé au programme CIMAR-Technopôle : promotion de l'agroécologie, formation-insertion des jeunes et des femmes, diffusion des bio-intrants."
+          viewportHeight
         />
 
-        {/* ─────── 3 PILIERS RSE ─────── */}
-        <section className="section-parchment">
+        <section className="py-20 bg-cri-parchment">
           <div className="container-cri">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <span className="text-label text-cri-cacao font-bold uppercase tracking-wider">
-                Nos engagements
-              </span>
-              <h2 className="mt-3 text-3xl md:text-4xl">Trois piliers pour un impact durable</h2>
-              <p className="text-cri-humus mt-4 text-lg">
-                Conformément aux Objectifs de Développement Durable de l&apos;ONU (ODD 1, 5, 8, 12,
-                13, 15), nous mesurons et publions chaque année notre performance extra-financière.
+            <StaggerGroup className="grid grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+              <KpiCounter value={1200} label="Producteurs" description="Encadrés et formés" icon={<Users className="h-5 w-5" />} trend="up" />
+              <KpiCounter value={0} label="Déforestation" description="0 ha perdu (vérifié satellite)" icon={<TreePine className="h-5 w-5" />} trend="stable" />
+              <KpiCounter value={100} suffix=" %" label="Valorisation" description="Tous les sous-produits" icon={<Recycle className="h-5 w-5" />} trend="up" />
+              <KpiCounter value={5000} label="Familles" description="Impact social direct" icon={<Heart className="h-5 w-5" />} trend="up" />
+            </StaggerGroup>
+          </div>
+        </section>
+
+        <SectionDivider variant="wave" fillClassName="fill-cri-cream" height={80} />
+
+        <section className="py-20 md:py-24 bg-cri-cream">
+          <div className="container-cri">
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Piliers RSE
               </p>
-            </div>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {PILLARS.map((pillar) => (
-                <article key={pillar.title} className="card">
-                  <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-full bg-${pillar.color} mb-6 text-white`}
-                  >
-                    <pillar.icon className="h-7 w-7" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-2xl">{pillar.title}</h3>
-                  <ul className="text-cri-humus mt-6 space-y-3 text-sm">
-                    {pillar.items.map((item) => (
-                      <li key={item} className="flex items-start">
-                        <span className="text-cri-gold mr-2 mt-0.5">✓</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
+              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+                3 engagements mesurables
+              </h2>
+            </RevealOnScroll>
+
+            <StaggerGroup className="grid lg:grid-cols-3 gap-6" staggerDelay={0.12}>
+              <ImpactBlock
+                icon={<ShieldCheck className="h-7 w-7" />}
+                title="Conformité EUDR"
+                points={[
+                  "Traçabilité parcelle → conteneur",
+                  "Géoloc ≥ 6 décimales",
+                  "0 ha de déforestation (vérifié satellite)",
+                  "Conformité CacaoTrace",
+                ]}
+              />
+              <ImpactBlock
+                icon={<Recycle className="h-7 w-7" />}
+                title="100 % circulaire"
+                points={[
+                  "Cabosses → provendes brevetées",
+                  "Fientes → biofertilisants",
+                  "Biomasse → énergie",
+                  "Zéro déchet en décharge",
+                ]}
+              />
+              <ImpactBlock
+                icon={<Heart className="h-7 w-7" />}
+                title="Impact social"
+                points={[
+                  "1 200 producteurs encadrés",
+                  "Insertion 30 jeunes/an",
+                  "Coopérative féminine (40 %)",
+                  "Programme alphabétisation",
+                ]}
+              />
+            </StaggerGroup>
           </div>
         </section>
 
-        {/* ─────── BANDE IMMERSIVE : COURBE DE CROISSANCE + POUSSES ─────── */}
-        <section className="relative">
-          <ChartGrowth className="w-full" />
-          <div className="from-cri-forest-dark/85 via-cri-forest/50 pointer-events-none absolute inset-0 bg-gradient-to-r to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 max-w-2xl md:bottom-12 md:left-12">
-            <span className="bg-cri-gold text-cri-humus text-label rounded-cri mb-3 inline-block px-3 py-1 font-bold uppercase tracking-wider">
-              Notre trajectoire
-            </span>
-            <p className="font-serif text-2xl leading-snug text-white md:text-3xl">
-              +260 % de production en 5 ans, +1 000 emplois, 100 % circulaire.
-            </p>
-          </div>
-        </section>
-
-        {/* ─────── KPIs D'IMPACT ─────── */}
-        <SectionImpact
-          title="Notre impact en chiffres (objectif 2028)"
-          subtitle="Indicateurs mesurés annuellement et audités par un cabinet tiers"
-          withPattern
-        >
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            <KpiCard
-              value={5000}
-              label="Producteurs accompagnés"
-              suffix="+"
-              trend="up"
-              description="Coopérative ancrée dans 6 villages du Bassin du Mungo"
-            />
-            <KpiCard
-              value={1000}
-              label="Emplois créés"
-              suffix="+"
-              trend="up"
-              description="Directs et indirects, 40 %+ jeunes et femmes"
-            />
-            <KpiCard
-              value={100}
-              label="Valorisation matière"
-              suffix=" %"
-              trend="up"
-              description="100 % des sous-produits cacao recyclés"
-            />
-            <KpiCard
-              value={35}
-              label="Réduction CO₂"
-              suffix=" %"
-              trend="up"
-              description="Vs filière cacao conventionnelle (mesure Carbone 4)"
-            />
-          </div>
-        </SectionImpact>
-
-        {/* ─────── EUDR ─────── */}
-        <section className="section bg-cri-forest text-white">
+        {/* CERTIFICATIONS */}
+        <section className="py-20 md:py-24 bg-cri-parchment">
           <div className="container-cri">
-            <div className="grid items-center gap-12 md:grid-cols-2">
-              <div>
-                <span className="text-label text-cri-gold font-bold uppercase tracking-wider">
-                  Conformité réglementaire
-                </span>
-                <h2 className="mt-3 text-3xl text-white md:text-4xl">
-                  EUDR 2023/1115 : prêt pour le marché européen
-                </h2>
-                <p className="text-cri-parchment mt-4 text-lg">
-                  Le Règlement européen contre la déforestation (EUDR) impose aux importateurs de
-                  cacao de prouver la traçabilité parcelle par parcelle, avec géolocalisation ≥ 6
-                  décimales WGS84 et polygons géographiques.
-                </p>
-                <p className="text-cri-parchment mt-4">
-                  Notre plateforme <strong>CacaoTrace</strong> collecte les données terrain via
-                  application mobile, les vérifie par imagerie satellite, et génère automatiquement
-                  les déclarations de diligence raisonnée.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <Link href="/traceability" className="btn-gold">
-                    Découvrir CacaoTrace
-                    <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                  </Link>
-                </div>
-              </div>
-              <div className="space-y-4">
-                {[
-                  {
-                    icon: Globe2,
-                    title: "Géolocalisation ≥ 6 décimales",
-                    text: "Chaque parcelle est géolocalisée avec précision < 10 cm.",
-                  },
-                  {
-                    icon: ShieldCheck,
-                    title: "Polygons et surfaces",
-                    text: "Emprise au sol calculée par satellite (Sentinel-2).",
-                  },
-                  {
-                    icon: TreePine,
-                    title: "Vérification de non-déforestation",
-                    text: "Analyse diachronique 2020-2025 par IA (modèle CRI-Forest).",
-                  },
-                ].map((b) => (
-                  <div
-                    key={b.title}
-                    className="rounded-cri border border-white/15 bg-white/10 p-6 backdrop-blur-sm"
-                  >
-                    <div className="flex items-start gap-4">
-                      <b.icon className="text-cri-gold h-8 w-8 flex-shrink-0" aria-hidden="true" />
-                      <div>
-                        <h3 className="text-lg text-white">{b.title}</h3>
-                        <p className="text-cri-parchment mt-1 text-sm">{b.text}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Certifications
+              </p>
+              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+                Nos certifications
+              </h2>
+            </RevealOnScroll>
 
-        {/* ─────── CERTIFICATIONS ─────── */}
-        <section className="section-parchment relative overflow-hidden">
-          <div className="pointer-events-none absolute -bottom-12 -right-12 opacity-15">
-            <SproutLeaf className="h-80 w-80" />
-          </div>
-          <div className="container-cri relative">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <span className="text-label text-cri-cacao font-bold uppercase tracking-wider">
-                Reconnaissances
-              </span>
-              <h2 className="mt-3 text-3xl md:text-4xl">Certifications et labels</h2>
-            </div>
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
-              {CERTIFICATIONS.map((c) => (
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-4" staggerDelay={0.08}>
+              {[
+                "EUDR",
+                "OAPI",
+                "Rainforest Alliance",
+                "CacaoTrace",
+                "ISO 22000",
+                "BioSPG",
+                "Commerce Équitable",
+                "Carbon Neutral",
+              ].map((cert) => (
                 <div
-                  key={c.label}
-                  className="card hover:shadow-cri-md text-center transition-shadow"
+                  key={cert}
+                  className="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-cri-cream border-2 border-cri-moss/20 hover:border-cri-gold/50 transition-colors"
                 >
-                  <Award className="text-cri-gold mx-auto h-12 w-12" aria-hidden="true" />
-                  <h3 className="mt-4 text-lg">{c.label}</h3>
-                  <p className="text-cri-humus mt-2 text-sm">{c.desc}</p>
+                  <Award className="h-10 w-10 text-cri-cacao mb-2" aria-hidden="true" />
+                  <p className="font-serif font-bold text-cri-forest text-center text-sm">
+                    {cert}
+                  </p>
                 </div>
               ))}
-            </div>
+            </StaggerGroup>
           </div>
         </section>
 
-        {/* ─────── CTA ─────── */}
-        <SectionCTA
-          title="Téléchargez notre rapport d'impact 2025"
-          description="Le rapport complet (40 pages, format PDF) détaille nos indicateurs ESG, les audits tiers et les perspectives 2026-2030."
-          primaryCta={{ href: "/publications", label: "Voir les publications" }}
-          secondaryCta={{ href: "/contact", label: "Demander un échange" }}
-          variant="gold"
-        />
-      </main>
+        {/* RAPPORTS TÉLÉCHARGEABLES */}
+        <section className="py-20 md:py-24 bg-cri-forest text-cri-text-on-dark">
+          <div className="container-cri">
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-gold mb-2">
+                Documentation
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold">
+                Rapports d&apos;impact
+              </h2>
+            </RevealOnScroll>
 
+            <StaggerGroup className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto" staggerDelay={0.1}>
+              {[
+                { title: "Rapport d'impact 2024", size: "2.4 Mo", date: "Mars 2025" },
+                { title: "Rapport ESG 2024", size: "1.8 Mo", date: "Février 2025" },
+                { title: "Bilan carbone 2024", size: "1.2 Mo", date: "Janvier 2025" },
+              ].map((doc) => (
+                <div
+                  key={doc.title}
+                  className="p-6 rounded-2xl bg-cri-forest-light/30 backdrop-blur-md border-2 border-cri-gold/20 hover:border-cri-gold/50 transition-all"
+                >
+                  <Calendar className="h-6 w-6 text-cri-gold mb-3" aria-hidden="true" />
+                  <h3 className="font-serif text-lg font-bold mb-2">{doc.title}</h3>
+                  <p className="text-xs text-cri-text-on-dark/60 mb-4">
+                    PDF · {doc.size} · {doc.date}
+                  </p>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 text-cri-gold font-semibold text-sm hover:gap-3 transition-all focus:outline-none focus:ring-2 focus:ring-cri-gold rounded-md px-2 py-1"
+                  >
+                    <Download className="h-4 w-4" aria-hidden="true" />
+                    Télécharger
+                  </button>
+                </div>
+              ))}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        <section className="py-20 bg-cri-cream">
+          <div className="container-cri text-center max-w-2xl">
+            <RevealOnScroll variant="zoom-in">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest mb-4">
+                Rejoignez notre démarche
+              </h2>
+              <p className="text-lg text-cri-ink-muted mb-8">
+                Producteurs, ONG, chercheurs : nous accueillons tous les acteurs
+                engagés pour la cacaoculture durable.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-cacao text-cri-text-on-dark font-semibold hover:bg-cri-forest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2"
+              >
+                Devenir partenaire
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              </Link>
+            </RevealOnScroll>
+          </div>
+        </section>
+      </main>
       <Footer />
     </>
   );
 }
+
+const ImpactBlock: React.FC<{ icon: React.ReactNode; title: string; points: string[] }> = ({
+  icon,
+  title,
+  points,
+}) => (
+  <GlassCard variant="default" hover className="h-full p-7">
+    <div className="w-14 h-14 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center mb-5" aria-hidden="true">
+      {icon}
+    </div>
+    <h3 className="font-serif text-2xl font-bold text-cri-forest mb-4">{title}</h3>
+    <ul className="space-y-2">
+      {points.map((p) => (
+        <li key={p} className="flex items-start gap-2 text-sm text-cri-humus">
+          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cri-cacao flex-shrink-0" aria-hidden="true" />
+          <span>{p}</span>
+        </li>
+      ))}
+    </ul>
+  </GlassCard>
+);

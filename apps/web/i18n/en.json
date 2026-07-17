@@ -3,51 +3,92 @@
     "project": "The project",
     "activities": "Activities",
     "cacao": "Premium Cocoa",
-    "provendes": "Animal Feed & Farm",
+    "provendes": "Feed & Farm",
+    "elevage": "Integrated Farm",
     "impact": "CSR Impact",
     "products": "Products",
     "news": "News",
     "contact": "Contact",
-    "investors": "Investors"
+    "investors": "Investors",
+    "languageSwitcher": "Switch language"
   },
   "home": {
     "hero": {
+      "badge": "Cameroon's #1 cocoa brand",
       "tagline": "Cameroon · Mungo Basin",
       "title": "Cameroon's circular cocoa agropole",
-      "subtitle": "Zero-deforestation premium cocoa, OAPI-patented animal feed, EUDR/CacaoTrace traceability. A multi-revenue model serving 1,200 producers.",
+      "subtitle": "Zero-deforestation premium cocoa, OAPI-patented animal feed, EUDR/CacaoTrace traceability. A multi-revenue model serving 1,200 producers and 5,000 families.",
       "ctaPrimary": "Discover the project",
-      "ctaSecondary": "Investor area"
+      "ctaSecondary": "Investor area",
+      "ctaVideo": "Watch the video",
+      "scrollHint": "Scroll to explore",
+      "stats": {
+        "producers": { "value": "1,200", "label": "Supported producers" },
+        "hectares": { "value": "200", "label": "Agroforestry hectares" },
+        "circles": { "value": "100", "suffix": "%", "label": "Circular economy" }
+      },
+      "trust": {
+        "eudr": "EUDR compliant",
+        "oapi": "OAPI patent",
+        "cacaotrace": "CacaoTrace",
+        "agroecology": "Agroecology"
+      }
+    },
+    "partners": {
+      "title": "Partners and industry references",
+      "subtitle": "Trusted names in sustainable cocoa, animal nutrition and impact investing"
     },
     "kpis": {
-      "producers": "Supported producers",
-      "hectares": "Cocoa basin hectares",
-      "tons": "Cocoa tons / year",
-      "revenue": "Target revenue"
+      "producers": { "value": "1200", "label": "Supported producers", "description": "6 villages of the Mungo Basin" },
+      "hectares": { "value": "200", "label": "Ranch hectares", "description": "Agroforestry cocoa" },
+      "tons": { "value": "18000", "suffix": " t", "label": "Feed capacity / year", "description": "OAPI patent" },
+      "revenue": { "value": "1.7", "suffix": " Bn", "label": "Target revenue", "description": "FCFA by 2030" }
     },
     "poles": {
       "subtitle": "Our model",
-      "title": "Two poles, one circularity",
+      "title": "Two activities, one circularity",
       "description": "We valorize 100% of cocoa by-products — beans, husks, biomass — in a circular economy logic.",
-      "pole1": {
-        "title": "🏭 Pole 1 — Premium Cocoa",
-        "description": "Collection, fermentation and drying of premium beans from 1,200 producers across 6 villages of the Bouba basin.",
+      "cacao": {
+        "label": "Activity 1",
+        "title": "Premium Cocoa",
+        "description": "Post-harvest centralization of fresh beans: collection, controlled fermentation and master drying from 1,200 supported producers.",
         "features": [
           "Zero-defect quality",
-          "Blockchain traceability + QR Code",
+          "CacaoTrace traceability + QR Code",
           "Producer remuneration > 50% of FOB price"
-        ]
+        ],
+        "cta": "Discover the cocoa pole"
       },
-      "pole2": {
-        "title": "🐔 Pole 2 — Feed Mill & Farm",
-        "description": "Valorization of cocoa husks into livestock feed « CRI-PROVEND CACAO » — formulation protected by OAPI patent.",
+      "provende": {
+        "label": "Activity 2",
+        "title": "Patented feed mill & integrated farm",
+        "description": "Valorization of cocoa husks into livestock feed « CRI-PROVEND CACAO » — formulation protected by OAPI patent — combined with an integrated broiler and pig farm.",
         "features": [
           "Broiler chicken feed",
           "Fattening pig feed",
           "-15% vs market · -20-30% for the end farmer"
-        ]
+        ],
+        "cta": "Discover the feed mill"
+      },
+      "elevage": {
+        "label": "Activity 3",
+        "title": "Pilot integrated farm",
+        "description": "Pilot farm with 15,000 broilers/year and fattening pigs — fed by the farm's own feed production.",
+        "features": [
+          "15,000 broilers / year",
+          "45-day optimized cycle",
+          "Biofertilizers from poultry droppings"
+        ],
+        "cta": "Discover the farm"
       }
     },
-    "rse": {
+    "circular": {
+      "subtitle": "Circular economy",
+      "title": "100% of the bean is valorized",
+      "description": "Our closed-loop model transforms every by-product into a resource: husks become feed, droppings become biofertilizers, biomass becomes energy."
+    },
+    "impact": {
+      "subtitle": "CSR Impact",
       "title": "Zero deforestation, zero waste, zero CO₂",
       "description": "Our CSR commitment is backed by the CIMAR-Technopôle program: agroecology promotion, youth and women training-integration, bio-inputs diffusion.",
       "card1": {
@@ -64,7 +105,21 @@
       },
       "cta": "Read our impact report"
     },
+    "testimonials": {
+      "subtitle": "They speak",
+      "title": "Voices of producers and farmers"
+    },
+    "timeline": {
+      "subtitle": "Ramp-up",
+      "title": "Our 2026 — 2030 trajectory"
+    },
+    "map": {
+      "subtitle": "Area of intervention",
+      "title": "The Mungo Basin, cradle of the project",
+      "description": "6 producer villages, 1 drying factory and 1 integrated farm, in the Moungo department of Cameroon."
+    },
     "investors": {
+      "subtitle": "Investor area",
       "title": "Invest in sustainable African cocoa",
       "description": "3.2 Bn FCFA financing sought over 2026-2030 for a mature, differentiated and bankable project. Access our secure data room.",
       "cta": "Request investor access",
@@ -76,6 +131,11 @@
     "activities": "Activities",
     "resources": "Resources",
     "legal": "Legal notice",
+    "privacy": "Privacy policy",
+    "cookies": "Cookies",
+    "contact": "Contact",
+    "tagline": "Cameroon's circular cocoa agropole",
+    "address": "Mungo Basin, Cameroon",
     "copyright": "© {year} Cocoa Ranch & Industry · AGRO-PME Foundation · All rights reserved"
   },
   "cookies": {
@@ -94,6 +154,9 @@
     "previous": "Previous",
     "submit": "Submit",
     "cancel": "Cancel",
-    "search": "Search"
+    "search": "Search",
+    "learnMore": "Learn more",
+    "discover": "Discover",
+    "contactUs": "Contact us"
   }
 }

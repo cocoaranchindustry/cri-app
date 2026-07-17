@@ -1,296 +1,178 @@
-import Link from "next/link";
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock, Building2 } from "lucide-react";
+"use client";
+
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  CheckCircle2,
+} from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
-import { SectionCTA } from "@/components/ui/SectionCTA";
-import { MapMungo } from "@/components/ui/Illustrations";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Contact — Nous écrire, nous appeler",
-  description:
-    "Contactez Cocoa Ranch & Industry : formulaire sécurisé (RGPD), email, téléphone, adresse au Cameroun. Réponse sous 48 h ouvrées.",
-  keywords: ["contact CRI", "AGRO-PME Fondation", "Cameroun Mungo", "écrire cacao Cameroun"],
-  openGraph: {
-    title: "Contact — Cocoa Ranch & Industry",
-    description: "Notre équipe vous répond sous 48 h ouvrées. Formulaire sécurisé RGPD/ANTIC.",
-    type: "website",
-  },
-};
+import { ContactForm } from "@/components/ui/ContactForm";
+import { RevealOnScroll, StaggerGroup } from "@/components/ui/RevealOnScroll";
+import { SectionDivider } from "@/components/ui/SectionDivider";
+import { MapLeaflet } from "@/components/ui/MapLeaflet";
 
 /**
- * Page /contact — Coordonnées + formulaire
- * Brandbook CRI v5 : dominante verte, or cacao, parchemin.
- *
- * Sections :
- * 1. Hero
- * 2. Coordonnées
- * 3. Formulaire de contact
- * 4. CTA
+ * Page /contact — Formulaire, carte, coordonnées
  */
-
-const CONTACT_INFO = [
-  {
-    icon: Building2,
-    title: "Siège opérationnel",
-    lines: ["AGRO-PME Fondation", "Carrefour Njombé-Penja", "Bassin du Mungo, Cameroun"],
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    lines: ["contact@cri.africa", "investisseurs@cri.africa", "presse@cri.africa"],
-  },
-  {
-    icon: Phone,
-    title: "Téléphone",
-    lines: ["+237 6 90 00 00 00", "Lun-Ven 8 h - 17 h (GMT+1)"],
-  },
-  {
-    icon: Clock,
-    title: "Délai de réponse",
-    lines: ["Sous 48 h ouvrées", "Réponse par email"],
-  },
-];
-
-const SUBJECTS = [
-  "Demande d'information générale",
-  "Investissement / financement",
-  "Achat de produits (cacao, provendes, biofertilisants)",
-  "Partenariat technique ou commercial",
-  "Presse / médias",
-  "Recrutement / carrière",
-  "Recherche / université",
-  "Autre",
-];
 
 export default function ContactPage() {
   return (
     <>
       <Navbar />
-
-      <main id="main">
-        {/* ─────── HERO ─────── */}
+      <main id="main-content" tabIndex={-1}>
         <PageHero
+          variant="image"
+          image="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80"
+          imageAlt="Poignée de main entre partenaires professionnels"
           badge="Contact"
-          title="Échangeons sur votre projet"
-          subtitle={
-            <>
-              Notre équipe vous répond sous <strong>48 h ouvrées</strong>. Tous les échanges sont
-              sécurisés et conformes RGPD / ANTIC Cameroun.
-            </>
-          }
+          title="Parlons de votre projet"
+          subtitle="Une question, un partenariat, un devis ? Notre équipe vous répond sous 48h ouvrées."
+          viewportHeight
         />
 
-        {/* ─────── CARTE MUNGO ─────── */}
-        <section className="section-parchment">
+        <section className="py-20 md:py-24 bg-cri-parchment">
           <div className="container-cri">
-            <div className="card border-cri-cacao/30 overflow-hidden border-2">
-              <div className="relative">
-                <div className="bg-cri-cacao text-cri-parchment text-label rounded-cri shadow-cri absolute -top-3 left-8 z-10 px-4 py-1 font-bold uppercase tracking-wider">
-                  Bassin du Mungo · Cameroun
-                </div>
-                <MapMungo className="w-full" />
+            <div className="grid lg:grid-cols-5 gap-12">
+              {/* Coordonnées */}
+              <div className="lg:col-span-2 space-y-6">
+                <RevealOnScroll variant="slide-up">
+                  <h2 className="font-serif text-2xl md:text-3xl font-bold text-cri-forest mb-6">
+                    Nos coordonnées
+                  </h2>
+                </RevealOnScroll>
+
+                <StaggerGroup className="space-y-4" staggerDelay={0.1}>
+                  <ContactItem
+                    icon={<Mail className="h-5 w-5" />}
+                    title="Email"
+                    value="tchahanadial@yahoo.com"
+                    href="mailto:tchahanadial@yahoo.com"
+                  />
+                  <ContactItem
+                    icon={<Phone className="h-5 w-5" />}
+                    title="Téléphone"
+                    value="+237 694 89 77 10"
+                    href="tel:+237694897710"
+                  />
+                  <ContactItem
+                    icon={<Phone className="h-5 w-5" />}
+                    title="WhatsApp direct"
+                    value="+237 694 89 77 10"
+                    href="https://wa.me/237694897710?text=Bonjour%20CRI%2C%20je%20souhaite%20%C3%A9changer%20au%20sujet%20de%20votre%20projet"
+                    badge="Réponse rapide"
+                  />
+                  <ContactItem
+                    icon={<MapPin className="h-5 w-5" />}
+                    title="Adresse"
+                    value="Bassin du Mungo, Cameroun"
+                  />
+                  <ContactItem
+                    icon={<Clock className="h-5 w-5" />}
+                    title="Horaires"
+                    value="Lun – Ven : 8h – 17h (GMT+1)"
+                  />
+                </StaggerGroup>
+
+                <RevealOnScroll variant="fade" className="mt-8 p-5 rounded-2xl bg-cri-cream border border-cri-moss/20">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-cri-canopy flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <div>
+                      <p className="font-serif font-bold text-cri-forest">Présidence</p>
+                      <p className="text-sm text-cri-ink-muted mt-1">
+                        <span className="font-semibold text-cri-canopy">TCHAHA MONKAM</span> epouse AWUNGIA TAZINYA Lorraine Nadia
+                        <br />Présidente — COCOA RANCH & INDUSTRY
+                      </p>
+                    </div>
+                  </div>
+                </RevealOnScroll>
+
+                <RevealOnScroll variant="fade" className="mt-8 p-5 rounded-2xl bg-cri-cream border border-cri-moss/20">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-cri-canopy flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    <div>
+                      <p className="font-serif font-bold text-cri-forest">Réponse garantie sous 48h</p>
+                      <p className="text-sm text-cri-ink-muted mt-1">
+                        Notre équipe vous répond par email, dans la langue de votre choix (FR/EN).
+                      </p>
+                    </div>
+                  </div>
+                </RevealOnScroll>
+              </div>
+
+              {/* Formulaire */}
+              <div className="lg:col-span-3">
+                <RevealOnScroll variant="slide-up">
+                  <div className="p-8 rounded-2xl bg-white border-2 border-cri-moss/20 shadow-soft">
+                    <ContactForm />
+                  </div>
+                </RevealOnScroll>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ─────── COORDONNÉES ─────── */}
-        <section className="section-parchment">
+        <SectionDivider variant="curve" fillClassName="fill-cri-cream" height={80} />
+
+        <section className="py-20 md:py-24 bg-cri-cream">
           <div className="container-cri">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {CONTACT_INFO.map((info) => (
-                <article key={info.title} className="card text-center">
-                  <div className="bg-cri-cacao mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full text-white">
-                    <info.icon className="h-6 w-6" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-lg">{info.title}</h3>
-                  {info.lines.map((line) => (
-                    <p key={line} className="text-cri-humus mt-1 text-sm">
-                      {line}
-                    </p>
-                  ))}
-                </article>
-              ))}
-            </div>
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Plan d&apos;accès
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest">
+                Venez nous rencontrer
+              </h2>
+            </RevealOnScroll>
+            <MapLeaflet height={450} />
           </div>
         </section>
-
-        {/* ─────── FORMULAIRE ─────── */}
-        <section className="section bg-cri-cream">
-          <div className="container-cri">
-            <div className="grid items-start gap-12 md:grid-cols-2">
-              <div>
-                <span className="text-label text-cri-cacao font-bold uppercase tracking-wider">
-                  Formulaire de contact
-                </span>
-                <h2 className="mt-3 text-3xl md:text-4xl">Écrivez-nous</h2>
-                <p className="text-cri-humus mt-4 text-lg">
-                  Pour toute demande, merci de remplir le formulaire ci-contre. Nous vous répondons
-                  par email sous 48 h ouvrées.
-                </p>
-                <div className="text-cri-humus mt-6 space-y-3 text-sm">
-                  <div className="flex items-start gap-3">
-                    <MessageCircle
-                      className="text-cri-cacao mt-0.5 h-5 w-5 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span>
-                      <strong>Réponse humaine</strong> : votre message est traité par notre équipe,
-                      pas par un chatbot.
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin
-                      className="text-cri-cacao mt-0.5 h-5 w-5 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span>
-                      <strong>Visite terrain</strong> : nous accueillons les visites sur rendez-vous
-                      (institutionnels, chercheurs, partenaires).
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <form className="card space-y-4" action="/api/contact" method="POST">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="c-firstname" className="mb-1 block text-sm font-bold">
-                      Prénom *
-                    </label>
-                    <input
-                      type="text"
-                      id="c-firstname"
-                      name="firstname"
-                      required
-                      className="border-cri-border rounded-cri w-full border px-3 py-2"
-                      autoComplete="given-name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="c-lastname" className="mb-1 block text-sm font-bold">
-                      Nom *
-                    </label>
-                    <input
-                      type="text"
-                      id="c-lastname"
-                      name="lastname"
-                      required
-                      className="border-cri-border rounded-cri w-full border px-3 py-2"
-                      autoComplete="family-name"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="c-email" className="mb-1 block text-sm font-bold">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="c-email"
-                    name="email"
-                    required
-                    className="border-cri-border rounded-cri w-full border px-3 py-2"
-                    autoComplete="email"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="c-phone" className="mb-1 block text-sm font-bold">
-                    Téléphone (optionnel)
-                  </label>
-                  <input
-                    type="tel"
-                    id="c-phone"
-                    name="phone"
-                    className="border-cri-border rounded-cri w-full border px-3 py-2"
-                    autoComplete="tel"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="c-org" className="mb-1 block text-sm font-bold">
-                    Organisation (optionnel)
-                  </label>
-                  <input
-                    type="text"
-                    id="c-org"
-                    name="organization"
-                    className="border-cri-border rounded-cri w-full border px-3 py-2"
-                    autoComplete="organization"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="c-subject" className="mb-1 block text-sm font-bold">
-                    Sujet *
-                  </label>
-                  <select
-                    id="c-subject"
-                    name="subject"
-                    required
-                    className="border-cri-border rounded-cri w-full border px-3 py-2"
-                  >
-                    <option value="">Sélectionnez un sujet</option>
-                    {SUBJECTS.map((s) => (
-                      <option key={s}>{s}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="c-message" className="mb-1 block text-sm font-bold">
-                    Message *
-                  </label>
-                  <textarea
-                    id="c-message"
-                    name="message"
-                    rows={5}
-                    required
-                    minLength={10}
-                    className="border-cri-border rounded-cri w-full border px-3 py-2"
-                    placeholder="Décrivez votre demande (10 caractères minimum)..."
-                  />
-                </div>
-                <div className="flex items-start gap-2">
-                  <input type="checkbox" id="c-consent" name="consent" required className="mt-1" />
-                  <label htmlFor="c-consent" className="text-cri-humus text-xs">
-                    J&apos;accepte que mes données soient traitées conformément à la{" "}
-                    <Link href="/privacy" className="text-cri-cacao underline">
-                      politique de confidentialité
-                    </Link>{" "}
-                    (RGPD, ANTIC). *
-                  </label>
-                </div>
-                {/* Honeypot anti-spam */}
-                <input
-                  type="text"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  className="hidden"
-                  aria-hidden="true"
-                />
-                <button
-                  type="submit"
-                  className="btn bg-cri-forest hover:bg-cri-canopy w-full text-white"
-                >
-                  <Send className="mr-2 h-5 w-5" aria-hidden="true" />
-                  Envoyer le message
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
-
-        {/* ─────── CTA ─────── */}
-        <SectionCTA
-          title="Vous préférez nous rencontrer ?"
-          description="Nous accueillons les visites sur le terrain (ferme, unité de transformation) sur rendez-vous. Durée moyenne : 2 h."
-          primaryCta={{ href: "/contact", label: "Réserver une visite" }}
-          secondaryCta={{ href: "/projet", label: "Découvrir le projet" }}
-          variant="forest"
-        />
       </main>
-
       <Footer />
     </>
   );
 }
+
+const ContactItem: React.FC<{
+  icon: React.ReactNode;
+  title: string;
+  value: string;
+  href?: string;
+  badge?: string;
+}> = ({ icon, title, value, href, badge }) => {
+  const content = (
+    <>
+      <div className="w-12 h-12 rounded-xl bg-cri-cacao/10 text-cri-cacao flex items-center justify-center flex-shrink-0" aria-hidden="true">
+        {icon}
+      </div>
+      <div className="flex-1">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-cri-ink-muted">
+          {title}
+        </p>
+        <p className="font-serif font-semibold text-cri-forest">{value}</p>
+        {badge && (
+          <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-cri-gold/20 text-cri-cacao-dark text-[10px] font-bold uppercase tracking-wider">
+            {badge}
+          </span>
+        )}
+      </div>
+    </>
+  );
+  return href ? (
+    <a
+      href={href}
+      target={href.startsWith("https://wa.me") ? "_blank" : undefined}
+      rel={href.startsWith("https://wa.me") ? "noopener noreferrer" : undefined}
+      className="flex items-center gap-4 p-4 rounded-xl bg-cri-cream border border-cri-moss/20 hover:border-cri-cacao/40 transition-colors"
+    >
+      {content}
+    </a>
+  ) : (
+    <div className="flex items-center gap-4 p-4 rounded-xl bg-cri-cream border border-cri-moss/20">
+      {content}
+    </div>
+  );
+};

@@ -4,50 +4,91 @@
     "activities": "Activités",
     "cacao": "Cacao Premium",
     "provendes": "Provendes & Ferme",
+    "elevage": "Élevage intégré",
     "impact": "Impact RSE",
     "products": "Produits",
     "news": "Actualités",
     "contact": "Contact",
-    "investors": "Investisseurs"
+    "investors": "Investisseurs",
+    "languageSwitcher": "Changer de langue"
   },
   "home": {
     "hero": {
+      "badge": "N°1 du cacao camerounais",
       "tagline": "Cameroun · Bassin du Mungo",
       "title": "L'agropole circulaire du cacao camerounais",
-      "subtitle": "Cacao premium zéro déforestation, provendes animales brevetées OAPI, traçabilité EUDR/CacaoTrace. Un modèle multi-revenus au service de 1 200 producteurs.",
+      "subtitle": "Cacao premium zéro déforestation, provendes animales brevetées OAPI, traçabilité EUDR/CacaoTrace. Un modèle multi-revenus au service de 1 200 producteurs et 5 000 familles.",
       "ctaPrimary": "Découvrir le projet",
-      "ctaSecondary": "Espace investisseurs"
+      "ctaSecondary": "Espace investisseurs",
+      "ctaVideo": "Voir la vidéo",
+      "scrollHint": "Défiler pour explorer",
+      "stats": {
+        "producers": { "value": "1 200", "label": "Producteurs encadrés" },
+        "hectares": { "value": "200", "label": "Hectares agroforestiers" },
+        "circles": { "value": "100", "suffix": " %", "label": "Économie circulaire" }
+      },
+      "trust": {
+        "eudr": "Conformité EUDR",
+        "oapi": "Brevet OAPI",
+        "cacaotrace": "CacaoTrace",
+        "agroecology": "Agroécologie"
+      }
+    },
+    "partners": {
+      "title": "Ils nous accompagnent et nous inspirent",
+      "subtitle": "Acteurs de référence du cacao durable, de la nutrition animale et de l'investissement à impact"
     },
     "kpis": {
-      "producers": "Producteurs accompagnés",
-      "hectares": "Hectares bassin cacaoyer",
-      "tons": "Tonnes cacao / an",
-      "revenue": "Chiffre d'affaires cible"
+      "producers": { "value": "1200", "label": "Producteurs accompagnés", "description": "6 villages du Bassin du Mungo" },
+      "hectares": { "value": "200", "label": "Hectares de ranch", "description": "Cacaoyers agroforestiers" },
+      "tons": { "value": "18000", "suffix": " t", "label": "Capacité provendes / an", "description": "Brevet OAPI" },
+      "revenue": { "value": "1.7", "suffix": " Md", "label": "Chiffre d'affaires cible", "description": "FCFA à l'horizon 2030" }
     },
     "poles": {
       "subtitle": "Notre modèle",
       "title": "Deux pôles, une circularité",
       "description": "Nous valorisons 100 % des sous-produits du cacao — fèves, cabosses, biomasse — dans une logique d'économie circulaire.",
-      "pole1": {
-        "title": "🏭 Pôle 1 — Cacao Premium",
-        "description": "Collecte, fermentation et séchage de fèves premium auprès de 1 200 producteurs sur 6 villages du bassin de Bouba.",
+      "cacao": {
+        "label": "Pôle 1",
+        "title": "Cacao Premium",
+        "description": "Centralisation post-récolte des fèves fraîches : collecte, fermentation contrôlée et séchage maîtrisé auprès de 1 200 producteurs encadrés.",
         "features": [
           "Qualité « zéro défaut »",
-          "Traçabilité blockchain + QR Code",
+          "Traçabilité CacaoTrace + QR Code",
           "Rémunération producteur > 50 % du prix FOB"
-        ]
+        ],
+        "cta": "Découvrir le pôle cacao"
       },
-      "pole2": {
-        "title": "🐔 Pôle 2 — Provenderie & Ferme",
-        "description": "Valorisation des cabosses de cacao en aliments pour bétail « CRI-PROVEND CACAO » — formulation protégée par brevet OAPI.",
+      "provende": {
+        "label": "Pôle 2",
+        "title": "Élevage & Provende brevetée",
+        "description": "Valorisation des cabosses de cacao en aliments pour bétail « CRI-PROVEND CACAO » — formulation protégée par brevet OAPI — couplée à un élevage intégré de poulets de chair et de porcs.",
         "features": [
           "Provende poulet de chair",
           "Provende porc d'engraissement",
           "-15 % vs marché · -20-30 % pour l'éleveur final"
-        ]
+        ],
+        "cta": "Découvrir la provenderie"
+      },
+      "elevage": {
+        "label": "Pôle 3",
+        "title": "Ferme intégrée pilote",
+        "description": "Élevage pilote de 15 000 poulets/an et porcs d'engraissement — alimentés par les provendes de la ferme.",
+        "features": [
+          "15 000 poulets de chair / an",
+          "Cycle 45 jours optimisé",
+          "Biofertilisants issus des fientes"
+        ],
+        "cta": "Découvrir la ferme"
       }
     },
-    "rse": {
+    "circular": {
+      "subtitle": "Économie circulaire",
+      "title": "100 % de la fève est valorisée",
+      "description": "Notre modèle en boucle fermée transforme chaque sous-produit en ressource : cabosses en provendes, fientes en biofertilisants, biomasse en énergie."
+    },
+    "impact": {
+      "subtitle": "Impact RSE",
       "title": "Zéro déforestation, zéro déchet, zéro CO₂",
       "description": "Notre engagement RSE est adossé au programme CIMAR-Technopôle : promotion de l'agroécologie, formation-insertion des jeunes et des femmes, diffusion des bio-intrants.",
       "card1": {
@@ -64,7 +105,21 @@
       },
       "cta": "Lire notre rapport d'impact"
     },
+    "testimonials": {
+      "subtitle": "Ils témoignent",
+      "title": "La parole aux producteurs et éleveuses"
+    },
+    "timeline": {
+      "subtitle": "Montée en puissance",
+      "title": "Notre trajectoire 2026 — 2030"
+    },
+    "map": {
+      "subtitle": "Zone d'intervention",
+      "title": "Le Bassin du Mungo, berceau du projet",
+      "description": "6 villages de producteurs, 1 usine de séchage et 1 ferme intégrée, dans le département du Moungo au Cameroun."
+    },
     "investors": {
+      "subtitle": "Espace investisseurs",
       "title": "Investissez dans le cacao africain durable",
       "description": "3,2 Md FCFA de financement recherché sur 2026-2030 pour un projet mature, différencié et bankable. Accédez à notre data room sécurisée.",
       "cta": "Demander l'accès investisseur",
@@ -76,6 +131,11 @@
     "activities": "Activités",
     "resources": "Ressources",
     "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Cookies",
+    "contact": "Contact",
+    "tagline": "L'agropole circulaire du cacao camerounais",
+    "address": "Bassin du Mungo, Cameroun",
     "copyright": "© {year} Cocoa Ranch & Industry · AGRO-PME Fondation · Tous droits réservés"
   },
   "cookies": {
@@ -94,6 +154,9 @@
     "previous": "Précédent",
     "submit": "Envoyer",
     "cancel": "Annuler",
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "learnMore": "En savoir plus",
+    "discover": "Découvrir",
+    "contactUs": "Nous contacter"
   }
 }

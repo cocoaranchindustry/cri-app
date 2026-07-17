@@ -1,24 +1,30 @@
 import { NextResponse, type NextRequest } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n/request";
 
 /**
  * Middleware Next.js — Cocoa Ranch & Industry
  *
  * Responsabilités :
- * 1. Protection des routes admin / investisseurs / terrain (auth Firebase)
- * 2. Headers de sécurité additionnels
- * 3. Rate limiting basique
+ * 1. Routage i18n (next-intl v3, `localePrefix: 'as-needed'` : `/`
+ *    → FR, `/en/...` → EN)
+ * 2. Fallback rewrite : `/en/<path>` où `<path>` n'a pas de version
+ *    traduite est réécrit en interne vers `/<path>` (FR), URL conservée
+ * 3. Protection des routes admin / investisseurs / terrain (auth Firebase)
+ * 4. Rate limiting basique (in-memory — en prod, Upstash/Redis)
+ * 5. Headers de sécurité additionnels
  *
- * NOTE i18n : le routage next-intl avec `app/[locale]/` sera activé
- * dans une refonte ultérieure. Pour l'instant, le site est servi en
- * français par défaut à la racine (`/`) — les helpers `useTranslations`
- * et `getTranslations` de next-intl restent utilisables dans les
- * Server Components via le `request.ts` actuel (la locale est déduite
- * de l'en-tête `Accept-Language`).
- *
- * NOTE : La vérification des rôles finaux se fait côté serveur dans
- * les pages (Server Components) et côté client via les Security Rules
- * Firestore (le middleware ici agit comme première barrière).
+ * NOTE : la vérification finale des rôles se fait dans les Server
+ * Components (firebase-admin) et côté client via les Security Rules
+ * Firestore. Ce middleware agit comme première barrière.
  */
+
+const intlMiddleware = createIntlMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localePrefix: "as-needed",
+  localeDetection: true,
+});
 
 // Préfixes protégés par Firebase Auth (session cookie requise).
 // `/investisseurs` est PUBLIQUE (page marketing + formulaire de demande
@@ -59,7 +65,7 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-export async function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
@@ -72,7 +78,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // 2. Vérification auth pour les routes protégées
-  // (token de session Firebase)
+  //    (pathname déjà strippé du préfixe locale par next-intl)
   const isProtected = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   if (isProtected) {
@@ -88,15 +94,43 @@ export async function middleware(req: NextRequest) {
     // les Server Components via firebase-admin
   }
 
-  // 3. Headers de sécurité additionnels
+  // 3. Routes "/" et "/en" : on délègue à l'intl middleware.
+  //    (La home existe sous [locale]/, le routing fonctionne.)
+  if (pathname === "/" || pathname === "/en") {
+    const intlResponse = intlMiddleware(req);
+    if (intlResponse instanceof NextResponse) {
+      intlResponse.headers.set("X-Pathname", pathname);
+      intlResponse.headers.set("X-Content-Type-Options", "nosniff");
+      return intlResponse;
+    }
+  }
+
+  // 4. Routes "/en/<path>" où <path> n'a pas de version traduite
+  //    → rewrite en interne vers "/<path>" (FR), URL conservée.
+  //    On ne délègue PAS à l'intl middleware (il renverrait 404),
+  //    on rewrite directement vers la page FR correspondante.
+  if (pathname.startsWith("/en/")) {
+    const stripped = pathname.replace(/^\/en/, "") || "/";
+    const url = req.nextUrl.clone();
+    url.pathname = stripped;
+    const rewriteResponse = NextResponse.rewrite(url);
+    rewriteResponse.headers.set("X-Pathname", pathname);
+    rewriteResponse.headers.set("X-Content-Type-Options", "nosniff");
+    rewriteResponse.headers.set("X-CRI-Locale-Fallback", "fr");
+    return rewriteResponse;
+  }
+
+  // 5. Toutes les autres routes (ex. /projet, /contact, /investisseurs)
+  //    : laisser passer pour qu'elles soient servies par
+  //    app/<route>/page.tsx (FR statique, dans la locale par défaut).
   const response = NextResponse.next();
   response.headers.set("X-Pathname", pathname);
   response.headers.set("X-Content-Type-Options", "nosniff");
-
   return response;
 }
 
 export const config = {
-  // Exclure : fichiers statiques, _next, favicon
+  // Exclure : fichiers statiques, _next, favicon, robots, sitemap
   matcher: ["/((?!_next|.*\\..*|favicon.ico|robots.txt|sitemap.xml).*)"],
 };
+

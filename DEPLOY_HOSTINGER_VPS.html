@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide de déploiement — cocoaranch.com sur Hostinger VPS</title>
+<style>
+  :root {
+    --cri-forest: #1F4A2E;
+    --cri-forest-dark: #0F2A1A;
+    --cri-canopy: #2D6B3E;
+    --cri-cacao: #9C7A3A;
+    --cri-gold: #C8A84B;
+    --cri-cream: #F5F0E8;
+    --cri-parchment: #FAF6EC;
+    --cri-ink: #3D3320;
+    --cri-ink-muted: #6B5F4A;
+    --cri-canopy-light: #4A8A5C;
+    --danger: #B23A3A;
+    --warn: #C9A227;
+    --ok: #2D7A3E;
+    --code-bg: #1A1A1A;
+    --code-fg: #E5E5E5;
+    --code-key: #FF8A65;
+    --code-str: #A5D6A7;
+    --code-cmt: #6A737D;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Calibri", "Segoe UI", system-ui, sans-serif;
+    background: var(--cri-parchment);
+    color: var(--cri-ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* ───── En-tête ───── */
+  .hero {
+    background: linear-gradient(135deg, var(--cri-forest-dark) 0%, var(--cri-forest) 60%, var(--cri-canopy) 100%);
+    color: var(--cri-cream);
+    padding: 56px 32px;
+    border-radius: 14px;
+    margin-bottom: 32px;
+    box-shadow: 0 12px 40px rgba(31, 74, 46, 0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(200, 168, 75, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    font-weight: 700;
+    color: var(--cri-gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 38px;
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: rgba(245, 240, 232, 0.85);
+    max-width: 680px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(200, 168, 75, 0.25);
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.7);
+  }
+  .hero-meta strong { color: var(--cri-gold); }
+
+  /* ───── Sommaire ───── */
+  .toc {
+    background: white;
+    border: 2px solid var(--cri-cacao);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .toc h2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: var(--cri-forest);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--cri-gold);
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+  .toc ol li {
+    counter-increment: toc-counter;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(156, 122, 58, 0.2);
+  }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    color: var(--cri-ink);
+    text-decoration: none;
+    display: flex;
+    gap: 12px;
+    transition: color 0.2s;
+  }
+  .toc ol li a::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    color: var(--cri-gold);
+    font-weight: 700;
+    font-family: "Courier New", monospace;
+    min-width: 28px;
+  }
+  .toc ol li a:hover { color: var(--cri-canopy); }
+
+  /* ───── Sections ───── */
+  section {
+    background: white;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 8px rgba(31, 74, 46, 0.06);
+  }
+  section h2 {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    color: var(--cri-forest);
+    margin-bottom: 8px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid var(--cri-gold);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  section h2 .num {
+    background: var(--cri-forest);
+    color: var(--cri-gold);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-family: "Courier New", monospace;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  section h3 {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    color: var(--cri-canopy);
+    margin: 28px 0 12px;
+  }
+  section h4 {
+    font-size: 15px;
+    color: var(--cri-forest);
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  section p { margin-bottom: 14px; }
+  section ul, section ol { margin: 12px 0 16px 24px; }
+  section li { margin-bottom: 6px; }
+  section strong { color: var(--cri-forest); }
+  section em { color: var(--cri-ink-muted); }
+
+  /* ───── Callouts ───── */
+  .callout {
+    border-left: 4px solid;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .callout-info {
+    background: #E8F0E9;
+    border-color: var(--cri-canopy);
+    color: #1A3A24;
+  }
+  .callout-warn {
+    background: #FBF3DA;
+    border-color: var(--warn);
+    color: #6B5210;
+  }
+  .callout-danger {
+    background: #F8E3E3;
+    border-color: var(--danger);
+    color: #6B1F1F;
+  }
+  .callout-ok {
+    background: #E0F0E5;
+    border-color: var(--ok);
+    color: #1A4A24;
+  }
+  .callout strong { color: inherit; }
+
+  /* ───── Code ───── */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    border-radius: 8px;
+    padding: 18px 22px;
+    overflow-x: auto;
+    margin: 14px 0 20px;
+    border: 1px solid #2A2A2A;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  code {
+    font-family: "Cascadia Code", "Fira Code", "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  p code, li code, td code {
+    background: #EFE9D9;
+    color: var(--cri-forest-dark);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+    border: 1px solid rgba(156, 122, 58, 0.25);
+  }
+  .c-key { color: var(--code-key); }
+  .c-str { color: var(--code-str); }
+  .c-cmt { color: var(--code-cmt); font-style: italic; }
+  .c-cmd { color: #82AAFF; }
+
+  /* ───── Tables ───── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 20px;
+    font-size: 14px;
+    background: var(--cri-parchment);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th {
+    background: var(--cri-forest);
+    color: var(--cri-cream);
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(156, 122, 58, 0.15);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(245, 240, 232, 0.4); }
+
+  /* ───── Steps ───── */
+  ol.steps {
+    counter-reset: step-counter;
+    list-style: none;
+    margin-left: 0;
+  }
+  ol.steps > li {
+    counter-increment: step-counter;
+    position: relative;
+    padding: 18px 20px 18px 64px;
+    margin-bottom: 14px;
+    background: var(--cri-parchment);
+    border-left: 4px solid var(--cri-cacao);
+    border-radius: 6px;
+  }
+  ol.steps > li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 36px; height: 36px;
+    background: var(--cri-forest);
+    color: var(--cri-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+  }
+  ol.steps > li strong:first-child {
+    display: block;
+    color: var(--cri-forest);
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+
+  /* ───── Footer ───── */
+  footer {
+    margin-top: 48px;
+    padding: 28px;
+    background: var(--cri-forest-dark);
+    color: rgba(245, 240, 232, 0.75);
+    border-radius: 12px;
+    text-align: center;
+    font-size: 13px;
+  }
+  footer strong { color: var(--cri-gold); }
+
+  /* ───── Print ───── */
+  @media print {
+    body { background: white; font-size: 12px; }
+    section { box-shadow: none; page-break-inside: avoid; padding: 20px; }
+    .hero { background: var(--cri-forest) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- EN-TÊTE                                                    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-eyebrow">Guide de déploiement · Documentation technique</div>
+    <h1>Mettre en ligne <span style="color:var(--cri-gold);">cocoaranch.com</span> sur un VPS Hostinger</h1>
+    <p>
+      Procédure pas-à-pas pour déployer le site Next.js 14 de Cocoa Ranch &amp; Industry (monorepo npm workspaces) sur un serveur privé virtuel Linux
+      Hostinger : configuration système, Node.js 20, Nginx, SSL Let's Encrypt, Firebase Admin SDK, monitoring PM2, nom de domaine <strong>cocoaranch.com</strong>.
+    </p>
+    <div class="hero-meta">
+      <span><strong>Domaine :</strong> cocoaranch.com</span>
+      <span><strong>Durée :</strong> 1h30 – 2h30</span>
+      <span><strong>Niveau :</strong> Intermédiaire</span>
+      <span><strong>OS cible :</strong> Ubuntu 22.04 LTS</span>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- SOMMAIRE                                                   -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <h2>Sommaire</h2>
+    <ol>
+      <li><a href="#prerequis">Prérequis et choix du plan Hostinger</a></li>
+      <li><a href="#acces-ssh">Premier accès SSH et durcissement du serveur</a></li>
+      <li><a href="#node">Installer Node.js 20, npm 10, Git, outils système</a></li>
+      <li><a href="#repo">Cloner le dépôt cri-app et préparer l'environnement</a></li>
+      <li><a href="#env">Configurer les variables d'environnement (.env.local)</a></li>
+      <li><a href="#build">Compiler le projet Next.js en mode production</a></li>
+      <li><a href="#pm2">Installer PM2 et lancer l'application en daemon</a></li>
+      <li><a href="#nginx">Installer et configurer Nginx comme reverse proxy</a></li>
+      <li><a href="#ssl">Activer HTTPS avec Let's Encrypt (Certbot)</a></li>
+      <li><a href="#firebase">Configurer Firebase Authentication (domaines autorisés)</a></li>
+      <li><a href="#dns">Pointer le domaine cri.africa vers le VPS</a></li>
+      <li><a href="#maintenance">Sauvegardes, mises à jour, monitoring</a></li>
+      <li><a href="#depannage">Dépannage des erreurs courantes</a></li>
+    </ol>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 1. PRÉREQUIS                                               -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="prerequis">
+    <h2><span class="num">01</span> Prérequis et choix du plan Hostinger</h2>
+
+    <p>
+      Hostinger propose deux familles d'hébergement. <strong>Seul le VPS convient</strong> pour une application Next.js :
+      l'hébergement mutualisé ("Business Web Hosting") ne fournit pas de runtime Node.js, ni d'accès shell,
+      ni de reverse proxy personnalisé.
+    </p>
+
+    <h3>Plan recommandé</h3>
+    <table>
+      <thead>
+        <tr><th>Plan</th><th>RAM</th><th>vCPU</th><th>Stockage</th><th>Prix (indicatif)</th><th>Adapté CRI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>VPS KVM 1</td><td>2 Go</td><td>1</td><td>50 Go SSD</td><td>~6 €/mois</td><td>✅ (staging)</td></tr>
+        <tr><td>VPS KVM 2</td><td>4 Go</td><td>2</td><td>100 Go SSD</td><td>~12 €/mois</td><td>✅ (production)</td></tr>
+        <tr><td>VPS KVM 4</td><td>8 Go</td><td>4</td><td>200 Go SSD</td><td>~24 €/mois</td><td>✅ (gros trafic)</td></tr>
+        <tr><td>Business Web Hosting</td><td>—</td><td>—</td><td>200 Go</td><td>~3 €/mois</td><td>❌ Next.js impossible</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <strong>Recommandation :</strong> pour le site institutionnel CRI (≈ 5 000 visites/mois attendues), un
+      <strong>KVM 2 (4 Go RAM)</strong> est confortable. Le KVM 1 suffit pour staging ou basse audience.
+    </div>
+
+    <h3>Avant de commencer, prépare</h3>
+    <ol>
+      <li>Un <strong>compte Hostinger</strong> avec un VPS actif (commande sur <a href="https://www.hostinger.fr">hostinger.fr</a>).</li>
+      <li>L'<strong>adresse IP du VPS</strong> (visible dans le panneau hPanel &rarr; VPS &rarr; Vue d'ensemble).</li>
+      <li>Un <strong>nom de domaine</strong> (ex. <code>cri.africa</code>) — acheter chez Hostinger (transfert de zone simplifié) ou chez un registrar externe (Namecheap, OVH, Gandi).</li>
+      <li>Un <strong>accès au repo Git</strong> (GitHub, GitLab, Bitbucket) contenant <code>cri-app</code>.</li>
+      <li>Les <strong>credentials Firebase</strong> (voir <a href="#firebase">section 10</a>) et la clé API <strong>Brevo</strong> pour la newsletter.</li>
+      <li>Un client SSH sur ta machine locale :
+        <ul>
+          <li>Windows : <a href="https://www.putty.org">PuTTY</a> ou le Terminal moderne (PowerShell 7+ avec <code>ssh</code> natif).</li>
+          <li>macOS / Linux : Terminal intégré.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 2. ACCÈS SSH                                               -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="acces-ssh">
+    <h2><span class="num">02</span> Premier accès SSH et durcissement du serveur</h2>
+
+    <p>À la livraison, Hostinger fournit un accès root via SSH. On va l'utiliser, puis créer un utilisateur dédié
+    avec <code>sudo</code> et désactiver la connexion directe en root.</p>
+
+    <h3>Connexion initiale</h3>
+    <pre><code><span class="c-cmt"># Depuis ta machine locale (Windows PowerShell, macOS ou Linux) :</span>
+ssh root@<span class="c-str">&lt;IP_DU_VPS&gt;</span>
+
+<span class="c-cmt"># Mot de passe : celui reçu par email de Hostinger</span>
+<span class="c-cmt"># Accepte la fingerprint du serveur à la première connexion</span></code></pre>
+
+    <h3>Créer un utilisateur non-root</h3>
+    <pre><code><span class="c-cmt"># Une fois connecté en root :</span>
+adduser cri
+<span class="c-cmt"># Définir un mot de passe fort (≥ 16 caractères)</span>
+
+<span class="c-cmt"># Ajouter l'utilisateur au groupe sudo :</span>
+usermod -aG sudo cri
+
+<span class="c-cmt"># Vérifier :</span>
+groups cri
+<span class="c-cmt"># → cri : cri sudo</span></code></pre>
+
+    <h3>Désactiver la connexion SSH en root</h3>
+    <pre><code><span class="c-cmt"># Toujours en root :</span>
+nano /etc/ssh/sshd_config
+
+<span class="c-cmt"># Modifier la ligne :</span>
+PermitRootLogin yes  <span class="c-key">→  PermitRootLogin no</span>
+
+<span class="c-cmt"># Sauvegarder (Ctrl+O, Entrée, Ctrl+X), puis redémarrer SSH :</span>
+systemctl restart sshd</code></pre>
+
+    <h3>Configurer le pare-feu UFW</h3>
+    <pre><code>ufw default deny incoming
+ufw default allow outgoing
+ufw allow OpenSSH          <span class="c-cmt"># Port 22 — accès SSH</span>
+ufw allow <span class="c-str">"Nginx Full"</span>   <span class="c-cmt"># Ports 80 (HTTP) + 443 (HTTPS)</span>
+ufw enable
+ufw status verbose</code></pre>
+
+    <div class="callout callout-warn">
+      <strong>⚠ Important :</strong> garde ta session SSH actuelle ouverte tant que tu n'as pas testé la reconnexion
+      avec l'utilisateur <code>cri</code> dans un second terminal. Si tu casses la config, la première session te sauvera.
+    </div>
+
+    <h3>Reconnexion avec le nouvel utilisateur</h3>
+    <pre><code><span class="c-cmt"># Nouvelle fenêtre terminal :</span>
+ssh cri@<span class="c-str">&lt;IP_DU_VPS&gt;</span>
+
+<span class="c-cmt"># Vérifier que sudo fonctionne :</span>
+sudo whoami
+<span class="c-cmt"># → root</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 3. NODE.JS + OUTILS                                        -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="node">
+    <h2><span class="num">03</span> Installer Node.js 20, npm 10, Git, outils système</h2>
+
+    <p>Le projet exige <strong>Node.js ≥ 20</strong> (cf. <code>apps/web/package.json</code> &rarr; <code>"engines.node": "&gt;=20.0.0"</code>)
+    et <strong>npm ≥ 10</strong>. On installe la LTS via NodeSource, qui fournit les versions les plus récentes pour Ubuntu.</p>
+
+    <h3>Paquets système de base</h3>
+    <pre><code>sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install -y curl git build-essential ufw software-properties-common ca-certificates gnupg lsb-release
+
+<span class="c-cmt"># Vérifier la version Ubuntu :</span>
+lsb_release -a
+<span class="c-cmt"># → Ubuntu 22.04 LTS (recommandé)</span></code></pre>
+
+    <h3>Node.js 20 LTS via NodeSource</h3>
+    <pre><code>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+
+<span class="c-cmt"># Vérification :</span>
+node --version   <span class="c-cmt"># → v20.x.x</span>
+npm --version    <span class="c-cmt"># → 10.x.x</span></code></pre>
+
+    <h3>Outils de déploiement (recommandés)</h3>
+    <pre><code><span class="c-cmt"># PM2 : gestionnaire de process Node.js (daemon + monitoring)</span>
+sudo npm install -g pm2
+
+<span class="c-cmt"># Uptime monitoring via pm2 (optionnel mais pratique)</span>
+pm2 install pm2-logrotate
+pm2 set pm2-logrotate:max_size 10M
+pm2 set pm2-logrotate:retain 14
+
+<span class="c-cmt"># Nginx (sera installé section 8)</span>
+<span class="c-cmt"># Certbot (sera installé section 9)</span></code></pre>
+
+    <div class="callout callout-info">
+      <strong>Astuce :</strong> PM2 fournit une commande <code>pm2 startup</code> qui configure systemd pour relancer
+      automatiquement l'app après un reboot du VPS. On l'utilisera à la <a href="#pm2">section 7</a>.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 4. CLÔNER LE REPO                                          -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="repo">
+    <h2><span class="num">04</span> Cloner le dépôt cri-app et préparer l'environnement</h2>
+
+    <h3>Créer un répertoire de déploiement</h3>
+    <pre><code>sudo mkdir -p /var/www/cri-app
+sudo chown cri:cri /var/www/cri-app
+cd /var/www/cri-app</code></pre>
+
+    <h3>Cloner le repo</h3>
+    <pre><code><span class="c-cmt"># Repo public (HTTPS) :</span>
+git clone https://github.com/<span class="c-str">&lt;ton-org&gt;</span>/cri-app.git .
+
+<span class="c-cmt"># Repo privé (SSH, ajouter la clé au préalable sur GitHub) :</span>
+<span class="c-cmt"># ssh-keygen -t ed25519 -C "cri-vps" -f ~/.ssh/id_ed25519</span>
+<span class="c-cmt"># cat ~/.ssh/id_ed25519.pub  →  ajouter sur GitHub Settings &rarr; SSH keys</span>
+git clone git@github.com:<span class="c-str">&lt;ton-org&gt;</span>/cri-app.git .
+
+<span class="c-cmt"># Vérifier l'arborescence :</span>
+ls -la
+<span class="c-cmt"># → apps/  functions/  package.json  nixpacks.toml  railway.json  README.md</span></code></pre>
+
+    <h3>Installer les dépendances</h3>
+    <pre><code><span class="c-cmt"># npm workspaces : installe TOUT le monorepo d'un coup</span>
+npm ci --include=dev --workspaces --include-workspace-root
+
+<span class="c-cmt"># Cette étape peut prendre 2-4 minutes (téléchargement + build des natives)</span>
+<span class="c-cmt"># Si erreur EACCES sur .npm :</span>
+<span class="c-cmt">#   sudo chown -R $USER:$USER /var/www/cri-app</span></code></pre>
+
+    <h3>Créer un swap (si VPS KVM 1 / 2 Go RAM)</h3>
+    <pre><code><span class="c-cmt"># Recommandé pour éviter les OOM pendant npm run build</span>
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo <span class="c-str">'/swapfile none swap sw 0 0'</span> | sudo tee -a /etc/fstab
+
+<span class="c-cmt"># Vérifier :</span>
+free -h
+<span class="c-cmt"># → Swap: 2.0Gi</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 5. ENV                                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="env">
+    <h2><span class="num">05</span> Configurer les variables d'environnement (.env.local)</h2>
+
+    <p>Next.js charge automatiquement <code>.env.local</code> au démarrage. Ce fichier ne doit <strong>jamais</strong>
+    être commité — il contient les secrets de production.</p>
+
+    <h3>Créer le fichier</h3>
+    <pre><code>cd /var/www/cri-app/apps/web
+cp .env.example .env.local
+nano .env.local</code></pre>
+
+    <h3>Variables à renseigner</h3>
+    <table>
+      <thead>
+        <tr><th>Variable</th><th>Valeur production</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>NEXT_PUBLIC_APP_URL</code></td>
+          <td><code>https://cocoaranch.com</code></td>
+          <td>Ton domaine</td>
+        </tr>
+        <tr>
+          <td><code>NEXT_PUBLIC_APP_ENV</code></td>
+          <td><code>production</code></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><code>NEXT_PUBLIC_FIREBASE_*</code></td>
+          <td>7 variables</td>
+          <td>Firebase Console &rarr; Paramètres &rarr; SDK setup</td>
+        </tr>
+        <tr>
+          <td><code>FIREBASE_PRIVATE_KEY</code></td>
+          <td>Clé complète du service account</td>
+          <td>Firebase Console &rarr; Comptes de service &rarr; Générer nouvelle clé privée</td>
+        </tr>
+        <tr>
+          <td><code>SESSION_COOKIE_SECRET</code></td>
+          <td>≥ 32 caractères aléatoires</td>
+          <td><code>openssl rand -base64 48</code></td>
+        </tr>
+        <tr>
+          <td><code>ENCRYPTION_KEY</code></td>
+          <td>32 bytes base64</td>
+          <td><code>openssl rand -base64 32</code></td>
+        </tr>
+        <tr>
+          <td><code>BREVO_API_KEY</code></td>
+          <td>Clé API v3</td>
+          <td>app.brevo.com &rarr; Settings &rarr; API Keys</td>
+        </tr>
+        <tr>
+          <td><code>NEXT_PUBLIC_PLAUSIBLE_DOMAIN</code></td>
+          <td><code>cocoaranch.com</code></td>
+          <td>Si Plausible activé</td>
+        </tr>
+        <tr>
+          <td><code>NEXT_PUBLIC_SENTRY_DSN</code></td>
+          <td>DSN du projet</td>
+          <td>sentry.io &rarr; Settings &rarr; Client Keys</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Génération des secrets</h3>
+    <pre><code><span class="c-cmt"># SESSION_COOKIE_SECRET :</span>
+openssl rand -base64 48
+
+<span class="c-cmt"># ENCRYPTION_KEY (32 bytes base64) :</span>
+openssl rand -base64 32
+
+<span class="c-cmt"># FIREBASE_PRIVATE_KEY : copier depuis le fichier JSON téléchargé</span>
+<span class="c-cmt"># dans Firebase Console, l'ouvrir avec :</span>
+cat ~/Downloads/cri-app-firebase-adminsdk-xxxxx.json</code></pre>
+
+    <h3>Format de FIREBASE_PRIVATE_KEY (critique)</h3>
+    <div class="callout callout-danger">
+      <strong>⚠ Piège classique :</strong> la clé privée doit conserver ses retours à la ligne. Dans <code>.env.local</code>,
+      entourer la valeur de <strong>double quotes</strong> et garder les <code>\n</code> littéraux :
+    </div>
+    <pre><code>FIREBASE_PRIVATE_KEY=<span class="c-str">"-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n"</span></code></pre>
+
+    <h3>Protéger le fichier</h3>
+    <pre><code>chmod 600 .env.local
+ls -la .env.local
+<span class="c-cmt"># → -rw------- 1 cri cri  1234 ... .env.local</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 6. BUILD                                                   -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="build">
+    <h2><span class="num">06</span> Compiler le projet Next.js en mode production</h2>
+
+    <p>Le build Next.js va :<br>
+       &nbsp;• Compiler TypeScript &rarr; JavaScript<br>
+       &nbsp;• Optimiser les images, générer les routes statiques (22 routes)<br>
+       &nbsp;• Générer le bundle de production (<code>.next/</code>)<br>
+       &nbsp;• Bundler middleware (42 kB environ)</p>
+
+    <h3>Lancer le build</h3>
+    <pre><code>cd /var/www/cri-app
+npm run build
+
+<span class="c-cmt"># Sortie attendue (extrait) :</span>
+<span class="c-cmt">#   ▲ Next.js 14.2.35</span>
+<span class="c-cmt">#   - Environments: .env.local</span>
+<span class="c-cmt">#  ✓ Compiled successfully</span>
+<span class="c-cmt">#  ✓ Generating static pages (22/22)</span>
+<span class="c-cmt">#</span>
+<span class="c-cmt"># Route (app)                    Size     First Load JS</span>
+<span class="c-cmt"># ┌ ƒ /_not-found                138 B            88 kB</span>
+<span class="c-cmt"># ├ ● /[locale]                  24.8 kB         198 kB</span>
+<span class="c-cmt"># ├   ├ /fr</span>
+<span class="c-cmt"># ├   └ /en</span>
+<span class="c-cmt"># ├ ƒ /projet                    4.63 kB         178 kB</span>
+<span class="c-cmt"># └ ƒ /investisseurs             7.38 kB         181 kB</span>
+<span class="c-cmt"># ƒ Middleware                   42.4 kB</span></code></pre>
+
+    <h3>Test rapide du build</h3>
+    <pre><code>cd apps/web
+npm run start
+
+<span class="c-cmt"># Le serveur démarre sur le port 3000.</span>
+<span class="c-cmt"># Depuis un autre terminal :</span>
+curl -I http://localhost:3000
+<span class="c-cmt"># → HTTP/1.1 200 OK</span>
+
+<span class="c-cmt"># Si OK, Ctrl+C pour couper. Sinon, regarder les logs.</span></code></pre>
+
+    <div class="callout callout-warn">
+      <strong>Si le build échoue :</strong>
+      <ul>
+        <li><code>Cannot find module './vendor-chunks/...'</code> &rarr; cache .next corrompu : <code>rm -rf .next</code> puis rebuild.</li>
+        <li><code>FIREBASE_PRIVATE_KEY</code> invalide &rarr; vérifier les <code>\n</code> (cf. section 5).</li>
+        <li>OOM (Killed) sur VPS 2 Go &rarr; le swap aide, sinon upgradez vers KVM 2 (4 Go).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 7. PM2                                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="pm2">
+    <h2><span class="num">07</span> Installer PM2 et lancer l'application en daemon</h2>
+
+    <p>PM2 (Process Manager 2) maintient Next.js en vie, le redémarre après crash, log les sorties stdout/stderr,
+    et s'intègre avec systemd pour survivre aux reboots du VPS.</p>
+
+    <h3>Créer le fichier de configuration PM2</h3>
+    <pre><code>cd /var/www/cri-app
+nano ecosystem.config.js</code></pre>
+
+    <p>Contenu du fichier :</p>
+    <pre><code>module.exports = {
+  apps: [
+    {
+      name: <span class="c-str">"cri-app"</span>,
+      script: <span class="c-str">"npm"</span>,
+      args: <span class="c-str">"run start --workspace=apps/web"</span>,
+      cwd: <span class="c-str">"/var/www/cri-app"</span>,
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: <span class="c-str">"512M"</span>,
+      env: {
+        NODE_ENV: <span class="c-str">"production"</span>,
+        PORT: 3000,
+        HOSTNAME: <span class="c-str">"127.0.0.1"</span>
+      },
+      error_file: <span class="c-str">"/var/log/cri-app/error.log"</span>,
+      out_file: <span class="c-str">"/var/log/cri-app/out.log"</span>,
+      merge_logs: true,
+      time: true
+    }
+  ]
+};</code></pre>
+
+    <h3>Créer le répertoire de logs</h3>
+    <pre><code>sudo mkdir -p /var/log/cri-app
+sudo chown cri:cri /var/log/cri-app</code></pre>
+
+    <h3>Démarrer l'application</h3>
+    <pre><code>cd /var/www/cri-app
+pm2 start ecosystem.config.js
+
+<span class="c-cmt"># Vérifier le statut :</span>
+pm2 status
+<span class="c-cmt"># ┌────┬──────────────────┬─────────┬──────┬────────┬─────────┐</span>
+<span class="c-cmt"># │ id │ name             │ mode    │ ↺    │ status │ cpu │ mem │</span>
+<span class="c-cmt"># ├────┼──────────────────┼─────────┼──────┼────────┼─────────┤</span>
+<span class="c-cmt"># │ 0  │ cri-app          │ fork    │ 0    │ online │ 0%  │ 80M │</span>
+<span class="c-cmt"># └────┴──────────────────┴─────────┴──────┴────────┴─────────┘</span></code></pre>
+
+    <h3>Activer le démarrage automatique (systemd)</h3>
+    <pre><code>pm2 startup systemd
+<span class="c-cmt"># → Une commande sudo est affichée, copier-coller :</span>
+
+sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u cri --hp /home/cri
+
+pm2 save
+<span class="c-cmt"># → sauvegarde la liste des process à redémarrer</span></code></pre>
+
+    <h3>Commandes utiles PM2</h3>
+    <pre><code>pm2 logs cri-app           <span class="c-cmt"># Logs en temps réel (Ctrl+C pour quitter)</span>
+pm2 logs cri-app --lines 200  <span class="c-cmt"># 200 dernières lignes</span>
+pm2 restart cri-app        <span class="c-cmt"># Redémarrer après un build</span>
+pm2 reload cri-app         <span class="c-cmt"># Zero-downtime reload (instances ≥ 2)</span>
+pm2 stop cri-app           <span class="c-cmt"># Arrêter</span>
+pm2 delete cri-app         <span class="c-cmt"># Supprimer de PM2</span>
+pm2 monit                  <span class="c-cmt"># Dashboard CPU/RAM en terminal</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 8. NGINX                                                   -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="nginx">
+    <h2><span class="num">08</span> Installer et configurer Nginx comme reverse proxy</h2>
+
+    <p>Nginx reçoit les requêtes HTTPS sur le port 443, les termine (SSL), puis les forwarde à Next.js sur le port 3000.
+    Il gère aussi les fichiers statiques, la compression gzip et les headers de sécurité.</p>
+
+    <h3>Installer Nginx</h3>
+    <pre><code>sudo apt install -y nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+<span class="c-cmt"># Vérifier que Nginx tourne :</span>
+sudo systemctl status nginx
+curl -I http://localhost
+<span class="c-cmt"># → HTTP/1.1 200 OK (page d'accueil Nginx par défaut)</span></code></pre>
+
+    <h3>Créer le fichier de configuration du site</h3>
+    <pre><code>sudo nano /etc/nginx/sites-available/cri-app</code></pre>
+
+    <p>Contenu (adapté pour le domaine <code>cocoaranch.com</code>) :</p>
+    <pre><code><span class="c-cmt"># /etc/nginx/sites-available/cri-app</span>
+<span class="c-cmt"># Reverse proxy pour Cocoa Ranch &amp; Industry (cocoaranch.com)</span>
+
+<span class="c-cmt"># Redirection HTTP → HTTPS (gérée par Certbot plus tard)</span>
+server {
+    listen 80;
+    listen [::]:80;
+    server_name cocoaranch.com www.cocoaranch.com;
+
+    <span class="c-cmt"># Permet à Certbot de valider le challenge ACME</span>
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+<span class="c-cmt"># Serveur HTTPS principal</span>
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name cocoaranch.com www.cocoaranch.com;
+
+    <span class="c-cmt"># Logs</span>
+    access_log /var/log/nginx/cri-app.access.log;
+    error_log  /var/log/nginx/cri-app.error.log;
+
+    <span class="c-cmt"># Limite de taille d'upload (formulaires de contact, etc.)</span>
+    client_max_body_size 10M;
+
+    <span class="c-cmt"># Proxy vers Next.js</span>
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection <span class="c-str">'upgrade'</span>;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 60s;
+        proxy_send_timeout 60s;
+    }
+
+    <span class="c-cmt"># Cache agressif pour les assets statiques de Next.js</span>
+    location /_next/static/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_cache_valid 200 365d;
+        add_header Cache-Control <span class="c-str">"public, max-age=31536000, immutable"</span>;
+        access_log off;
+    }
+
+    <span class="c-cmt"># Compression gzip</span>
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript
+               application/json application/javascript application/xml+rss
+               application/atom+xml image/svg+xml;
+}</code></pre>
+
+    <h3>Activer le site</h3>
+    <pre><code><span class="c-cmt"># Créer le symlink (Nginx lit uniquement sites-enabled) :</span>
+sudo ln -s /etc/nginx/sites-available/cri-app /etc/nginx/sites-enabled/
+
+<span class="c-cmt"># Supprimer le site par défaut :</span>
+sudo rm /etc/nginx/sites-enabled/default
+
+<span class="c-cmt"># Tester la syntaxe :</span>
+sudo nginx -t
+<span class="c-cmt"># → syntax is ok / test is successful</span>
+
+<span class="c-cmt"># Recharger :</span>
+sudo systemctl reload nginx</code></pre>
+
+    <h3>Tester sans HTTPS (HTTP seulement pour l'instant)</h3>
+    <pre><code><span class="c-cmt"># Depuis ton PC local :</span>
+curl -I http://<span class="c-str">&lt;IP_DU_VPS&gt;</span>
+<span class="c-cmt"># → HTTP/1.1 301 Moved Permanently  (redirection vers HTTPS)</span>
+
+<span class="c-cmt"># Une vraie URL type :</span>
+curl -I -L http://<span class="c-str">&lt;IP_DU_VPS&gt;</span>/projet
+<span class="c-cmt"># Le -L suit la redirection, et tu obtiens 200 si Next.js répond bien</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 9. SSL                                                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="ssl">
+    <h2><span class="num">09</span> Activer HTTPS avec Let's Encrypt (Certbot)</h2>
+
+    <p>Let's Encrypt fournit des certificats SSL gratuits et renouvelables automatiquement. Certbot est l'outil officiel
+    fourni par l'EFF (Electronic Frontier Foundation).</p>
+
+    <div class="callout callout-warn">
+      <strong>Prérequis DNS :</strong> avant de demander un certificat, le domaine <code>cocoaranch.com</code> doit pointer
+      vers l'IP du VPS. Voir <a href="#dns">section 11</a>. Si tu n'as pas encore configuré les DNS, saute à cette section
+      puis reviens ici.
+    </div>
+
+    <h3>Installer Certbot</h3>
+    <pre><code>sudo apt install -y certbot python3-certbot-nginx</code></pre>
+
+    <h3>Demander un certificat</h3>
+    <pre><code>sudo certbot --nginx -d cocoaranch.com -d www.cocoaranch.com
+
+<span class="c-cmt"># Certbot va demander :</span>
+<span class="c-cmt"># 1. Une adresse email (pour les notifications d'expiration)</span>
+<span class="c-cmt"># 2. Accepter les conditions de Let's Encrypt (A)gree</span>
+<span class="c-cmt"># 3. Partager ou non ton email avec l'EFF (Y/N)</span>
+<span class="c-cmt"># 4. Rediriger tout le trafic HTTP vers HTTPS ?  →  2 (oui, automatique)</span>
+
+<span class="c-cmt"># En sortie :</span>
+<span class="c-cmt"># Successfully received certificate.</span>
+<span class="c-cmt"># Certificate is saved at: /etc/letsencrypt/live/cocoaranch.com/fullchain.pem</span>
+<span class="c-cmt"># Key is saved at:         /etc/letsencrypt/live/cocoaranch.com/privkey.pem</span>
+<span class="c-cmt"># These files will be updated when the certificate renews.</span></code></pre>
+
+    <h3>Vérifier le renouvellement automatique</h3>
+    <pre><code><span class="c-cmt"># Test à blanc :</span>
+sudo certbot renew --dry-run
+<span class="c-cmt"># → Congratulations, all simulated renewals succeeded</span>
+
+<span class="c-cmt"># Un timer systemd est installé automatiquement par le package</span>
+<span class="c-cmt"># (certbot.timer) pour renouveler le cert 30 jours avant expiration.</span>
+systemctl list-timers | grep certbot</code></pre>
+
+    <h3>Headers de sécurité ajoutés par Certbot</h3>
+    <p>Certbot a modifié <code>/etc/nginx/sites-available/cri-app</code> pour ajouter automatiquement :</p>
+    <ul>
+      <li><code>ssl_certificate</code> + <code>ssl_certificate_key</code> pointant vers Let's Encrypt</li>
+      <li><code>ssl_protocols TLSv1.2 TLSv1.3</code></li>
+      <li>Header <code>Strict-Transport-Security</code> (HSTS)</li>
+    </ul>
+
+    <h3>Durcir la configuration SSL (recommandé)</h3>
+    <pre><code>sudo nano /etc/nginx/snippets/ssl-params.conf
+
+<span class="c-cmt"># Contenu :</span>
+ssl_protocols TLSv1.2 TLSv1.3;
+ssl_prefer_server_ciphers on;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 1d;
+ssl_session_tickets off;
+ssl_stapling on;
+ssl_stapling_verify on;
+add_header Strict-Transport-Security <span class="c-str">"max-age=63072000; includeSubDomains; preload"</span> always;
+add_header X-Frame-Options <span class="c-str">"DENY"</span> always;
+add_header X-Content-Type-Options <span class="c-str">"nosniff"</span> always;
+add_header Referrer-Policy <span class="c-str">"strict-origin-when-cross-origin"</span> always;</code></pre>
+
+    <p>Inclure ce fichier dans le bloc <code>server { ... }</code> HTTPS :</p>
+    <pre><code>server {
+    listen 443 ssl http2;
+    server_name cocoaranch.com;
+    include /etc/nginx/snippets/ssl-params.conf;  <span class="c-cmt"># ← ajouter cette ligne</span>
+    ssl_certificate /etc/letsencrypt/live/cocoaranch.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cocoaranch.com/privkey.pem;
+    <span class="c-cmt"># ...</span>
+}
+
+sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code></pre>
+
+    <h3>Test final</h3>
+    <pre><code><span class="c-cmt"># Depuis ton PC :</span>
+curl -I https://cocoaranch.com
+<span class="c-cmt"># → HTTP/2 200</span>
+
+<span class="c-cmt"># Vérifier la note SSL :</span>
+<span class="c-cmt"># → https://www.ssllabs.com/ssltest/analyze.html?d=cocoaranch.com</span>
+<span class="c-cmt"># Cible : note A ou A+</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 10. FIREBASE                                               -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="firebase">
+    <h2><span class="num">10</span> Configurer Firebase Authentication (domaines autorisés)</h2>
+
+    <p>Firebase Auth refuse par défaut les connexions depuis des domaines non whitelistés. Il faut autoriser
+    <code>cocoaranch.com</code> et <code>www.cocoaranch.com</code>.</p>
+
+    <h3>Dans Firebase Console</h3>
+    <ol class="steps">
+      <li>
+        <strong>Aller sur console.firebase.google.com</strong>
+        et ouvrir le projet CRI.
+      </li>
+      <li>
+        <strong>Authentication &rarr; Settings &rarr; Authorized domains</strong>
+      </li>
+      <li>
+        <strong>Cliquer "Add domain"</strong> et ajouter :
+        <ul>
+          <li><code>cocoaranch.com</code></li>
+          <li><code>www.cocoaranch.com</code></li>
+          <li>(optionnel) le sous-domaine de staging : <code>staging.cocoaranch.com</code></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Vérifier le projet Firebase</strong>
+        &rarr; Paramètres &rarr; Général &rarr; "Your project" &rarr; <code>Project ID = cri-app</code>
+        (doit correspondre à <code>FIREBASE_PROJECT_ID</code> dans <code>.env.local</code>).
+      </li>
+      <li>
+        <strong>Récupérer les clés Admin SDK</strong>
+        (pour Firebase Admin côté serveur) :
+        <ul>
+          <li>Paramètres du projet &rarr; Comptes de service &rarr; <strong>Générer une nouvelle clé privée</strong></li>
+          <li>Le JSON téléchargé contient : <code>project_id</code>, <code>client_email</code>, <code>private_key</code></li>
+          <li>Copier dans <code>.env.local</code> (cf. <a href="#env">section 5</a>)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>Vérifier les Firestore Rules</h3>
+    <p>Les règles Firestore sont déployées séparément :</p>
+    <pre><code><span class="c-cmt"># Depuis ta machine locale :</span>
+cd cri-app
+firebase deploy --only firestore:rules,firestore:indexes,storage
+
+<span class="c-cmt"># Les fichiers à commiter sont à la racine du monorepo :</span>
+<span class="c-cmt">#   firestore.rules  (RBAC + validation multi-rôles)</span>
+<span class="c-cmt">#   firestore.indexes.json</span>
+<span class="c-cmt">#   storage.rules  (validation MIME + taille)</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 11. DNS                                                    -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="dns">
+    <h2><span class="num">11</span> Pointer le domaine cocoaranch.com vers le VPS</h2>
+
+    <p>Ton domaine <code>cocoaranch.com</code> doit résoudre vers l'IP du VPS. Selon où tu as acheté le domaine, la procédure diffère légèrement.</p>
+
+    <h3>Récupérer l'IP du VPS</h3>
+    <p>Dans le panneau hPanel de Hostinger : VPS &rarr; Vue d'ensemble &rarr; "Adresse IP".
+    Exemple : <code>195.201.42.17</code></p>
+
+    <h3>Si le domaine est chez Hostinger (hPanel)</h3>
+    <ol>
+      <li>hPanel &rarr; Domaines &rarr; <code>cocoaranch.com</code> &rarr; DNS / Zone DNS</li>
+      <li>Ajouter / modifier l'enregistrement <strong>A</strong> :
+        <ul>
+          <li>Type : <code>A</code></li>
+          <li>Nom : <code>@</code> (racine)</li>
+          <li>Valeur : <code>195.201.42.17</code> (ton IP)</li>
+          <li>TTL : <code>14400</code> (4h, raisonnable)</li>
+        </ul>
+      </li>
+      <li>Ajouter un enregistrement <strong>CNAME</strong> pour <code>www</code> :
+        <ul>
+          <li>Type : <code>CNAME</code></li>
+          <li>Nom : <code>www</code></li>
+          <li>Valeur : <code>cocoaranch.com</code></li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>Si le domaine est chez un registrar externe (OVH, Namecheap, Gandi, GoDaddy)</h3>
+    <ol>
+      <li>Connecte-toi à ton registrar</li>
+      <li>Ouvre la zone DNS de <code>cocoaranch.com</code></li>
+      <li>Même configuration que ci-dessus (enregistrement A + CNAME)</li>
+    </ol>
+
+    <h3>Vérifier la propagation DNS</h3>
+    <pre><code><span class="c-cmt"># Outils en ligne :</span>
+<span class="c-cmt"># → https://dnschecker.org (vérifie la propagation mondiale)</span>
+<span class="c-cmt"># → https://www.whatsmydns.net</span>
+
+<span class="c-cmt"># En local (Linux/macOS) :</span>
+dig cocoaranch.com A +short
+<span class="c-cmt"># → 195.201.42.17</span>
+
+nslookup cocoaranch.com
+
+<span class="c-cmt"># Délai de propagation : 1 à 48h selon les TLD et le registrar.</span>
+<span class="c-cmt"># .com se propage généralement en 1-4h.</span></code></pre>
+
+    <div class="callout callout-info">
+      <strong>Pour le sous-domaine www :</strong> ne crée pas un second enregistrement A, utilise un CNAME vers
+      <code>cocoaranch.com</code>. C'est plus propre et plus simple à maintenir.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 12. MAINTENANCE                                            -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="maintenance">
+    <h2><span class="num">12</span> Sauvegardes, mises à jour, monitoring</h2>
+
+    <h3>Mettre à jour le code (workflow de déploiement)</h3>
+    <pre><code>cd /var/www/cri-app
+
+<span class="c-cmt"># 1. Récupérer les derniers commits :</span>
+git pull origin main
+
+<span class="c-cmt"># 2. Installer les nouvelles dépendances (si package.json a changé) :</span>
+npm ci --include=dev --workspaces --include-workspace-root
+
+<span class="c-cmt"># 3. Rebuild :</span>
+npm run build
+
+<span class="c-cmt"># 4. Relancer l'app (zero-downtime) :</span>
+pm2 reload cri-app
+
+<span class="c-cmt"># 5. Vérifier :</span>
+pm2 logs cri-app --lines 50
+curl -I https://cri.africa</code></pre>
+
+    <p>Pour automatiser, tu peux créer un script <code>/var/www/cri-app/deploy.sh</code> :</p>
+    <pre><code><span class="c-cmt">#!/bin/bash
+set -e
+cd /var/www/cri-app
+echo <span class="c-str">"[$(date)] Pulling latest code..."</span>
+git pull origin main
+echo <span class="c-str">"[$(date)] Installing deps..."</span>
+npm ci --include=dev --workspaces --include-workspace-root
+echo <span class="c-str">"[$(date)] Building..."</span>
+npm run build
+echo <span class="c-str">"[$(date)] Reloading PM2..."</span>
+pm2 reload cri-app
+echo <span class="c-str">"[$(date)] Deploy OK"</span></code></pre>
+
+    <pre><code>chmod +x deploy.sh
+./deploy.sh</code></pre>
+
+    <h3>Mises à jour système</h3>
+    <pre><code><span class="c-cmt"># Hebdomadaire (cron automatique possible) :</span>
+sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo reboot   <span class="c-cmt"># PM2 relancera Next.js automatiquement après le reboot</span></code></pre>
+
+    <h3>Sauvegardes</h3>
+    <p>Les données utilisateur (Firebase) sont sauvegardées par Google (rétention 30 jours, PITR activé par défaut).
+    Côté VPS, sauvegarder surtout la <strong>config Nginx</strong> et le <strong>.env.local</strong> :</p>
+    <pre><code>sudo tar czf /home/cri/backup-$(date +%F).tar.gz \
+  /etc/nginx/sites-available/cri-app \
+  /etc/letsencrypt \
+  /var/www/cri-app/apps/web/.env.local \
+  /var/www/cri-app/ecosystem.config.js
+
+<span class="c-cmt"># Copier vers un stockage externe (optionnel mais recommandé) :</span>
+scp /home/cri/backup-*.tar.gz cri@backup.cri.africa:~/backups/</code></pre>
+
+    <h3>Monitoring PM2 + alertes</h3>
+    <pre><code><span class="c-cmt"># Dashboard temps réel :</span>
+pm2 monit
+
+<span class="c-cmt"># Alerte mail en cas de crash (optionnel, via pm2-notify) :</span>
+pm2 install pm2-notify
+pm2 set pm2-notify:email <span class="c-str">"tech@cocoaranch.com"</span>
+pm2 set pm2-notify:smtpHost <span class="c-str">"smtp-relay.brevo.com"</span>
+pm2 set pm2-notify:smtpPort 587
+pm2 set pm2-notify:smtpUser <span class="c-str">"noreply@cocoaranch.com"</span>
+pm2 set pm2-notify:smtpPass <span class="c-str">"&lt;brevo-smtp-key&gt;"</span></code></pre>
+
+    <h3>Monitoring uptime externe (gratuit)</h3>
+    <ul>
+      <li><a href="https://uptimerobot.com">UptimeRobot</a> (50 moniteurs gratuits, check toutes les 5 min)</li>
+      <li><a href="https://www.statuscake.com">StatusCake</a> (10 moniteurs gratuits)</li>
+      <li><a href="https://www.betterstack.com">Better Stack</a> (10 moniteurs gratuits, joli dashboard)</li>
+    </ul>
+    <p>Configurer une alerte email + SMS si <code>https://cocoaranch.com</code> ne répond plus pendant > 5 min.</p>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- 13. DÉPANNAGE                                              -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <section id="depannage">
+    <h2><span class="num">13</span> Dépannage des erreurs courantes</h2>
+
+    <h3>1. "502 Bad Gateway" après le déploiement</h3>
+    <p>Next.js n'est pas lancé, ou a planté.</p>
+    <pre><code>pm2 status            <span class="c-cmt"># Vérifier le statut</span>
+pm2 logs cri-app      <span class="c-cmt"># Lire les logs</span>
+pm2 restart cri-app   <span class="c-cmt"># Redémarrer</span>
+
+<span class="c-cmt"># Si PM2 ne le voit plus du tout :</span>
+cd /var/www/cri-app
+pm2 start ecosystem.config.js</code></pre>
+
+    <h3>2. Erreurs CORS sur Firebase / Firestore</h3>
+    <p>Le domaine n'est pas autorisé dans Firebase Console (cf. <a href="#firebase">section 10</a>). Vérifier l'orthographe exacte
+    et attendre 5 min après l'ajout (propagation Firebase).</p>
+
+    <h3>3. "Cannot find module './vendor-chunks/...'"</h3>
+    <p>Bug connu Windows + Next.js 14.2. Cache <code>.next/</code> corrompu.</p>
+    <pre><code>cd /var/www/cri-app
+rm -rf apps/web/.next
+npm run build</code></pre>
+
+    <h3>4. OOM (Out of Memory) pendant le build</h3>
+    <p>Le VPS manque de RAM. Le swap aide, sinon il faut upgrader.</p>
+    <pre><code><span class="c-cmt"># Vérifier la RAM dispo :</span>
+free -h
+dmesg | grep -i "killed process"  <span class="c-cmt"># confirmer un OOM</span>
+
+<span class="c-cmt"># Augmenter le swap (de 2 à 4 Go) :</span>
+sudo swapoff /swapfile
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile</code></pre>
+
+    <h3>5. Certificat SSL expiré</h3>
+    <p>Le timer systemd n'a pas tourné. Forcer le renouvellement :</p>
+    <pre><code>sudo certbot renew --force-renewal
+sudo systemctl reload nginx</code></pre>
+
+    <h3>6. Le site est lent / time out</h3>
+    <p>Vérifier les ressources utilisées :</p>
+    <pre><code>pm2 monit                  <span class="c-cmt"># CPU/RAM Next.js</span>
+htop                       <span class="c-cmt"># Processus système (sudo apt install htop)</span>
+sudo tail -f /var/log/nginx/cri-app.error.log  <span class="c-cmt"># Erreurs Nginx</span>
+sudo nginx -T 2&gt; /dev/null | grep -i timeout  <span class="c-cmt"># Timeouts</span></code></pre>
+
+    <h3>7. Mise à jour Node.js requise</h3>
+    <p>Si npm refuse avec un warning de version, mettre à jour :</p>
+    <pre><code>curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version  <span class="c-cmt"># → v22.x</span>
+
+<span class="c-cmt"># Reconstruire le projet :</span>
+cd /var/www/cri-app
+rm -rf node_modules apps/*/node_modules package-lock.json apps/*/package-lock.json
+npm install
+npm run build
+pm2 reload cri-app</code></pre>
+
+    <h3>Commandes de diagnostic rapide</h3>
+    <pre><code><span class="c-cmt"># Logs en direct (3 fenêtres en parallèle) :</span>
+pm2 logs cri-app --lines 100 --raw
+sudo tail -f /var/log/nginx/cri-app.error.log
+sudo journalctl -u nginx -f
+
+<span class="c-cmt"># Test bout en bout :</span>
+curl -v https://cocoaranch.com 2&gt;&amp;1 | head -50
+
+<span class="c-cmt"># Espace disque :</span>
+df -h /var/www
+
+<span class="c-cmt"># Connexions actives :</span>
+ss -tn state established | grep :3000 | wc -l  <span class="c-cmt"># Connexions vers Next.js</span></code></pre>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- PIED DE PAGE                                               -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <footer>
+    <p><strong>Cocoa Ranch &amp; Industry</strong> · Guide de déploiement Hostinger VPS · Version 1.0 · Juillet 2026</p>
+    <p>Domaine : <strong>cocoaranch.com</strong> · Site institutionnel Cocoa Ranch &amp; Industry · AGRO-PME Fondation · Cameroun · Bassin du Mungo</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "comment": "Mapping LQIP (Low Quality Image Placeholder) pour next/image blurDataURL.",
+  "usage": "Import dans les composants : import lqip from '@/../public/images/[dossier]/_lqip.json'",
+  "format": "Chaque clé est le slug de l'image (sans extension), la valeur est un data URI base64 JPEG 16x16 flou",
+  "example": {
+    "parcelle-cacao": "data:image/jpeg;base64,/9j/4AAQ..."
+  },
+  "entries": {}
+}

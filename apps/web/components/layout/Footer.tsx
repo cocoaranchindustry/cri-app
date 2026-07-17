@@ -3,10 +3,10 @@ import Link from "next/link";
 import { LogoMark } from "./Logo";
 
 /**
- * Footer — Brandbook CRI v5
+ * Footer — Brandbook CRI v6
  *
- * Fond vert profond, liens or cacao, mentions légales.
- * 4 colonnes : Logo+description, Navigation, Activités, Contact + Social.
+ * Fond vert profond, liens parchemin, mentions légales.
+ * 4 colonnes : Logo+description, Le projet, Activités, Ressources + barre légale.
  */
 
 const FOOTER_LINKS = {
@@ -30,7 +30,7 @@ const FOOTER_LINKS = {
     { href: "/privacy", label: "Politique de confidentialité" },
     { href: "/cookies", label: "Gestion des cookies" },
   ],
-};
+} as const;
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -40,32 +40,28 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Logo + description */}
           <div className="lg:col-span-2">
-            <div className="mb-4 flex items-center gap-3">
-              <LogoMark size={48} />
-              <div className="leading-none">
-                <div className="font-serif text-xl font-black text-white">
-                  COCOA <span className="text-cri-gold italic">RANCH</span>
-                </div>
-                <div className="text-cri-gold mt-1 text-[0.65rem] font-bold uppercase tracking-[0.2em]">
-                  & Industry
-                </div>
-              </div>
-            </div>
-            <p className="text-cri-parchment/80 max-w-md text-sm">
+            <Link
+              href="/"
+              aria-label="COCOA RANCH & INDUSTRY — Accueil"
+              className="mb-4 inline-block"
+            >
+              <LogoMark size={56} />
+            </Link>
+            <p className="max-w-md text-sm text-cri-parchment/80">
               Agropole agro-industriel camerounais à économie circulaire : cacao premium zéro
               déforestation, provendes animales brevetées, 5 000 producteurs accompagnés.
             </p>
             <div className="mt-6 flex flex-col gap-1">
-              <p className="text-cri-gold text-xs font-bold uppercase tracking-wider">
+              <p className="text-xs font-bold uppercase tracking-wider text-cri-gold">
                 Cameroun · Bassin du Mungo
               </p>
-              <p className="text-cri-parchment/60 text-xs">AGRO-PME Fondation · Depuis 2010</p>
+              <p className="text-xs text-cri-parchment/60">AGRO-PME Fondation · Depuis 2010</p>
             </div>
           </div>
 
-          {/* Navigation */}
+          {/* Le projet */}
           <div>
-            <h3 className="text-cri-gold text-label mb-4 font-bold uppercase tracking-wider">
+            <h3 className="text-label mb-4 font-bold uppercase tracking-wider text-cri-gold">
               Le projet
             </h3>
             <ul className="space-y-2">
@@ -73,7 +69,7 @@ export const Footer: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cri-parchment/80 hover:text-cri-gold text-sm"
+                    className="text-sm text-cri-parchment/80 hover:text-cri-gold"
                   >
                     {link.label}
                   </Link>
@@ -84,7 +80,7 @@ export const Footer: React.FC = () => {
 
           {/* Activités */}
           <div>
-            <h3 className="text-cri-gold text-label mb-4 font-bold uppercase tracking-wider">
+            <h3 className="text-label mb-4 font-bold uppercase tracking-wider text-cri-gold">
               Activités
             </h3>
             <ul className="space-y-2">
@@ -92,7 +88,7 @@ export const Footer: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cri-parchment/80 hover:text-cri-gold text-sm"
+                    className="text-sm text-cri-parchment/80 hover:text-cri-gold"
                   >
                     {link.label}
                   </Link>
@@ -103,7 +99,7 @@ export const Footer: React.FC = () => {
 
           {/* Ressources */}
           <div>
-            <h3 className="text-cri-gold text-label mb-4 font-bold uppercase tracking-wider">
+            <h3 className="text-label mb-4 font-bold uppercase tracking-wider text-cri-gold">
               Ressources
             </h3>
             <ul className="space-y-2">
@@ -111,7 +107,7 @@ export const Footer: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-cri-parchment/80 hover:text-cri-gold text-sm"
+                    className="text-sm text-cri-parchment/80 hover:text-cri-gold"
                   >
                     {link.label}
                   </Link>
@@ -122,11 +118,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-cri-canopy/30 mt-12 flex flex-col gap-4 border-t pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-cri-parchment/60 text-xs">
+        <div className="mt-12 flex flex-col gap-4 border-t border-cri-canopy/30 pt-8 md:flex-row md:items-center md:justify-between">
+          <p className="text-xs text-cri-parchment/60">
             © {year} Cocoa Ranch &amp; Industry · AGRO-PME Fondation · Tous droits réservés
           </p>
-          <ul className="text-cri-parchment/60 flex flex-wrap gap-4 text-xs">
+          <ul className="flex flex-wrap gap-4 text-xs text-cri-parchment/60">
             {FOOTER_LINKS.legal.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="hover:text-cri-gold">

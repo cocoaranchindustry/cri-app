@@ -89,6 +89,9 @@ export default function CookiesPage() {
       <main id="main">
         {/* ─────── HERO ─────── */}
         <PageHero
+          variant="image"
+          image="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1920&q=80"
+          imageAlt="Plaque de biscuits au chocolat — métaphore des cookies web"
           badge="Vie privée"
           title="Gestion des cookies"
           subtitle={
@@ -97,6 +100,7 @@ export default function CookiesPage() {
               Transparence totale sur les données collectées.
             </>
           }
+          viewportHeight
         />
 
         {/* ─────── ENGAGEMENT ─────── */}

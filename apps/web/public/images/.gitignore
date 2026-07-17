@@ -1,0 +1,17 @@
+# Dossier d'images générées automatiquement par prepare-images.js
+# On peut regénérer le contenu à partir des sources brutes
+# mais on garde les LQIP (placeholders blur) car ils sont utilisés par next/image
+
+# Conserver uniquement :
+# - Les JPEG finaux (héro, sections, cards, portraits, og)
+# - Les SVG des partenaires
+# - Les _lqip.json (mapping blur placeholder)
+
+# Ignorer les fichiers temporaires :
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Ne pas ignorer les .gitkeep (préservent la structure)
+!.gitkeep

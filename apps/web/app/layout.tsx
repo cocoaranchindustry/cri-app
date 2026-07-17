@@ -1,23 +1,24 @@
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import "./globals.css";
-import { defaultLocale } from "@/i18n/request";
+import { getMessages, getLocale } from "next-intl/server";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Toaster } from "@/components/ui/Toaster";
+import "./globals.css";
 
 /**
  * Layout racine — Cocoa Ranch & Industry
  *
- * SÉCURITÉ :
- * - MetadataBase défini
- * - robots par défaut = index, follow
- * - format-detection désactivé (téléphone, adresse)
- * - metadata color = Brandbook (forêt)
+ * Responsabilités :
+ * - `<html><body>` globaux
+ * - Metadata globale (title, description, OpenGraph, Twitter, robots)
+ * - Viewport (themeColor Brandbook)
+ * - Skip-link accessibilité
+ * - Liens alternates SEO multilingues
+ * - NextIntlClientProvider minimal (pour que Navbar/Footer, qui
+ *   utilisent `useLocale` via `Link` de `@/i18n/navigation`, aient
+ *   accès au contexte même sur les pages hors `[locale]/`).
  *
- * i18n géré via next-intl en mode "sans préfixe" (locale par défaut
- * `fr` à la racine, préfixe `/en/...` ajouté par l'hébergeur). Les
- * traductions sont chargées côté serveur et exposées au client via
- * `NextIntlClientProvider`.
+ * i18n complet (messages) est porté par `app/[locale]/layout.tsx`.
  */
 
 export const metadata: Metadata = {
@@ -36,14 +37,19 @@ export const metadata: Metadata = {
     "CacaoTrace",
     "économie circulaire",
     "provendes animales",
+    "CRI-PROVEND CACAO",
     "OAPI",
     "AGRO-PME",
     "Bassin du Mungo",
     "Njombé-Penja",
     "investissement cacao",
+    "innovation durable",
+    "traçabilité cacao",
+    "création de valeur",
+    "agro-industrie Cameroun",
   ],
-  authors: [{ name: "AGRO-PME Fondation" }],
-  creator: "AGRO-PME Fondation",
+  authors: [{ name: "Tchaha Monkam Lorraine Nadia" }, { name: "AGRO-PME Fondation" }],
+  creator: "Cocoa Ranch & Industry — Présidente : TCHAHA MONKAM epouse AWUNGIA TAZINYA Lorraine Nadia",
   publisher: "Cocoa Ranch & Industry",
   formatDetection: {
     telephone: false,
@@ -58,6 +64,14 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "fr-FR": "/",
+      "en-US": "/en",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -85,8 +99,11 @@ export const metadata: Metadata = {
     images: ["/og-default.svg"],
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/favicon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -98,19 +115,25 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Active la locale par défaut pour les Server Components (rendu
-  // statique compatible avec next-intl en mode "sans préfixe").
-  unstable_setRequestLocale(defaultLocale);
+  const locale = await getLocale();
   const messages = await getMessages();
 
   return (
-    <html lang={defaultLocale}>
+    <html lang={locale}>
       <body>
-        <NextIntlClientProvider locale={defaultLocale} messages={messages}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-cri focus:bg-cri-gold focus:px-4 focus:py-2 focus:font-bold focus:text-cri-forest focus:shadow-cri-lg focus:outline-none"
+        >
+          Aller au contenu principal
+        </a>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
-          <Toaster />
         </NextIntlClientProvider>
+        <WhatsAppButton />
+        <Toaster />
       </body>
     </html>
   );
 }
+

@@ -58,8 +58,8 @@ const config: Config = {
         "cri-cream-light": "#FAF6EB", // crème très claire
 
         /* Texte */
-        "cri-humus": "#3D3320", // brun foncé — corps de texte
-        "cri-ink-muted": "#8B7860", // beige grisé — notes
+        "cri-humus": "#3D3320", // brun foncé — corps de texte (WCAG AAA sur parchemin)
+        "cri-ink-muted": "#5A4A38", // brun moyen — notes/sources (WCAG AA 6.5:1 sur parchemin)
         "cri-text-on-dark": "#F5EFE0", // texte sur fond vert
 
         /* Neutres */

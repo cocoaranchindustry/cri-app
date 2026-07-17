@@ -1,268 +1,139 @@
-import { TreePine, Users, Leaf, Sprout, Beaker, Award, Heart, Briefcase } from "lucide-react";
+"use client";
+
+import {
+  Drumstick,
+  TrendingUp,
+  Recycle,
+  CheckCircle2,
+  ArrowRight,
+  Calendar,
+} from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { SectionImpact } from "@/components/ui/SectionImpact";
-import { KpiCard } from "@/components/ui/KpiCard";
-import { SectionCTA } from "@/components/ui/SectionCTA";
-import { CattlePasture } from "@/components/ui/Illustrations";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Ferme intégrée — Démonstration économique reproductible",
-  description:
-    "Ferme de démonstration économique : 15 000 poulets/an, porcs d'engraissement, biofertilisants. Modèle d'insertion pour les jeunes et les femmes du Bassin du Mungo.",
-  keywords: [
-    "ferme intégrée Cameroun",
-    "élevage poulets",
-    "porcs engraissement",
-    "biofertilisants",
-    "insertion jeunes femmes",
-    "démonstration économique",
-  ],
-  openGraph: {
-    title: "Ferme intégrée — Cocoa Ranch & Industry",
-    description:
-      "Démonstration économique d'élevage circulaire : 15 000 poulets/an, porcs, biofertilisants, insertion.",
-    type: "website",
-  },
-};
+import { GlassCard } from "@/components/ui/GlassCard";
+import { KpiCounter } from "@/components/ui/KpiCounter";
+import { RevealOnScroll, StaggerGroup } from "@/components/ui/RevealOnScroll";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 /**
- * Page /activites/elevage — Pilier 3
- * Brandbook CRI v5 : dominante verte, or cacao, parchemin.
- *
- * Sections :
- * 1. Hero
- * 2. KPIs
- * 3. Composantes de la ferme
- * 4. Modèle d'insertion
- * 5. CTA
+ * Page /activites/elevage — Pôle 3 : Ferme intégrée
  */
-
-const COMPONENTS = [
-  {
-    icon: Sprout,
-    title: "Atelier avicole",
-    details: [
-      "15 000 poulets de chair / an",
-      "3 bâtiments d'élevage de 500 m²",
-      "Cycle de 45 jours, 6 lots / an",
-      "Alimentation CRI-PROVEND CACAO",
-    ],
-  },
-  {
-    icon: TreePine,
-    title: "Atelier porcin",
-    details: [
-      "100 porcs d'engraissement en simultané",
-      "3 bandes en rotation, 250 porcs / an",
-      "Porcherie moderne sur caillebotis",
-      "Valorisation des sous-produits laitiers",
-    ],
-  },
-  {
-    icon: Leaf,
-    title: "Unité biofertilisants",
-    details: [
-      "Compostage des fientes de volaille",
-      "Production 200 t/an de biofertilisants",
-      "Lombricompost à partir des lisiers porcins",
-      "Vente aux planteurs de la coopérative",
-    ],
-  },
-  {
-    icon: Beaker,
-    title: "Parcelle de démonstration",
-    details: [
-      "5 ha de cacaoyers en agroforesterie",
-      "Démonstration des bonnes pratiques",
-      "Champ école pour les nouveaux producteurs",
-      "Tests variétaux en collaboration avec l'IRAD",
-    ],
-  },
-];
-
-const INSERTION_PROGRAM = [
-  {
-    icon: Users,
-    title: "Insertion des jeunes",
-    text: "Programme de formation-insertion de 200 jeunes ruraux sur 3 ans, dans les métiers de l'élevage et de l'agro-industrie.",
-  },
-  {
-    icon: Heart,
-    title: "Place des femmes",
-    text: "Objectif 40 %+ de femmes dans les recrutements et à des postes d'encadrement. Programme spécifique d'élevage avicole villageois.",
-  },
-  {
-    icon: Briefcase,
-    title: "Emplois durables",
-    text: "1 000+ emplois directs et indirects créés d'ici 2028 dans la ferme, la provenderie et les services associés.",
-  },
-  {
-    icon: Award,
-    title: "Formation certifiante",
-    text: "Partenariat avec le MINEFOP (Cameroun) et l'APME pour des CQP (Certificats de Qualification Professionnelle).",
-  },
-];
 
 export default function ElevagePage() {
   return (
     <>
       <Navbar />
-
-      <main id="main">
-        <Breadcrumb
-          items={[
-            { label: "Accueil", href: "/" },
-            { label: "Activités", href: "/activites" },
-            { label: "Ferme intégrée" },
-          ]}
-        />
-
-        {/* ─────── HERO ─────── */}
+      <main id="main-content" tabIndex={-1}>
         <PageHero
-          badge="Pilier 3 · Ferme intégrée"
-          title="Démonstration économique circulaire"
-          subtitle={
-            <>
-              Notre ferme de 5 ha à <strong>Njombé-Penja</strong> prouve qu&apos;un modèle
-              d&apos;élevage intensif peut être <strong>rentable, durable et inclusif</strong>, en
-              valorisant les provendes brevetées et les biofertilisants locaux.
-            </>
-          }
-          image="/brand/rs-reference.png"
-          imageAlt="Ferme intégrée Njombé-Penja"
+          variant="image"
+          badge="Pôle 3 · Ferme intégrée"
+          title="Une ferme pilote qui boucle la circularité"
+          subtitle="15 000 poulets/an et porcs d'engraissement. Alimentés par nos provendes. Cycle 45 jours optimisé. Biofertilisants issus des fientes."
+          image="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1920&q=80"
+          imageAlt="Poulets de chair en élevage intégré"
+          primaryCta={{ href: "/contact", label: "Visiter la ferme" }}
+          secondaryCta={{ href: "/produits", label: "Nos produits" }}
+          viewportHeight
         />
 
-        {/* ─────── BANDE IMMERSIVE : PÂTURAGE BOVIN ─────── */}
-        <section className="relative h-64 overflow-hidden md:h-96">
-          <CattlePasture className="h-full w-full object-cover" />
-          <div className="from-cri-forest-dark/85 pointer-events-none absolute inset-0 bg-gradient-to-t via-transparent to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 max-w-2xl md:bottom-12 md:left-12">
-            <span className="bg-cri-gold text-cri-humus text-label rounded-cri mb-3 inline-block px-3 py-1 font-bold uppercase tracking-wider">
-              Élevage extensif intégré
-            </span>
-            <p className="font-serif text-2xl leading-snug text-white md:text-3xl">
-              Bovins, volailles, porcs, biofertilisants : la circularité au cœur de la ferme.
-            </p>
+        <section className="py-20 bg-cri-parchment">
+          <div className="container-cri">
+            <StaggerGroup className="grid grid-cols-2 lg:grid-cols-4 gap-5" staggerDelay={0.1}>
+              <KpiCounter value={15000} label="Poulets / an" description="Cycle 45 jours" icon={<Drumstick className="h-5 w-5" />} trend="up" />
+              <KpiCounter value={200} label="Truies / an" description="Porcs engraissement" icon={<TrendingUp className="h-5 w-5" />} trend="up" />
+              <KpiCounter value={120} suffix=" t" label="Biofertilisant" description="Fientes valorisées" icon={<Recycle className="h-5 w-5" />} trend="up" />
+              <KpiCounter value={45} suffix=" j" label="Cycle poulet" description="Croissance optimisée" icon={<Calendar className="h-5 w-5" />} trend="stable" />
+            </StaggerGroup>
           </div>
         </section>
 
-        {/* ─────── KPIs ─────── */}
-        <SectionImpact
-          title="Ferme intégrée en chiffres (objectif 2028)"
-          subtitle="Capacités de production et impact social"
-        >
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            <KpiCard
-              value={15000}
-              label="Poulets de chair"
-              suffix=" /an"
-              trend="up"
-              description="3 bâtiments, 6 lots par an"
-            />
-            <KpiCard
-              value={250}
-              label="Porcs engraissement"
-              suffix=" /an"
-              trend="up"
-              description="3 bandes en rotation"
-            />
-            <KpiCard
-              value={200}
-              label="Biofertilisants"
-              suffix=" t/an"
-              trend="up"
-              description="Compost + lombricompost"
-            />
-            <KpiCard
-              value={40}
-              label="Femmes & jeunes"
-              suffix=" %+"
-              trend="up"
-              description="De nos recrutements"
-            />
-          </div>
-        </SectionImpact>
+        <SectionDivider variant="curve" fillClassName="fill-cri-cream" height={80} />
 
-        {/* ─────── COMPOSANTES ─────── */}
-        <section className="section-parchment">
+        <section className="py-20 md:py-24 bg-cri-cream">
           <div className="container-cri">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <span className="text-label text-cri-cacao font-bold uppercase tracking-wider">
-                Composantes
-              </span>
-              <h2 className="mt-3 text-3xl md:text-4xl">Quatre unités intégrées</h2>
-              <p className="text-cri-humus mt-4 text-lg">
-                La ferme repose sur quatre unités qui se nourrissent les unes les autres : élevage,
-                fertilisation, démonstration.
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Modèle intégré
               </p>
-            </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              {COMPONENTS.map((c) => (
-                <article key={c.title} className="card">
-                  <div className="bg-cri-canopy mb-4 flex h-12 w-12 items-center justify-center rounded-full text-white">
-                    <c.icon className="h-6 w-6" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl">{c.title}</h3>
-                  <ul className="text-cri-humus mt-4 space-y-2 text-sm">
-                    {c.details.map((d) => (
-                      <li key={d} className="flex items-start">
-                        <span className="text-cri-gold mr-2 mt-0.5">✓</span>
-                        <span>{d}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+                3 productions, 1 écosystème
+              </h2>
+            </RevealOnScroll>
 
-        {/* ─────── INSERTION ─────── */}
-        <section className="section bg-cri-forest text-white">
-          <div className="container-cri">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <span className="text-label text-cri-gold font-bold uppercase tracking-wider">
-                Impact social
-              </span>
-              <h2 className="mt-3 text-3xl text-white md:text-4xl">Une ferme inclusive</h2>
-              <p className="text-cri-parchment mt-4 text-lg">
-                Notre ferme est avant tout un projet social : 40 %+ de femmes et de jeunes dans les
-                équipes, formation certifiante, modèle reproductible dans d&apos;autres villages.
-              </p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              {INSERTION_PROGRAM.map((p) => (
-                <div
-                  key={p.title}
-                  className="rounded-cri border border-white/15 bg-white/10 p-6 backdrop-blur-sm"
-                >
-                  <div className="flex items-start gap-4">
-                    <p.icon className="text-cri-gold h-10 w-10 flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <h3 className="text-lg text-white">{p.title}</h3>
-                      <p className="text-cri-parchment mt-2 text-sm">{p.text}</p>
+            <StaggerGroup className="grid md:grid-cols-3 gap-5" staggerDelay={0.12}>
+              {[
+                { icon: Drumstick, title: "Poulets de chair", desc: "15 000/an, souche Cobb 500, aliment CRI-PROVEND CACAO Poulets." },
+                { icon: TrendingUp, title: "Porcs d'engraissement", desc: "200 truies, souche Large White, aliment CRI-PROVEND CACAO Porcs." },
+                { icon: Recycle, title: "Biofertilisants", desc: "120 t/an de fientes compostées, vendues aux producteurs cacaoyers." },
+              ].map((b) => {
+                const Icon = b.icon;
+                return (
+                  <GlassCard key={b.title} variant="default" hover className="h-full p-7">
+                    <div className="w-14 h-14 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center mb-5" aria-hidden="true">
+                      <Icon className="h-7 w-7" />
                     </div>
-                  </div>
+                    <h3 className="font-serif text-xl font-bold text-cri-forest mb-3">{b.title}</h3>
+                    <p className="text-cri-humus leading-relaxed">{b.desc}</p>
+                  </GlassCard>
+                );
+              })}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        <section className="py-20 md:py-24 bg-cri-forest text-cri-text-on-dark relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.04] bg-cri-pattern-feve pointer-events-none" aria-hidden="true" />
+          <div className="container-cri relative">
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-gold mb-2">
+                Bénéfices
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold">
+                Un modèle duplicable dans 6 pays
+              </h2>
+            </RevealOnScroll>
+
+            <StaggerGroup className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto" staggerDelay={0.1}>
+              {[
+                "Coût d'alimentation réduit de 30 %",
+                "Traçabilité RFID animal par animal",
+                "Biofertilisant 100 % local",
+                "Insertion de 30 jeunes éleveurs / an",
+                "Modulable : 5 000 à 50 000 poulets/an",
+                "Rentabilité dès la 2e année",
+              ].map((b) => (
+                <div key={b} className="flex items-start gap-3 p-4 rounded-xl bg-cri-forest-light/30 backdrop-blur-md border border-cri-gold/20">
+                  <CheckCircle2 className="h-5 w-5 text-cri-gold flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <span className="text-cri-text-on-dark/90">{b}</span>
                 </div>
               ))}
-            </div>
+            </StaggerGroup>
           </div>
         </section>
 
-        {/* ─────── CTA ─────── */}
-        <SectionCTA
-          title="Visitez la ferme intégrée"
-          description="Nous accueillons les visites techniques (institutionnels, chercheurs, étudiants) sur rendez-vous. Voyez notre modèle en action."
-          primaryCta={{ href: "/contact", label: "Réserver une visite" }}
-          secondaryCta={{ href: "/impact", label: "Voir notre impact social" }}
-          variant="gold"
-        />
+        <section className="py-20 bg-cri-cream">
+          <div className="container-cri text-center max-w-2xl">
+            <RevealOnScroll variant="zoom-in">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest mb-4">
+                Visitez notre ferme
+              </h2>
+              <p className="text-lg text-cri-ink-muted mb-8">
+                Visites guidées sur rendez-vous, du lundi au samedi. Démonstration
+                du modèle et dégustations à la ferme.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-cacao text-cri-text-on-dark font-semibold hover:bg-cri-forest transition-colors focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2"
+              >
+                Prendre rendez-vous
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              </Link>
+            </RevealOnScroll>
+          </div>
+        </section>
       </main>
-
       <Footer />
     </>
   );

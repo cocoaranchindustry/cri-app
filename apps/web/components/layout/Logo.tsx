@@ -1,266 +1,167 @@
 import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
  * Logo COCOA RANCH & INDUSTRY — Brandbook CRI v6 (officiel)
  *
- * Le logo officiel (sur affiches) est composé de :
- *  1. Un emblème cabosse cacao stylisé (or vif sur fond cacao brûlé)
- *  2. Le wordmark "COCOA RANCH" en serif Georgia blanc/crème
- *  3. Le sous-titre "& INDUSTRY" en small caps
- *  4. La mention "AGRO-PME FONDATION · DEPUIS 2010"
+ * Le logo officiel (image PNG fournie) représente :
+ *  - Une cabosse cacao stylisée verte (feuilles) avec grain central cacao
+ *  - Le wordmark "Cocoa Ranch" en serif signature
+ *  - Le sous-titre "AGRO-PME" en dessous
+ *  - Une mention "BPV FOUNDATION CAMEROUN" en pied
  *
- * Cette version est une **reconstitution SVG fidèle** au logo des affiches
- * officielles. Elle sert de fallback si l'image du logo officiel
- * (`/brand/logo-variants.png`) n'est pas chargée.
+ * L'image officielle est utilisée via next/image pour :
+ *  - Optimisation WebP/AVIF automatique
+ *  - Responsive srcset
+ *  - Lazy loading (sauf si priority)
+ *  - Layout stable (CLS = 0)
  *
  * Variantes :
- *  - default : fond cacao brûlé, texte crème, accent or
- *  - light   : fond crème/parchemin, texte forest, accent cacao
- *  - dark    : fond forest, texte crème, accent or
- *  - mono    : sans fond (couleur unique transmise via currentColor)
+ *  - default : logo PNG officiel (sur fond sombre ou clair)
+ *  - light   : avec fond parchment (utile sur images claires)
+ *  - dark    : avec fond forest (utile sur fonds clairs)
+ *
+ * Tailles disponibles :
+ *  - sm  = 40px  (mobile navbar)
+ *  - md  = 56px  (navbar desktop)
+ *  - lg  = 80px  (footer hero)
+ *  - xl  = 120px (page d'accueil hero, mentions légales)
  */
 
-export type LogoVariant = "default" | "light" | "dark" | "mono";
+export type LogoVariant = "default" | "light" | "dark";
 
-export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface LogoProps {
   size?: "sm" | "md" | "lg" | "xl";
   variant?: LogoVariant;
   showTagline?: boolean;
-  withImage?: boolean; // Si true, essaie de charger /brand/logo-variants.png
+  className?: string;
+  priority?: boolean; // Pour le hero (préchargement)
+  asLink?: boolean; // Si true, wrap dans un Link vers /
 }
 
 const sizeMap = {
-  sm: { emblem: 36, text: "text-base", sub: "text-[0.55rem]", tagline: "text-[0.55rem]" },
-  md: { emblem: 48, text: "text-xl", sub: "text-[0.65rem]", tagline: "text-[0.65rem]" },
-  lg: { emblem: 64, text: "text-2xl", sub: "text-xs", tagline: "text-[0.7rem]" },
-  xl: { emblem: 88, text: "text-4xl", sub: "text-sm", tagline: "text-[0.8rem]" },
+  sm: { height: 40, width: 88 },
+  md: { height: 56, width: 123 },
+  lg: { height: 80, width: 176 },
+  xl: { height: 120, width: 264 },
 } as const;
 
 const variantContainer: Record<LogoVariant, string> = {
-  default: "bg-cri-cacao text-cri-parchment",
-  light: "bg-cri-parchment text-cri-forest border border-cri-cream",
-  dark: "bg-cri-forest text-cri-parchment",
-  mono: "bg-transparent text-current",
-};
-
-const variantSub: Record<LogoVariant, string> = {
-  default: "text-cri-parchment/80",
-  light: "text-cri-cacao",
-  dark: "text-cri-parchment/75",
-  mono: "opacity-70",
+  default: "",
+  light: "bg-cri-parchment p-2 rounded-cri",
+  dark: "bg-cri-forest p-2 rounded-cri",
 };
 
 const variantTagline: Record<LogoVariant, string> = {
-  default: "text-cri-gold",
-  light: "text-cri-cacao",
+  default: "text-cri-cacao",
+  light: "text-cri-forest",
   dark: "text-cri-gold",
-  mono: "text-current opacity-60",
+};
+
+/**
+ * Compose le logo + tagline éventuelle dans une flex column.
+ * Le tagline est affiché en dessous du logo PNG.
+ */
+const LogoImage: React.FC<{
+  size: keyof typeof sizeMap;
+  variant: LogoVariant;
+  showTagline: boolean;
+  priority: boolean;
+}> = ({ size, variant, showTagline, priority }) => {
+  const s = sizeMap[size];
+  return (
+    <div
+      className={cn("inline-flex flex-col items-start", variantContainer[variant])}
+      role="img"
+      aria-label="COCOA RANCH & INDUSTRY — AGRO-PME FONDATION"
+    >
+      <Image
+        src="/logo.png"
+        alt=""
+        width={s.width}
+        height={s.height}
+        priority={priority}
+        className="h-auto w-auto"
+        style={{ height: s.height, width: "auto" }}
+      />
+      {showTagline && (
+        <span
+          className={cn(
+            "mt-1 font-sans text-[0.65rem] font-semibold uppercase tracking-[0.18em]",
+            variantTagline[variant]
+          )}
+        >
+          Agropole · Cameroun · Depuis 2010
+        </span>
+      )}
+    </div>
+  );
 };
 
 export const Logo: React.FC<LogoProps> = ({
   size = "md",
   variant = "default",
-  showTagline = true,
-  withImage = false,
+  showTagline = false,
   className,
-  ...props
+  priority = false,
+  asLink = false,
 }) => {
-  const s = sizeMap[size];
-  const [imgError, setImgError] = React.useState(false);
-  const useImage = withImage && !imgError;
-
-  if (useImage) {
+  if (asLink) {
     return (
-      <div className={cn("inline-flex items-center", className)} {...props}>
-        <img
-          src="/brand/logo-variants.png"
-          alt="COCOA RANCH & INDUSTRY — AGRO-PME FONDATION"
-          className={cn(
-            "h-auto object-contain",
-            size === "sm" && "h-10",
-            size === "md" && "h-14",
-            size === "lg" && "h-20",
-            size === "xl" && "h-28"
-          )}
-          onError={() => setImgError(true)}
+      <Link
+        href="/"
+        className={cn(
+          "group inline-block transition-opacity hover:opacity-90",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:rounded-cri",
+          className
+        )}
+        aria-label="COCOA RANCH & INDUSTRY — Accueil"
+      >
+        <LogoImage
+          size={size}
+          variant={variant}
+          showTagline={showTagline}
+          priority={priority}
         />
-      </div>
+      </Link>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "rounded-cri inline-flex items-center gap-3 px-3 py-2",
-        variantContainer[variant],
-        className
-      )}
-      role="img"
-      aria-label="COCOA RANCH & INDUSTRY — AGRO-PME FONDATION"
-      {...props}
-    >
-      {/* Emblème cabosse cacao stylisé */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
-        width={s.emblem}
-        height={s.emblem}
-        className="shrink-0"
-        aria-hidden="true"
-      >
-        {/* Fond circulaire or vif */}
-        <circle cx="50" cy="50" r="48" fill="#D4A024" />
-        <circle
-          cx="50"
-          cy="50"
-          r="44"
-          fill="none"
-          stroke="#7A3812"
-          strokeWidth="1.5"
-          opacity="0.4"
-        />
-
-        {/* Cabosse cacao (forme ovale côtelée) */}
-        <g transform="translate(50 50)">
-          {/* Corps cabosse */}
-          <ellipse cx="0" cy="6" rx="22" ry="28" fill="#7A3812" />
-          {/* Côtes verticales (rainures cabosse) */}
-          <path
-            d="M -18 -16 Q -16 6 -18 28"
-            fill="none"
-            stroke="#5A2A0E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M -8 -22 Q -6 6 -8 32"
-            fill="none"
-            stroke="#5A2A0E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 0 -24 Q 0 6 0 32"
-            fill="none"
-            stroke="#5A2A0E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 8 -22 Q 6 6 8 32"
-            fill="none"
-            stroke="#5A2A0E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 18 -16 Q 16 6 18 28"
-            fill="none"
-            stroke="#5A2A0E"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-
-          {/* Reflet or vif */}
-          <ellipse cx="-8" cy="-8" rx="6" ry="10" fill="#D4A024" opacity="0.4" />
-
-          {/* Pédoncule + feuilles en haut */}
-          <path d="M 0 -22 L 0 -30" stroke="#1F4A2E" strokeWidth="3" strokeLinecap="round" />
-          <path d="M 0 -30 Q -10 -34 -14 -28 Q -8 -26 0 -30 Z" fill="#1F4A2E" />
-          <path d="M 0 -30 Q 10 -34 14 -28 Q 8 -26 0 -30 Z" fill="#2D6B3E" />
-        </g>
-      </svg>
-
-      {/* Wordmark */}
-      <div className="flex flex-col leading-none">
-        <span className={cn("font-serif font-black leading-none tracking-tight", s.text)}>
-          COCOA <span className="italic">RANCH</span>
-        </span>
-        <span
-          className={cn(
-            "mt-1 font-sans font-bold uppercase tracking-[0.18em]",
-            s.sub,
-            variantSub[variant]
-          )}
-        >
-          & Industry
-        </span>
-        {showTagline && (
-          <span
-            className={cn(
-              "mt-1.5 font-sans font-semibold uppercase tracking-[0.15em]",
-              s.tagline,
-              variantTagline[variant]
-            )}
-          >
-            Agro-PME Fondation · Depuis 2010
-          </span>
-        )}
-      </div>
+    <div className={cn("inline-block", className)}>
+      <LogoImage
+        size={size}
+        variant={variant}
+        showTagline={showTagline}
+        priority={priority}
+      />
     </div>
   );
 };
 
 /**
- * LogoMark — Juste l'emblème cabosse, sans le wordmark.
- * Utile pour favicon, loader, watermarks, etc.
+ * LogoMark — Juste l'image PNG du logo officiel, sans tagline.
+ * Idéal pour la Navbar, le Footer, et les zones compactes.
+ * Utilise next/image pour l'optimisation automatique.
  */
-export const LogoMark: React.FC<{ size?: number; className?: string }> = ({
-  size = 48,
-  className,
-}) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 100 100"
-    width={size}
-    height={size}
-    className={cn("inline-block", className)}
-    role="img"
-    aria-label="Emblème COCOA RANCH"
-  >
-    <circle cx="50" cy="50" r="48" fill="#D4A024" />
-    <g transform="translate(50 50)">
-      <ellipse cx="0" cy="6" rx="22" ry="28" fill="#7A3812" />
-      <path
-        d="M -18 -16 Q -16 6 -18 28"
-        fill="none"
-        stroke="#5A2A0E"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M -8 -22 Q -6 6 -8 32"
-        fill="none"
-        stroke="#5A2A0E"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 0 -24 Q 0 6 0 32"
-        fill="none"
-        stroke="#5A2A0E"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 8 -22 Q 6 6 8 32"
-        fill="none"
-        stroke="#5A2A0E"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 18 -16 Q 16 6 18 28"
-        fill="none"
-        stroke="#5A2A0E"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <ellipse cx="-8" cy="-8" rx="6" ry="10" fill="#D4A024" opacity="0.4" />
-      <path d="M 0 -22 L 0 -30" stroke="#1F4A2E" strokeWidth="3" strokeLinecap="round" />
-      <path d="M 0 -30 Q -10 -34 -14 -28 Q -8 -26 0 -30 Z" fill="#1F4A2E" />
-      <path d="M 0 -30 Q 10 -34 14 -28 Q 8 -26 0 -30 Z" fill="#2D6B3E" />
-    </g>
-  </svg>
-);
+export const LogoMark: React.FC<{
+  size?: number;
+  className?: string;
+  priority?: boolean;
+}> = ({ size = 48, className, priority = false }) => {
+  // Le ratio du logo officiel est ~2.2:1 (largeur:hauteur)
+  const width = Math.round(size * 2.2);
+  return (
+    <Image
+      src="/logo.png"
+      alt="COCOA RANCH & INDUSTRY — AGRO-PME FONDATION"
+      width={width}
+      height={size}
+      priority={priority}
+      className={cn("h-auto w-auto", className)}
+      style={{ height: size, width: "auto" }}
+    />
+  );
+};

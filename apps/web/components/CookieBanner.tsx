@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, Cookie } from "lucide-react";
 
 /**
  * Bandeau cookies — RGPD / CNIL
@@ -48,13 +48,17 @@ export const CookieBanner: React.FC = () => {
       className="bg-cri-forest rounded-cri shadow-cri-lg border-cri-gold animate-slide-up fixed bottom-4 left-4 right-4 z-50 border-2 p-6 text-white md:left-auto md:right-4 md:max-w-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 id="cookie-title" className="text-cri-gold font-serif text-lg font-bold">
-          🍪 Cookies &amp; confidentialité
+        <h2
+          id="cookie-title"
+          className="text-cri-gold font-serif text-lg font-bold flex items-center gap-2"
+        >
+          <Cookie className="h-5 w-5" aria-hidden="true" />
+          Cookies &amp; confidentialité
         </h2>
         <button
           type="button"
           onClick={refuse}
-          className="text-cri-parchment/80 hover:text-white"
+          className="text-cri-parchment/80 hover:text-white rounded-md p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold"
           aria-label="Fermer"
         >
           <X className="h-4 w-4" />
@@ -63,7 +67,10 @@ export const CookieBanner: React.FC = () => {
       <p id="cookie-desc" className="text-cri-parchment/90 mt-3 text-sm">
         Nous utilisons des cookies <strong>strictement nécessaires</strong> (session) et un outil
         d&apos;analyse anonymisé (Plausible, sans cookie). Aucun traceur publicitaire.
-        <Link href="/privacy" className="text-cri-gold ml-1 underline">
+        <Link
+          href="/privacy"
+          className="text-cri-gold ml-1 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold rounded"
+        >
           Politique de confidentialité
         </Link>
         .
@@ -72,14 +79,14 @@ export const CookieBanner: React.FC = () => {
         <button
           type="button"
           onClick={accept}
-          className="bg-cri-gold text-cri-humus rounded-cri hover:bg-cri-gold-light flex-1 px-4 py-2 text-sm font-bold transition-colors"
+          className="bg-cri-gold text-cri-humus rounded-cri hover:bg-cri-gold-light flex-1 px-4 py-2.5 text-sm font-bold transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
         >
           Accepter
         </button>
         <button
           type="button"
           onClick={refuse}
-          className="border-cri-parchment/30 rounded-cri hover:bg-cri-canopy flex-1 border bg-transparent px-4 py-2 text-sm font-bold text-white transition-colors"
+          className="border-cri-parchment/30 rounded-cri hover:bg-cri-canopy flex-1 border bg-transparent px-4 py-2.5 text-sm font-bold text-white transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cri-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cri-forest"
         >
           Refuser
         </button>

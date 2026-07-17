@@ -47,6 +47,14 @@ export interface PageHeroProps {
   withPattern?: boolean;
   className?: string;
   align?: "left" | "center";
+  /**
+   * Si `true`, le hero remplit toute la hauteur du viewport moins la navbar
+   * (calc(100vh - 5rem)). Le contenu est centré verticalement.
+   * Le texte du hero est alors lisible sans avoir à scroller.
+   *
+   * @default false
+   */
+  viewportHeight?: boolean;
 }
 
 const containerVariants = {
@@ -83,6 +91,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
   withPattern = false,
   className,
   align = "left",
+  viewportHeight = false,
 }) => {
   const showImage = variant === "image" && image;
   const isDarkSurface = showImage || variant !== "default";
@@ -96,12 +105,23 @@ export const PageHero: React.FC<PageHeroProps> = ({
         variants: containerVariants,
       };
 
+  // Mode "viewport" : le hero remplit exactement la hauteur visible moins
+  // la navbar (h-20 = 5rem). Le contenu est centré verticalement pour
+  // rester lisible sans avoir à scroller.
+  // - Mobile (<md) : on conserve un padding confortable, le hero peut
+  //   dépasser si le contenu est long (UX mobile prioritaire).
+  // - Desktop (≥md) : on remplit le viewport, padding minimal, contenu
+  //   centré.
+  const heightClasses = viewportHeight
+    ? "min-h-[calc(100vh-5rem)] md:flex md:items-center py-16 md:py-20"
+    : "py-24 md:py-32 lg:py-40";
+
   return (
     <section
       className={cn(
         "relative overflow-hidden",
         showImage ? "text-white" : variantClasses[variant],
-        "py-24 md:py-32 lg:py-40",
+        heightClasses,
         className
       )}
     >

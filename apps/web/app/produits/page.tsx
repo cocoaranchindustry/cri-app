@@ -1,275 +1,172 @@
-import Link from "next/link";
+"use client";
+
 import {
+  Drumstick,
   ArrowRight,
-  Sprout,
-  Factory,
-  Wheat,
-  ShoppingBag,
   Award,
-  FileText,
-  Download,
+  Package,
 } from "lucide-react";
+import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/ui/PageHero";
-import { HeroCabosse, FactoryBelt, SproutLeaf } from "@/components/ui/Illustrations";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Nos produits — Cacao, provendes, biofertilisants",
-  description:
-    "Catalogue produits Cocoa Ranch & Industry : fèves de cacao premium, provendes animales CRI-PROVEND, biofertilisants compostés. Disponibles FOB Douala ou sur le marché local.",
-  keywords: [
-    "cacao FOB Douala",
-    "provendes Cameroun",
-    "biofertilisants",
-    "catalogue produits cacao",
-  ],
-  openGraph: {
-    title: "Nos produits — Cocoa Ranch & Industry",
-    description:
-      "Cacao premium, provendes brevetées OAPI, biofertilisants circulaires : notre catalogue complet.",
-    type: "website",
-  },
-};
+import { ProductCard } from "@/components/ui/ProductCard";
+import { RevealOnScroll, StaggerGroup } from "@/components/ui/RevealOnScroll";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 /**
- * Page /produits — Catalogue produits
- * Brandbook CRI v5 : dominante verte, or cacao, parchemin.
- *
- * Sections :
- * 1. Hero
- * 2. Catalogue par catégorie
- * 3. CTA
+ * Page /produits — Fiches produits, certifications, commandes
  */
 
-const CATEGORIES = [
-  {
-    title: "Cacao Premium",
-    icon: Sprout,
-    color: "cri-forest",
-    description: "Fèves fermentées et séchées, prêtes à l'export ou à la torréfaction artisanale.",
-    products: [
-      {
-        name: "Fèves Forastero Premium",
-        ref: "CRI-CF-001",
-        spec: "Fermentation 5-7 j, séchage 7-10 j, humidité < 6,5 %",
-        packaging: "Sacs jute 60-65 kg / big-bags 1 t",
-        moq: "10 tonnes",
-      },
-      {
-        name: "Fèves Trinitario Fin",
-        ref: "CRI-CT-002",
-        spec: "Sélection parcellaire, fermentation lente 7 j",
-        packaging: "Sacs jute 60-65 kg / big-bags 1 t",
-        moq: "5 tonnes",
-      },
-      {
-        name: "Fèves Criollo Local",
-        ref: "CRI-CC-003",
-        spec: "Sélection premium, micro-lots",
-        packaging: "Sacs jute 30 kg / caisses bois 25 kg",
-        moq: "1 tonne",
-      },
-      {
-        name: "Cacao torréfié (bean-to-bar)",
-        ref: "CRI-CTR-004",
-        spec: "Torréfaction profil doux, prêt broyage",
-        packaging: "Sacs alu 25 kg sous vide",
-        moq: "500 kg",
-      },
-    ],
-  },
-  {
-    title: "Provendes animales",
-    icon: Factory,
-    color: "cri-cacao",
-    description: "Provendes brevetées OAPI à base de cabosses de cacao, pour élevages intensifs.",
-    products: [
-      {
-        name: "CRI-PROVEND CACAO Poulet démarrage",
-        ref: "CRI-PP-D",
-        spec: "Protéines 22 %, énergie 2 900 kcal/kg, anticoccidiens naturels",
-        packaging: "Sac 50 kg / big-bag 1 t",
-        moq: "1 tonne",
-      },
-      {
-        name: "CRI-PROVEND CACAO Poulet croissance/finition",
-        ref: "CRI-PP-CF",
-        spec: "Protéines 20 %, énergie 3 000 kcal/kg",
-        packaging: "Sac 50 kg / big-bag 1 t",
-        moq: "1 tonne",
-      },
-      {
-        name: "CRI-PROVEND CACAO Porc engraissement",
-        ref: "CRI-POR-EN",
-        spec: "Protéines 17 %, énergie 3 100 kcal/kg",
-        packaging: "Sac 50 kg / big-bag 1 t",
-        moq: "1 tonne",
-      },
-      {
-        name: "CRI-PROVEND CACAO Bio+",
-        ref: "CRI-PB-BIO",
-        spec: "100 % bio, sans OGM, certification en cours",
-        packaging: "Sac 25 kg / big-bag 1 t",
-        moq: "500 kg",
-      },
-    ],
-  },
-  {
-    title: "Biofertilisants",
-    icon: Wheat,
-    color: "cri-canopy",
-    description: "Compost et lombricompost à partir des fientes de la ferme intégrée.",
-    products: [
-      {
-        name: "Compost CRI (vrac)",
-        ref: "CRI-BF-COM",
-        spec: "Compost mûr 6 mois, NPK 2-1-2, MO 35 %",
-        packaging: "Vrac (camion 5-10 t)",
-        moq: "5 tonnes",
-      },
-      {
-        name: "Lombricompost CRI (sac)",
-        ref: "CRI-BF-LOM",
-        spec: "Lombricompost premium, NPK 3-2-3, MO 50 %",
-        packaging: "Sac 25 kg / big-bag 500 kg",
-        moq: "500 kg",
-      },
-    ],
-  },
-];
-
-export default function ProduitsPage() {
+export default function ProductsPage() {
   return (
     <>
       <Navbar />
-
-      <main id="main">
-        {/* ─────── HERO ─────── */}
+      <main id="main-content" tabIndex={-1}>
         <PageHero
-          badge="Catalogue produits"
-          title="Trois familles, une circularité"
-          subtitle={
-            <>
-              Cacao premium, provendes brevetées OAPI, biofertilisants compostés : tous nos produits
-              partagent la même exigence de qualité, traçabilité et circularité.
-            </>
-          }
+          variant="image"
+          image="https://images.unsplash.com/photo-1587049352851-8d4e89133924?w=1920&q=80"
+          imageAlt="Fèves de cacao premium triées à la main"
+          badge="Produits & services"
+          title="Du cacao premium aux provendes brevetées"
+          subtitle="Notre gamme complète, traçable et certifiée. Commandes directes producteur ou revendeur."
+          viewportHeight
         />
 
-        {/* ─────── BANDE IMMERSIVE : 3 PRODUITS EN IMAGES ─────── */}
-        <section className="grid h-48 grid-cols-1 md:h-64 md:grid-cols-3">
-          <div className="relative overflow-hidden">
-            <HeroCabosse className="absolute inset-0 h-full w-full object-cover" />
-            <div className="from-cri-forest-dark/80 absolute inset-0 bg-gradient-to-t to-transparent" />
-            <div className="absolute bottom-3 left-4 right-4">
-              <p className="text-cri-gold text-label font-bold uppercase tracking-wider">Cacao</p>
-              <p className="font-serif text-lg text-white">Fèves premium</p>
-            </div>
-          </div>
-          <div className="relative overflow-hidden">
-            <FactoryBelt className="absolute inset-0 h-full w-full object-cover" />
-            <div className="from-cri-forest-dark/80 absolute inset-0 bg-gradient-to-t to-transparent" />
-            <div className="absolute bottom-3 left-4 right-4">
-              <p className="text-cri-gold text-label font-bold uppercase tracking-wider">
-                Provendes
+        <section className="py-20 md:py-24 bg-cri-parchment">
+          <div className="container-cri">
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Notre gamme
               </p>
-              <p className="font-serif text-lg text-white">CRI-PROVEND CACAO</p>
-            </div>
-          </div>
-          <div className="relative overflow-hidden">
-            <SproutLeaf className="absolute inset-0 h-full w-full object-cover" />
-            <div className="from-cri-forest-dark/80 absolute inset-0 bg-gradient-to-t to-transparent" />
-            <div className="absolute bottom-3 left-4 right-4">
-              <p className="text-cri-gold text-label font-bold uppercase tracking-wider">
-                Biofertilisants
-              </p>
-              <p className="font-serif text-lg text-white">Compost & lombricompost</p>
+              <h2 className="font-serif text-3xl md:text-5xl font-bold text-cri-forest">
+                4 produits, 1 modèle circulaire
+              </h2>
+            </RevealOnScroll>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <ProductCard
+                category="cacao"
+                title="Fèves Cacao Premium"
+                subtitle="Fermentation 7 j · Séchage solaire"
+                description="Fèves de cacao camerounais fermentées 7 jours en cascade, séchées au soleil sur claies premium."
+                highlights={[
+                  "Taux de fermentation ≥ 80 %",
+                  "Humidité finale 6,5 %",
+                  "Grade A1 (zéro défaut)",
+                  "Traçabilité QR Code par lot",
+                ]}
+                certifications={["EUDR", "OAPI", "CacaoTrace"]}
+                ctaLabel="Demander un devis"
+                ctaHref="/contact"
+              />
+              <ProductCard
+                category="provende"
+                title="CRI-PROVEND CACAO Poulets"
+                subtitle="Brevet OAPI n°15012"
+                description="Aliment complet pour poulets de chair, formulé à base de cabosses de cacao. -15 % vs marché."
+                highlights={[
+                  "Énergie métabolisable 3 100 kcal/kg",
+                  "Protéines brutes 21 %",
+                  "Cycle 0-45 jours optimisé",
+                  "Gain moyen quotidien +12 %",
+                ]}
+                certifications={["OAPI", "ISO 22000"]}
+                ctaLabel="Commander"
+                ctaHref="/contact"
+              />
+              <ProductCard
+                category="provende"
+                title="CRI-PROVEND CACAO Porcs"
+                subtitle="Brevet OAPI n°15013"
+                description="Aliment complet pour porcs d'engraissement. Validation zootechnique en ferme pilote."
+                highlights={[
+                  "Énergie métabolisable 3 250 kcal/kg",
+                  "Protéines brutes 16 %",
+                  "Cycle 0-180 jours",
+                  "Indice de conversion 2,6",
+                ]}
+                certifications={["OAPI", "ISO 22000"]}
+                ctaLabel="Commander"
+                ctaHref="/contact"
+              />
+              <ProductCard
+                category="biofertilisant"
+                title="Biofertilisant CRI-OR"
+                subtitle="Compost de fientes"
+                description="Biofertilisant 100 % naturel, issu du compostage des fientes de la ferme intégrée."
+                highlights={[
+                  "NPK 3-2-2 + oligo-éléments",
+                  "Certification bio UE",
+                  "Sac de 25 ou 50 kg",
+                  "Livraison Bassin du Mungo",
+                ]}
+                certifications={["Bio UE", "ISO 22000"]}
+                ctaLabel="Commander"
+                ctaHref="/contact"
+              />
             </div>
           </div>
         </section>
 
-        {/* ─────── CATALOGUE ─────── */}
-        {CATEGORIES.map((cat) => (
-          <section key={cat.title} className="section-parchment border-cri-cacao/20 border-t">
-            <div className="container-cri">
-              <div className="grid items-start gap-8 md:grid-cols-4">
-                <div className="md:sticky md:top-24">
-                  <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-full bg-${cat.color} mb-4 text-white`}
-                  >
-                    <cat.icon className="h-7 w-7" aria-hidden="true" />
-                  </div>
-                  <h2 className="text-2xl">{cat.title}</h2>
-                  <p className="text-cri-humus mt-3 text-sm">{cat.description}</p>
-                  <Link
-                    href="/contact"
-                    className="text-cri-cacao hover:text-cri-gold mt-6 inline-flex items-center text-sm font-bold"
-                  >
-                    Demander le catalogue PDF
-                    <Download className="ml-2 h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </div>
-                <div className="grid gap-4 md:col-span-3">
-                  {cat.products.map((p) => (
-                    <article key={p.ref} className="card hover:shadow-cri-md transition-shadow">
-                      <div className="grid items-center gap-4 md:grid-cols-3">
-                        <div className="md:col-span-2">
-                          <span className="text-cri-cacao text-xs font-bold uppercase tracking-wider">
-                            Réf. {p.ref}
-                          </span>
-                          <h3 className="mt-1 text-lg">{p.name}</h3>
-                          <p className="text-cri-humus mt-2 text-sm">{p.spec}</p>
-                        </div>
-                        <div className="text-sm">
-                          <p className="text-cri-cacao font-bold">{p.packaging}</p>
-                          <p className="text-cri-humus mt-1">
-                            <strong>MOQ :</strong> {p.moq}
-                          </p>
-                          <Link
-                            href="/contact"
-                            className="text-cri-cacao hover:text-cri-gold mt-3 inline-flex items-center text-sm font-bold"
-                          >
-                            Demander un devis
-                            <ArrowRight className="ml-1 h-3 w-3" aria-hidden="true" />
-                          </Link>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        ))}
+        <SectionDivider variant="leaf" fillClassName="fill-cri-cream" height={80} />
 
-        {/* ─────── ENGAGEMENTS ─────── */}
-        <section className="section bg-cri-cream">
-          <div className="container-cri text-center">
-            <Award className="text-cri-gold mx-auto h-16 w-16" aria-hidden="true" />
-            <h2 className="mt-6 text-3xl md:text-4xl">Qualité, traçabilité, certification</h2>
-            <p className="text-cri-humus mx-auto mt-4 max-w-2xl">
-              Tous nos produits sont fabriqués selon les normes internationales (ISO 22000, HACCP)
-              et accompagnés d&apos;un certificat d&apos;analyse par lot.
-            </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+        <section className="py-20 md:py-24 bg-cri-cream">
+          <div className="container-cri">
+            <RevealOnScroll variant="slide-up" className="text-center mb-12 max-w-2xl mx-auto">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cri-cacao mb-2">
+                Élevage
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-cri-forest">
+                Viandes de la ferme intégrée
+              </h2>
+            </RevealOnScroll>
+
+            <StaggerGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.1}>
+              {[
+                { icon: Drumstick, name: "Poulets de chair", desc: "1,8-2,2 kg à 45 jours. Alimentés CRI-PROVEND CACAO." },
+                { icon: Package, name: "Cuisses & filets", desc: "Découpe à la demande, sous vide, livraison 48h." },
+                { icon: Award, name: "Porc frais", desc: "Carcasse entière ou découpe. Race Large White locale." },
+              ].map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div
+                    key={p.name}
+                    className="p-6 rounded-2xl bg-cri-parchment border-2 border-cri-moss/20 hover:border-cri-cacao/40 transition-colors"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-cri-canopy/10 text-cri-canopy flex items-center justify-center mb-4" aria-hidden="true">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-cri-forest mb-2">{p.name}</h3>
+                    <p className="text-sm text-cri-ink-muted leading-relaxed">{p.desc}</p>
+                  </div>
+                );
+              })}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        <section className="py-20 bg-cri-forest text-cri-text-on-dark">
+          <div className="container-cri text-center max-w-2xl">
+            <RevealOnScroll variant="zoom-in">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+                Commander nos produits
+              </h2>
+              <p className="text-lg text-cri-text-on-dark/85 mb-8">
+                Devis personnalisé sous 24h. Livraison Bassin du Mungo et
+                départements limitrophes. Export international sur demande.
+              </p>
               <Link
-                href="/publications"
-                className="btn bg-cri-forest hover:bg-cri-canopy text-white"
+                href="/contact"
+                className="inline-flex items-center gap-2 h-14 px-8 rounded-xl bg-cri-gold text-cri-humus font-semibold hover:bg-cri-gold-light transition-colors focus:outline-none focus:ring-2 focus:ring-cri-gold focus:ring-offset-2 focus:ring-offset-cri-forest"
               >
-                <FileText className="mr-2 h-5 w-5" aria-hidden="true" />
-                Voir nos publications
-              </Link>
-              <Link href="/contact" className="btn-gold">
-                <ShoppingBag className="mr-2 h-5 w-5" aria-hidden="true" />
                 Demander un devis
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-            </div>
+            </RevealOnScroll>
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   );
