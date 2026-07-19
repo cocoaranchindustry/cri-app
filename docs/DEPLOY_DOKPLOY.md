@@ -47,27 +47,31 @@ git push -u origin main
 
 ## 4️⃣ Variables d'environnement
 
-Dans **Environment Variables** de Dokploy, ajouter **toutes les variables** du fichier `apps/web/.env.production` (⚠️ Dokploy les chiffre au repos) :
+Dans **Environment Variables** de Dokploy, ajouter **toutes les variables** du fichier `apps/web/.env.production` (⚠️ Dokploy les chiffre au repos, et ⚠️ ne jamais commiter de vraies valeurs dans Git).
 
-| Variable                                   | Valeur (rappel)                                                                                   |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_FIREBASE_API_KEY`             | `<AIza…>`                                                         |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `cocoaranchindustry-98c05.firebaseapp.com`                                                        |
-| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `cocoaranchindustry-98c05`                                                                        |
-| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `1001536445407`                                                                                   |
-| `NEXT_PUBLIC_FIREBASE_APP_ID`              | `1:1001536445407:web:d67d6023fab9c9f0c2826a`                                                      |
-| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | `G-WPK22RVV9P`                                                                                    |
-| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`           | (vide ou `6Lc...`)                                                                                |
-| `FIREBASE_CLIENT_EMAIL`                    | `<firebase-adminsdk-…@…iam.gserviceaccount.com>`                        |
-| `FIREBASE_PRIVATE_KEY`                     | ⚠️ **en gardant les `\n` littéraux** entre les lignes                                             |
-| `SESSION_COOKIE_SECRET`                    | `<64 hex chars>`                                |
-| `ENCRYPTION_KEY`                           | `<44 base64 chars>`                                                    |
-| `BREVO_API_KEY`                            | `<xkeysib-…>`       |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`             | `moccasin-crane-322888.hostingersite.com`                                                         |
-| `NEXT_PUBLIC_SENTRY_DSN`                   | `<Sentry DSN>` |
-| `SENTRY_AUTH_TOKEN`                        | `<sntryu_…>`                         |
-| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`          | (vide)                                                                                            |
-| `NEXT_PUBLIC_APP_URL`                      | `https://www.cocoaranchindustry.cloud`                                                            |
+> **Important** : copier les valeurs **réelles** depuis votre fichier local `apps/web/.env.production` — ne les collez **pas** dans Git ni dans des tickets. Utilisez le tableau ci-dessous comme **mémo de référence** (variables listées, valeurs de prod volontairement remplacées par des placeholders) :
+
+| Variable                                   | Nom (pour mémo)                                                |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| `NEXT_PUBLIC_FIREBASE_API_KEY`             | `AIza…` (clé publique Web App)                                 |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | `cocoaranchindustry-98c05.firebaseapp.com`                     |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | `cocoaranchindustry-98c05`                                     |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | (10 chiffres)                                                  |
+| `NEXT_PUBLIC_FIREBASE_APP_ID`              | `1:…:web:…`                                                    |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | `G-…`                                                          |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`           | (vide ou `6Lc…`)                                               |
+| `FIREBASE_CLIENT_EMAIL`                    | `firebase-adminsdk-…@…iam.gserviceaccount.com`                 |
+| `FIREBASE_PRIVATE_KEY`                     | ⚠️ **PEM complet entre guillemets, garder les `\n` littéraux** |
+| `SESSION_COOKIE_SECRET`                    | 64 chars hex (32 octets)                                       |
+| `ENCRYPTION_KEY`                           | 44 chars base64 (32 octets)                                    |
+| `BREVO_API_KEY`                            | `xkeysib-…`                                                    |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`             | sous-domaine Hostinger                                         |
+| `NEXT_PUBLIC_SENTRY_DSN`                   | DSN Sentry                                                     |
+| `SENTRY_AUTH_TOKEN`                        | token Sentry (`sntryu_…`)                                      |
+| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`          | (vide)                                                         |
+| `NEXT_PUBLIC_APP_URL`                      | `https://www.cocoaranchindustry.cloud`                         |
+
+📋 **Pour récupérer les vraies valeurs** : ouvrez `apps/web/.env.production` en local et copiez-collez chaque ligne dans Dokploy.
 
 ## 5️⃣ Configurer le domaine + HTTPS
 
