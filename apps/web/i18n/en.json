@@ -8,6 +8,7 @@
     "impact": "CSR Impact",
     "products": "Products",
     "news": "News",
+    "publications": "Publications",
     "contact": "Contact",
     "investors": "Investors",
     "languageSwitcher": "Switch language"
@@ -148,6 +149,7 @@
     "project": "The project",
     "activities": "Activities",
     "resources": "Resources",
+    "impact": "CSR Impact",
     "brevet": "OAPI patent",
     "publications": "Publications",
     "legal": "Legal notice",
