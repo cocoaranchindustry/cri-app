@@ -24,11 +24,11 @@ services:
     image: cri-web:latest
     container_name: cri-web
     restart: unless-stopped
-    ports:
-      # Exposé uniquement en interne — Traefik (géré par Dokploy) gère
-      # le mapping 80/443 → 3000. Commentez la ligne ci-dessous si vous
-      # voulez exposer le port directement.
-      - "127.0.0.1:3000:3000"
+    # Pas de port publié sur le host : Traefik (géré par Dokploy) accède
+    # au conteneur via le réseau Docker interne sur le port 3000.
+    # Le host port est inutile car Traefik est dans le même réseau.
+    expose:
+      - "3000"
     environment:
       <<: *common-env
       PORT: "3000"
