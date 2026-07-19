@@ -1,8 +1,8 @@
 {
   "projects": {
-    "default": "cri-app-dev",
+    "default": "cocoaranchindustry-98c05",
     "dev": "cri-app-dev",
     "staging": "cri-app-staging",
-    "prod": "cri-app-prod"
+    "prod": "cocoaranchindustry-98c05"
   }
 }

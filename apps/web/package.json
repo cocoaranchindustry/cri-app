@@ -14,7 +14,13 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:firebase": "node scripts/test-firebase-config.mjs"
+    "test:firebase": "node scripts/test-firebase-config.mjs",
+    "validate:env": "node scripts/validate-env-production.mjs",
+    "validate:env:prod": "node scripts/validate-env-production.mjs",
+    "i18n:check": "node scripts/check-i18n-parity.mjs",
+    "seed:firestore": "node scripts/seed-firestore.mjs",
+    "seed:firestore:dry": "node scripts/seed-firestore.mjs --dry-run",
+    "validate:rules": "node scripts/validate-firestore-rules.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

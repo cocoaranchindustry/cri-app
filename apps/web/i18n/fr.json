@@ -148,6 +148,8 @@
     "project": "Le projet",
     "activities": "Activités",
     "resources": "Ressources",
+    "brevet": "Brevet OAPI",
+    "publications": "Publications",
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité",
     "cookies": "Cookies",
@@ -175,6 +177,86 @@
     "search": "Rechercher",
     "learnMore": "En savoir plus",
     "discover": "Découvrir",
-    "contactUs": "Nous contacter"
+    "contactUs": "Nous contacter",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "investorArea": "Espace investisseurs"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "ctaHome": "Retour à l'accueil"
+  },
+  "pageMeta": {
+    "home": "Accueil — Cocoa Ranch & Industry",
+    "contact": "Contact — Cocoa Ranch & Industry",
+    "projet": "Le projet — Cocoa Ranch & Industry",
+    "impact": "Impact RSE — Cocoa Ranch & Industry",
+    "brevet": "Brevet OAPI — Cocoa Ranch & Industry",
+    "produits": "Produits — Cocoa Ranch & Industry",
+    "activites": "Activités — Cocoa Ranch & Industry",
+    "actualites": "Actualités — Cocoa Ranch & Industry",
+    "publications": "Publications — Cocoa Ranch & Industry",
+    "investisseurs": "Espace investisseurs — Cocoa Ranch & Industry",
+    "mentionsLegales": "Mentions légales — Cocoa Ranch & Industry",
+    "privacy": "Politique de confidentialité — Cocoa Ranch & Industry",
+    "cookies": "Cookies — Cocoa Ranch & Industry"
+  },
+  "pages": {
+    "contact": {
+      "badge": "Contact",
+      "title": "Parlons de votre projet",
+      "subtitle": "Une question, un partenariat, un devis ? Notre équipe vous répond sous 48h ouvrées."
+    },
+    "projet": {
+      "badge": "Le projet",
+      "title": "Notre projet, notre raison d'être",
+      "subtitle": "Un projet mûrement réfléchi, ancré dans le terroir du Bassin du Mungo, conçu pour transformer l'économie cacaoyère camerounaise en profondeur."
+    },
+    "impact": {
+      "badge": "Impact RSE",
+      "title": "Zéro déforestation, zéro déchet, zéro CO₂",
+      "subtitle": "Notre engagement RSE est adossé au programme CIMAR-Technopôle : promotion de l'agroécologie, formation-insertion des jeunes et des femmes, diffusion des bio-intrants."
+    },
+    "brevet": {
+      "badge": "Propriété intellectuelle",
+      "title": "Brevet OAPI — CRI-PROVEND CACAO",
+      "subtitle": "Protection internationale d'une innovation agro-industrielle majeure : la transformation des cabosses de cacao en provendes animales."
+    },
+    "investisseurs": {
+      "badge": "Espace investisseurs",
+      "title": "Investissez dans le cacao africain durable",
+      "subtitle": "3,2 Md FCFA recherchés sur 2026-2030. Projet mature, bankable, différencié. ROI projeté 18-22 %."
+    },
+    "produits": {
+      "badge": "Produits & services",
+      "title": "Du cacao premium aux provendes brevetées",
+      "subtitle": "Notre gamme complète, traçable et certifiée. Commandes directes producteur ou revendeur."
+    },
+    "activites": {
+      "badge": "Nos activités",
+      "title": "Trois pôles, une circularité",
+      "subtitle": "Cacao premium, provenderie brevetée et ferme intégrée : un modèle économique conçu pour valoriser 100 % des sous-produits."
+    },
+    "actualites": {
+      "badge": "Actualités",
+      "title": "L'actualité de Cocoa Ranch & Industry",
+      "subtitle": "Communiqués, études, événements et couverture média. Suivez l'avancement du projet."
+    },
+    "cacao": {
+      "badge": "Pôle 1 · Cacao Premium",
+      "title": "Du terroir au conteneur, traçable et zéro défaut",
+      "subtitle": "Collecte, fermentation 7 jours, séchage premium. Traçabilité CacaoTrace avec QR code pour chaque lot exporté."
+    },
+    "provendes": {
+      "badge": "Pôle 2 · Provenderie",
+      "title": "La provende inventée à partir des cabosses de cacao",
+      "subtitle": "Brevet OAPI n°15012 — formulation CRI-PROVEND CACAO. -15 % vs marché, qualité nutritionnelle supérieure."
+    },
+    "elevage": {
+      "badge": "Pôle 3 · Ferme intégrée",
+      "title": "Une ferme pilote qui boucle la circularité",
+      "subtitle": "15 000 poulets/an et porcs d'engraissement. Alimentés par nos provendes. Cycle 45 jours optimisé. Biofertilisants issus des fientes."
+    }
   }
 }

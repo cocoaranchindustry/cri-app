@@ -20,10 +20,16 @@
     "test:e2e": "npm run test:e2e --workspace=apps/web",
     "prepare": "husky",
     "rules:deploy": "firebase deploy --only firestore:rules,storage",
-    "functions:deploy": "firebase deploy --only functions"
+    "functions:deploy": "firebase deploy --only functions",
+    "vps:setup": "bash scripts/dokploy-setup.sh",
+    "vps:sync": "bash scripts/sync-vps.sh",
+    "vps:deploy": "bash scripts/deploy-vps.sh",
+    "vps:logs": "bash scripts/vps-logs.sh",
+    "vps:status": "bash scripts/vps-status.sh"
   },
   "devDependencies": {
     "eslint-config-prettier": "^10.1.8",
+    "firebase-tools": "^15.24.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",

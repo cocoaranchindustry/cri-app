@@ -48,6 +48,12 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Standalone output : génère un serveur Node.js minimal (~50 MB)
+  // incluant uniquement les dépendances runtime. Utilisé par le
+  // Dockerfile Dokploy pour produire une image de prod légère.
+  // Voir : https://nextjs.org/docs/app/api-reference/config/next-config-js/output
+  output: "standalone",
+
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,

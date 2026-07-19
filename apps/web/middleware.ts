@@ -94,35 +94,24 @@ export default async function middleware(req: NextRequest) {
     // les Server Components via firebase-admin
   }
 
-  // 3. Routes "/" et "/en" : on délègue à l'intl middleware.
-  //    (La home existe sous [locale]/, le routing fonctionne.)
-  if (pathname === "/" || pathname === "/en") {
-    const intlResponse = intlMiddleware(req);
-    if (intlResponse instanceof NextResponse) {
-      intlResponse.headers.set("X-Pathname", pathname);
-      intlResponse.headers.set("X-Content-Type-Options", "nosniff");
-      return intlResponse;
-    }
+  // 3. Délègue TOUTES les autres routes au middleware next-intl,
+  //    qui gère le préfixe `localePrefix: 'as-needed'` :
+  //    - "/"      → /[locale]/page.tsx     (FR, par défaut)
+  //    - "/en"    → /[locale]/page.tsx     (EN, prefix ajouté)
+  //    - "/contact"     → /[locale]/contact/page.tsx    (FR)
+  //    - "/en/contact"  → /[locale]/contact/page.tsx    (EN, avec prefix)
+  //    - "/projet"      → /[locale]/projet/page.tsx     (FR)
+  //    - "/en/projet"   → /[locale]/projet/page.tsx     (EN)
+  //    etc.
+  const intlResponse = intlMiddleware(req);
+  if (intlResponse instanceof NextResponse) {
+    intlResponse.headers.set("X-Pathname", pathname);
+    intlResponse.headers.set("X-Content-Type-Options", "nosniff");
+    return intlResponse;
   }
 
-  // 4. Routes "/en/<path>" où <path> n'a pas de version traduite
-  //    → rewrite en interne vers "/<path>" (FR), URL conservée.
-  //    On ne délègue PAS à l'intl middleware (il renverrait 404),
-  //    on rewrite directement vers la page FR correspondante.
-  if (pathname.startsWith("/en/")) {
-    const stripped = pathname.replace(/^\/en/, "") || "/";
-    const url = req.nextUrl.clone();
-    url.pathname = stripped;
-    const rewriteResponse = NextResponse.rewrite(url);
-    rewriteResponse.headers.set("X-Pathname", pathname);
-    rewriteResponse.headers.set("X-Content-Type-Options", "nosniff");
-    rewriteResponse.headers.set("X-CRI-Locale-Fallback", "fr");
-    return rewriteResponse;
-  }
-
-  // 5. Toutes les autres routes (ex. /projet, /contact, /investisseurs)
-  //    : laisser passer pour qu'elles soient servies par
-  //    app/<route>/page.tsx (FR statique, dans la locale par défaut).
+  // 4. Fallback final (ne devrait jamais être atteint si l'intl
+  //    middleware a matché).
   const response = NextResponse.next();
   response.headers.set("X-Pathname", pathname);
   response.headers.set("X-Content-Type-Options", "nosniff");

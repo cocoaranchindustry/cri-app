@@ -1,0 +1,57 @@
+# syntax=docker/dockerfile:1.7
+# ============================================================================
+# Cocoa Ranch & Industry — Dockerfile (Firebase Cloud Functions emulator)
+# Sert uniquement si vous choisissez d'héberger les Functions sur Dokploy
+# plutôt que via `firebase deploy --only functions` (Google Cloud).
+#
+# NOTE : Les Functions Firebase officielles ne sont PAS conçues pour
+# tourner hors de l'environnement Functions de Google. Ce Dockerfile
+# démarre l'**émulateur Firebase** (`firebase-tools` + `functions-framework`)
+# pour les appels HTTP en local/Dokploy. Les triggers onCall / onRequest
+# sont exposés via le port 5001.
+#
+# Si vous préférez garder les Functions chez Google, commentez le service
+# `functions` dans docker-compose.yml.
+# ============================================================================
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat python3 make g++
+
+COPY package.json package-lock.json* ./
+COPY apps/web/package.json ./apps/web/package.json
+COPY functions/package.json ./functions/package.json
+
+RUN npm ci --include=dev --workspaces --include-workspace-root \
+    --no-audit --no-fund
+
+COPY . .
+RUN npm run build --workspace=functions || true
+
+# ─── Stage final : runtime ───────────────────────────────────────────────
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=5001
+ENV HOSTNAME=0.0.0.0
+
+RUN addgroup -S -g 1001 nodejs \
+ && adduser  -S -u 1001 -G nodejs functions
+
+# Firebase CLI + functions framework pour servir les HTTP triggers.
+RUN npm install -g firebase-tools@13.29.1 --no-audit --no-fund
+
+COPY --from=builder --chown=functions:nodejs /app/functions/dist    ./functions/dist
+COPY --from=builder --chown=functions:nodejs /app/functions/package.json ./functions/package.json
+COPY --from=builder --chown=functions:nodejs /app/node_modules      ./node_modules
+COPY --from=builder --chown=functions:nodejs /app/apps/web          ./apps/web
+
+USER functions
+EXPOSE 5001
+
+# Sert les HTTP triggers via l'émulateur (auth, validators, etc.).
+# Les Firestore triggers ne fonctionnent PAS en dehors de Firebase — ils
+# doivent être déployés via `firebase deploy --only functions` si besoin.
+CMD ["firebase", "emulators:start", "--only", "functions", "--project", "cri-app-prod"]

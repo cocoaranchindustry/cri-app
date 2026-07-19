@@ -1,0 +1,94 @@
+# ─── Node / monorepo ──────────────────────────────────────────────────────
+node_modules
+**/node_modules
+.npm
+.pnp
+.pnp.js
+
+# ─── Builds Next.js ───────────────────────────────────────────────────────
+.next
+**/.next
+out
+**/out
+build
+**/build
+dist
+**/dist
+.vercel
+.turbo
+nx/cache
+
+# ─── Tests / artefacts ────────────────────────────────────────────────────
+coverage
+.nyc_output
+playwright-report
+test-results
+**/*.tsbuildinfo
+
+# ─── Logs ─────────────────────────────────────────────────────────────────
+*.log
+logs
+**/logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+npm-install.log
+
+# ─── Git / IDE ────────────────────────────────────────────────────────────
+.git
+.gitignore
+.gitattributes
+.github
+.vscode
+.idea
+.husky
+.editorconfig
+.prettierrc*
+.eslintrc*
+
+# ─── Secrets / env (JAMAIS dans l'image) ─────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.production
+**/.env
+**/.env.local
+**/.env.production
+secrets
+*.pem
+*.key
+*.crt
+*.p12
+
+# ─── Docs / assets non-runtime ───────────────────────────────────────────
+README.md
+CHANGELOG.md
+CLAUDE.md
+DEPLOY_*.md
+docs
+brandbook-inspirations
+design-system
+storage.rules
+firestore.rules
+firebase.json
+.firebaserc
+firestore.indexes.json
+skills-lock.json
+
+# ─── OS ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.swp
+*.swo
+~*
+
+# ─── Config déploiement (déjà gérés par Dokploy) ─────────────────────────
+railway.json
+nixpacks.toml
+Procfile
+public_html_.htaccess
+dokploy.json
+docker-compose*.yml
+Dockerfile*

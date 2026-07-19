@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+build
+dist
+coverage
+playwright-report
+test-results
+*.log
+.env
+.env.local
+.env.production
+README.md
+CLAUDE.md
+tsconfig.tsbuildinfo

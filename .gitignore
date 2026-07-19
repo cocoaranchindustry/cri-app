@@ -53,6 +53,12 @@ secrets/
 *.key
 *.crt
 
+# ─── Archives ZIP / backups ──────────────────────────────────────────────
+*.zip
+*.tar.gz
+*.7z
+*.rar
+
 # Hostinger (config spécifique au serveur, ne pas commit)
 public_html_.htaccess
 public_html.htaccess

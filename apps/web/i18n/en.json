@@ -148,6 +148,8 @@
     "project": "The project",
     "activities": "Activities",
     "resources": "Resources",
+    "brevet": "OAPI patent",
+    "publications": "Publications",
     "legal": "Legal notice",
     "privacy": "Privacy policy",
     "cookies": "Cookies",
@@ -175,6 +177,86 @@
     "search": "Search",
     "learnMore": "Learn more",
     "discover": "Discover",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "investorArea": "Investor area"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "ctaHome": "Back to home"
+  },
+  "pageMeta": {
+    "home": "Home — Cocoa Ranch & Industry",
+    "contact": "Contact — Cocoa Ranch & Industry",
+    "projet": "The project — Cocoa Ranch & Industry",
+    "impact": "CSR Impact — Cocoa Ranch & Industry",
+    "brevet": "OAPI patent — Cocoa Ranch & Industry",
+    "produits": "Products — Cocoa Ranch & Industry",
+    "activites": "Activities — Cocoa Ranch & Industry",
+    "actualites": "News — Cocoa Ranch & Industry",
+    "publications": "Publications — Cocoa Ranch & Industry",
+    "investisseurs": "Investor area — Cocoa Ranch & Industry",
+    "mentionsLegales": "Legal notice — Cocoa Ranch & Industry",
+    "privacy": "Privacy policy — Cocoa Ranch & Industry",
+    "cookies": "Cookies — Cocoa Ranch & Industry"
+  },
+  "pages": {
+    "contact": {
+      "badge": "Contact",
+      "title": "Let's talk about your project",
+      "subtitle": "A question, a partnership, a quote? Our team replies within 48 working hours."
+    },
+    "projet": {
+      "badge": "The project",
+      "title": "Our project, our purpose",
+      "subtitle": "A carefully designed project, rooted in the Mungo Basin terroir, built to deeply transform Cameroon's cocoa economy."
+    },
+    "impact": {
+      "badge": "CSR Impact",
+      "title": "Zero deforestation, zero waste, zero CO₂",
+      "subtitle": "Our CSR commitment is backed by the CIMAR-Technopôle program: agroecology promotion, youth and women training-integration, bio-inputs diffusion."
+    },
+    "brevet": {
+      "badge": "Intellectual property",
+      "title": "OAPI Patent — CRI-PROVEND CACAO",
+      "subtitle": "International protection for a major agro-industrial innovation: the transformation of cocoa husks into animal feed."
+    },
+    "investisseurs": {
+      "badge": "Investor area",
+      "title": "Invest in sustainable African cocoa",
+      "subtitle": "3.2 Bn FCFA sought over 2026-2030. Mature, bankable, differentiated project. Projected ROI 18-22%."
+    },
+    "produits": {
+      "badge": "Products & services",
+      "title": "From premium cocoa to patented feed",
+      "subtitle": "Our full range, traceable and certified. Direct orders from producers or resellers."
+    },
+    "activites": {
+      "badge": "Our activities",
+      "title": "Three activities, one circularity",
+      "subtitle": "Premium cocoa, patented feed mill and integrated farm: an economic model designed to valorize 100% of by-products."
+    },
+    "actualites": {
+      "badge": "News",
+      "title": "Cocoa Ranch & Industry news",
+      "subtitle": "Press releases, studies, events and media coverage. Follow the project's progress."
+    },
+    "cacao": {
+      "badge": "Activity 1 · Premium Cocoa",
+      "title": "From terroir to container, traceable and zero-defect",
+      "subtitle": "Collection, 7-day fermentation, premium drying. CacaoTrace traceability with QR code for every exported lot."
+    },
+    "provendes": {
+      "badge": "Activity 2 · Feed mill",
+      "title": "Feed invented from cocoa husks",
+      "subtitle": "OAPI patent n°15012 — CRI-PROVEND CACAO formulation. -15% vs market, superior nutritional quality."
+    },
+    "elevage": {
+      "badge": "Activity 3 · Integrated farm",
+      "title": "A pilot farm closing the circularity loop",
+      "subtitle": "15,000 broilers/year and fattening pigs. Fed by our feed mill. 45-day optimized cycle. Biofertilizers from droppings."
+    }
   }
 }

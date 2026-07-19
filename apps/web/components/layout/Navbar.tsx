@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -17,35 +18,43 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
  * Menu mobile : drawer plein écran.
  * CTA "Investisseurs" en bouton or.
  * Sélecteur de langue (FR/EN) via LanguageSwitcher.
+ *
+ * Internationalisation : tous les libellés proviennent des JSON
+ * `i18n/{fr,en}.json` via `useTranslations("nav")`. Les labels
+ * sont calculés en runtime pour rester synchronisés avec la locale
+ * active (le `LanguageSwitcher` met à jour le contexte next-intl
+ * via cookie + `useTransition`).
  */
 
 type NavItem = {
   href: string;
-  label: string;
-  children?: { href: string; label: string }[];
+  labelKey: "project" | "activities" | "impact" | "products" | "news" | "contact";
+  children?: { href: string; labelKey: "cacao" | "provendes" | "elevage" }[];
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { href: "/projet", label: "Le projet" },
+  { href: "/projet", labelKey: "project" },
   {
     href: "/activites",
-    label: "Activités",
+    labelKey: "activities",
     children: [
-      { href: "/activites/cacao", label: "Cacao Premium" },
-      { href: "/activites/provendes", label: "Provendes & Ferme" },
-      { href: "/activites/elevage", label: "Élevage intégré" },
+      { href: "/activites/cacao", labelKey: "cacao" },
+      { href: "/activites/provendes", labelKey: "provendes" },
+      { href: "/activites/elevage", labelKey: "elevage" },
     ],
   },
-  { href: "/impact", label: "Impact RSE" },
-  { href: "/produits", label: "Produits" },
-  { href: "/actualites", label: "Actualités" },
-  { href: "/contact", label: "Contact" },
+  { href: "/impact", labelKey: "impact" },
+  { href: "/produits", labelKey: "products" },
+  { href: "/actualites", labelKey: "news" },
+  { href: "/contact", labelKey: "contact" },
 ];
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
+  const t = useTranslations("nav");
+  const tCommon = useTranslations("common");
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -82,7 +91,7 @@ export const Navbar: React.FC = () => {
                   isActive(item.href) ? "text-cri-gold" : "text-white"
                 )}
               >
-                {item.label}
+                {t(item.labelKey)}
                 {item.children && <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" />}
               </Link>
               {item.children && (
@@ -93,7 +102,7 @@ export const Navbar: React.FC = () => {
                       href={child.href}
                       className="hover:bg-cri-parchment hover:text-cri-canopy block px-4 py-3 text-sm"
                     >
-                      {child.label}
+                      {t(child.labelKey)}
                     </Link>
                   ))}
                 </div>
@@ -110,7 +119,7 @@ export const Navbar: React.FC = () => {
             aria-current={isActive("/investisseurs") ? "page" : undefined}
             className="btn bg-cri-gold text-cri-humus hover:bg-cri-gold-light focus-visible:ring-cri-gold-light focus-visible:ring-offset-cri-forest px-5 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
-            Investisseurs
+            {t("investors")}
           </Link>
         </div>
 
@@ -119,7 +128,7 @@ export const Navbar: React.FC = () => {
           type="button"
           className="hover:text-cri-gold p-2 text-white lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-label={isOpen ? tCommon("cancel") : tCommon("openMenu")}
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
         >
@@ -143,7 +152,7 @@ export const Navbar: React.FC = () => {
                       className="hover:text-cri-gold flex w-full items-center justify-between px-2 py-3 text-sm font-bold uppercase tracking-wider text-white"
                       aria-expanded={openSubmenu === item.href}
                     >
-                      {item.label}
+                      {t(item.labelKey)}
                       <ChevronDown
                         className={cn(
                           "h-4 w-4 transition-transform",
@@ -160,7 +169,7 @@ export const Navbar: React.FC = () => {
                               className="text-cri-parchment hover:text-cri-gold block py-2 text-sm"
                               onClick={() => setIsOpen(false)}
                             >
-                              {child.label}
+                              {t(child.labelKey)}
                             </Link>
                           </li>
                         ))}
@@ -173,7 +182,7 @@ export const Navbar: React.FC = () => {
                     className="hover:text-cri-gold block px-2 py-3 text-white"
                     onClick={() => setIsOpen(false)}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 )}
               </li>
@@ -187,7 +196,7 @@ export const Navbar: React.FC = () => {
                 className="btn bg-cri-gold text-cri-humus block py-3 text-center"
                 onClick={() => setIsOpen(false)}
               >
-                Espace investisseurs
+                {tCommon("investorArea")}
               </Link>
             </li>
           </ul>

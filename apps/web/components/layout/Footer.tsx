@@ -1,5 +1,8 @@
+"use client";
+
 import * as React from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { LogoMark } from "./Logo";
 
 /**
@@ -7,33 +10,48 @@ import { LogoMark } from "./Logo";
  *
  * Fond vert profond, liens parchemin, mentions légales.
  * 4 colonnes : Logo+description, Le projet, Activités, Ressources + barre légale.
+ *
+ * Internationalisation : tous les libellés et les liens sont lus
+ * depuis les JSON `i18n/{fr,en}.json` via `useTranslations("footer")`
+ * et `useTranslations("nav")`. Le `Link` provient de `@/i18n/navigation`
+ * (et non `next/link` brut) afin de conserver le préfixe `/en` lors
+ * d'une navigation depuis la version anglaise.
  */
 
-const FOOTER_LINKS = {
+type FooterLink = { href: string; key: "project" | "impact" | "brevet" };
+
+const FOOTER_LINKS: {
+  projet: FooterLink[];
+  activites: { href: string; key: "cacao" | "provendes" | "elevage" }[];
+  ressources: { href: string; key: "news" | "publications" | "contact" }[];
+  legal: { href: string; key: "legal" | "privacy" | "cookies" }[];
+} = {
   projet: [
-    { href: "/projet", label: "Notre mission" },
-    { href: "/impact", label: "Impact RSE" },
-    { href: "/brevet", label: "Brevet OAPI" },
+    { href: "/projet", key: "project" },
+    { href: "/impact", key: "impact" },
+    { href: "/brevet", key: "brevet" },
   ],
   activites: [
-    { href: "/activites/cacao", label: "Cacao Premium" },
-    { href: "/activites/provendes", label: "Provendes animales" },
-    { href: "/activites/elevage", label: "Ferme intégrée" },
+    { href: "/activites/cacao", key: "cacao" },
+    { href: "/activites/provendes", key: "provendes" },
+    { href: "/activites/elevage", key: "elevage" },
   ],
   ressources: [
-    { href: "/actualites", label: "Actualités" },
-    { href: "/publications", label: "Publications" },
-    { href: "/contact", label: "Contact" },
+    { href: "/actualites", key: "news" },
+    { href: "/publications", key: "publications" },
+    { href: "/contact", key: "contact" },
   ],
   legal: [
-    { href: "/mentions-legales", label: "Mentions légales" },
-    { href: "/privacy", label: "Politique de confidentialité" },
-    { href: "/cookies", label: "Gestion des cookies" },
+    { href: "/mentions-legales", key: "legal" },
+    { href: "/privacy", key: "privacy" },
+    { href: "/cookies", key: "cookies" },
   ],
-} as const;
+};
 
 export const Footer: React.FC = () => {
   const year = new Date().getFullYear();
+  const tFooter = useTranslations("footer");
+  const tNav = useTranslations("nav");
   return (
     <footer className="bg-cri-forest text-cri-parchment">
       <div className="container-cri py-16">
@@ -47,13 +65,10 @@ export const Footer: React.FC = () => {
             >
               <LogoMark size={56} />
             </Link>
-            <p className="text-cri-parchment/80 max-w-md text-sm">
-              Agropole agro-industriel camerounais à économie circulaire : cacao premium zéro
-              déforestation, provendes animales brevetées, 5 000 producteurs accompagnés.
-            </p>
+            <p className="text-cri-parchment/80 max-w-md text-sm">{tFooter("tagline")}</p>
             <div className="mt-6 flex flex-col gap-1">
               <p className="text-cri-gold text-xs font-bold uppercase tracking-wider">
-                Cameroun · Bassin du Mungo
+                {tFooter("address")}
               </p>
               <p className="text-cri-parchment/60 text-xs">AGRO-PME Fondation · Depuis 2010</p>
             </div>
@@ -62,7 +77,7 @@ export const Footer: React.FC = () => {
           {/* Le projet */}
           <div>
             <h3 className="text-label text-cri-gold mb-4 font-bold uppercase tracking-wider">
-              Le projet
+              {tFooter("project")}
             </h3>
             <ul className="space-y-2">
               {FOOTER_LINKS.projet.map((link) => (
@@ -71,7 +86,7 @@ export const Footer: React.FC = () => {
                     href={link.href}
                     className="text-cri-parchment/80 hover:text-cri-gold text-sm"
                   >
-                    {link.label}
+                    {tFooter(link.key)}
                   </Link>
                 </li>
               ))}
@@ -81,7 +96,7 @@ export const Footer: React.FC = () => {
           {/* Activités */}
           <div>
             <h3 className="text-label text-cri-gold mb-4 font-bold uppercase tracking-wider">
-              Activités
+              {tFooter("activities")}
             </h3>
             <ul className="space-y-2">
               {FOOTER_LINKS.activites.map((link) => (
@@ -90,7 +105,7 @@ export const Footer: React.FC = () => {
                     href={link.href}
                     className="text-cri-parchment/80 hover:text-cri-gold text-sm"
                   >
-                    {link.label}
+                    {tNav(link.key)}
                   </Link>
                 </li>
               ))}
@@ -100,7 +115,7 @@ export const Footer: React.FC = () => {
           {/* Ressources */}
           <div>
             <h3 className="text-label text-cri-gold mb-4 font-bold uppercase tracking-wider">
-              Ressources
+              {tFooter("resources")}
             </h3>
             <ul className="space-y-2">
               {FOOTER_LINKS.ressources.map((link) => (
@@ -109,7 +124,7 @@ export const Footer: React.FC = () => {
                     href={link.href}
                     className="text-cri-parchment/80 hover:text-cri-gold text-sm"
                   >
-                    {link.label}
+                    {tNav(link.key)}
                   </Link>
                 </li>
               ))}
@@ -119,14 +134,12 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="border-cri-canopy/30 mt-12 flex flex-col gap-4 border-t pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-cri-parchment/60 text-xs">
-            © {year} Cocoa Ranch &amp; Industry · AGRO-PME Fondation · Tous droits réservés
-          </p>
+          <p className="text-cri-parchment/60 text-xs">{tFooter("copyright", { year })}</p>
           <ul className="text-cri-parchment/60 flex flex-wrap gap-4 text-xs">
             {FOOTER_LINKS.legal.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="hover:text-cri-gold">
-                  {link.label}
+                  {tFooter(link.key)}
                 </Link>
               </li>
             ))}

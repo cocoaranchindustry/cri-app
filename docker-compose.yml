@@ -1,0 +1,93 @@
+# ============================================================================
+# Cocoa Ranch & Industry — Docker Compose (Dokploy / VPS Hostinger)
+# ============================================================================
+# 2 services :
+#   - web       : Next.js 14 (port 3000) — production
+#   - functions : Firebase Cloud Functions (port 5001) — OPTIONNEL
+#
+# ⚠️  Variables sensibles : NE JAMAIS commit un .env.production. Utilisez
+#     plutôt l'interface Dokploy (Projects → Environment Variables).
+# ============================================================================
+
+version: "3.9"
+
+x-common-env: &common-env
+  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: "1"
+
+services:
+  # ─── Web (Next.js) ─────────────────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cri-web:latest
+    container_name: cri-web
+    restart: unless-stopped
+    ports:
+      # Exposé uniquement en interne — Traefik (géré par Dokploy) gère
+      # le mapping 80/443 → 3000. Commentez la ligne ci-dessous si vous
+      # voulez exposer le port directement.
+      - "127.0.0.1:3000:3000"
+    environment:
+      <<: *common-env
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+      NEXT_PUBLIC_APP_URL: "${NEXT_PUBLIC_APP_URL:?NEXT_PUBLIC_APP_URL requis}"
+    env_file:
+      - ./apps/web/.env.production
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - cri-net
+    # Limites ressources (ajustez selon VPS Hostinger choisi).
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 768M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    # Logs JSON lisibles par Dokploy.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ─── Functions (OPTIONNEL — voir commentaire Dockerfile.functions) ────
+  # Décommentez ce bloc si vous voulez servir les Cloud Functions sur
+  # Dokploy plutôt que via `firebase deploy --only functions`.
+  #
+  # functions:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.functions
+  #   image: cri-functions:latest
+  #   container_name: cri-functions
+  #   restart: unless-stopped
+  #   ports:
+  #     - "127.0.0.1:5001:5001"
+  #   env_file:
+  #     - ./functions/.env.production
+  #   environment:
+  #     <<: *common-env
+  #     PORT: "5001"
+  #     HOSTNAME: "0.0.0.0"
+  #   networks:
+  #     - cri-net
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.5"
+  #         memory: 512M
+
+networks:
+  cri-net:
+    driver: bridge
+    name: cri-net
